@@ -1,0 +1,30 @@
+[project]
+name = "curlifier"
+version = "0.1.0"
+description = "Converts Request objects to curl string"
+authors = [
+    {name = "Timur Valiev",email = "cptchunk@yandex.ru"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.12, <4.0"
+dependencies = [
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.lint.dependencies]
+wemake-python-styleguide = "^1.1.0"
+mypy = "^1.15.0"
+isort = "^6.0.1"
+
+
+[tool.poetry.group.dev.dependencies]
+nitpick = "^0.35.0"
+ipython = "^9.1.0"
+
+[tool.nitpick]
+style = "https://raw.githubusercontent.com/imtoopunkforyou/itpfy-style/refs/heads/main/py/imtoopunkforyou.toml"
