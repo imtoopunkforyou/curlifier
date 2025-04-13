@@ -12,7 +12,9 @@ from curlifier.structures.types import (
     HttpBody,
     HttpHeaders,
     HttpUrl,
+    HeaderKey,
 )
+import copy
 
 
 class CurlPreparedTransmitter:
@@ -45,35 +47,32 @@ class CurlPreparedTransmitter:
 
     @property
     def headers(self: Self) -> HttpHeaders:
-        return self._headers
-    # @property
-    # def has_body(self: Self) -> bool:
-    #     if self._pre_req.method in HttpMethodsEnum.get_methods_with_body():
-    #         return True
+        cleared_headers = copy.deepcopy(self._headers)
 
-    #     return False
+        trash_headers: tuple[HeaderKey] = (
+            'Content-Length',
+        )
+        for header in trash_headers:
+            cleared_headers.pop(header)
 
-    # @property
-    # def has_file(self: Self) -> bool:
-    #     if self.has_body:
-    #         prefix_filename = b'filename='  # fail if body is str
-    #         if prefix_filename in self._pre_req.body:
-    #             return True
+        cleared_headers['Content-Type'] = (
+            'multipart/form-data' if 'boundary=' in cleared_headers['Content-Type']
+            else cleared_headers['Content-Type']
+        )
 
-    #     return False
+        return cleared_headers
 
-    # @property
-    # def is_json(self: Self) -> bool:
-    #     json_header = 'application/json'
-    #     content_type = self._headers.get('Content-Type')
+    @property
+    def has_body(self: Self) -> bool:
+        if self._pre_req.method in HttpMethodsEnum.get_methods_with_body():
+            return True
 
-    #     return json_header in content_type
+        return False
 
 
 class CurlTransmitterBuilder(CurlPreparedTransmitter):
     executable_request_data = '{command} \'{request_data}\''
     executable_header = '{command} \'{key}: {value}\''
-    # executable_request_files = '{command} \'{field_name}=@\"{file_name}\"\''
     executable_request_files = '{command} \'{field_name}=@{file_name}\''
 
     def __init__(
@@ -89,9 +88,6 @@ class CurlTransmitterBuilder(CurlPreparedTransmitter):
     def build(self: Self) -> str:
         # TODO url in quotes
         # TODO refact this
-
-        # TODO delete boundary if has files
-        # TODO delete Content-Length if has files
 
         curl_command = 'curl '
         request_command = CurlCommandsTransferEnum.REQUEST.get_command(shorted=self.build_short) + ' ' + self.method + ' '
@@ -152,19 +148,20 @@ class CurlTransmitterBuilder(CurlPreparedTransmitter):
         self: Self,
     ) -> str | EmptyStr:
         decode_body = self._decode_body()
-        if isinstance(decode_body, str):  # no files
-            return self.executable_request_data.format(
-                command=CurlCommandsTransferEnum.SEND_DATA.get_command(shorted=self.build_short),
-                request_data=decode_body,
-            )
-        elif isinstance(decode_body, tuple):
-            executable_files: str = ' '.join(
-                self.executable_request_files.format(
-                    command=CurlCommandsTransferEnum.FORM.get_command(shorted=self.build_short),
-                    field_name=field_name,
-                    file_name=file_name,
-                ) for field_name, file_name in decode_body
-            )
-            return executable_files
+        if self.has_body:
+            if isinstance(decode_body, str):  # no files
+                return self.executable_request_data.format(
+                    command=CurlCommandsTransferEnum.SEND_DATA.get_command(shorted=self.build_short),
+                    request_data=decode_body,
+                )
+            elif isinstance(decode_body, tuple):
+                executable_files: str = ' '.join(
+                    self.executable_request_files.format(
+                        command=CurlCommandsTransferEnum.FORM.get_command(shorted=self.build_short),
+                        field_name=field_name,
+                        file_name=file_name,
+                    ) for field_name, file_name in decode_body
+                )
+                return executable_files
 
         return ''

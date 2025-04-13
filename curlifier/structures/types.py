@@ -1,4 +1,5 @@
 from typing import Literal
+from requests.structures import CaseInsensitiveDict
 
 type HeaderKey = str
 type HeaderValue = str
@@ -7,8 +8,8 @@ type CurlCommandLong = str
 type CurlCommand = CurlCommandShort | CurlCommandLong
 type CurlCommandsTuple = tuple[CurlCommandShort, CurlCommandLong]
 type HttpMethod = str
-type HttpBody = bytes
-type HttpHeaders = dict[HeaderKey, HeaderValue]
+type HttpBody = bytes | None
+type HttpHeaders = CaseInsensitiveDict
 type HttpUrl = str
 type FileNameWithExtention = str
 type FileFieldName = str

@@ -32,6 +32,7 @@ files = {
     'field_name_two': open(F3, 'r'),
 }
 response = requests.post(base_usl + '/uploadfile/', files=files)
+# response = requests.get(base_usl + '/test')
 
 req = response.request.copy()
 body = req.body
@@ -52,3 +53,6 @@ trans = CurlTransmitterBuilder(
     response=response,
     build_short=False,
 )
+...
+print(trans.build())
+...
