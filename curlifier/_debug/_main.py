@@ -37,22 +37,15 @@ response = requests.post(base_usl + '/users/add', json=user)
 req = response.request.copy()
 body = req.body
 
-from curlifier.configurator import CurlConfigBuilder
-from curlifier.transmitter import CurlTransmitterBuilder
+from curlifier import curlify
 
-conf = CurlConfigBuilder(
-    location=True,
-    verbose=True,
-    silent=True,
-    insecure=True,
-    include=True,
-    build_short=False,
-)
 
-trans = CurlTransmitterBuilder(
-    response=response,
-    build_short=False,
+
+result = curlify(
+    response,
+    build_short=True,
 )
-...
-print(trans.build())
+print('*'*10)
+print(result)
+print('*'*10)
 ...

@@ -1,10 +1,10 @@
-from typing import Self
+from typing import Self, Generator
 
 from curlifier.structures.curl_commands import CurlCommandsConfigureEnum
 from curlifier.structures.types import CurlCommand, EmptyStr
 
 
-class CurlConfig:
+class Config:
     __slots__ = (
         '_location',
         '_verbose',
@@ -48,7 +48,7 @@ class CurlConfig:
         return self._include
 
 
-class CurlConfigBuilder(CurlConfig):
+class ConfigBuilder(Config):
     __slots__ = (
         'build_short',
     )
@@ -103,5 +103,8 @@ class CurlConfigBuilder(CurlConfig):
             self.get_insecure_command(),
             self.get_include_command(),
         )
+        cleaned_commands: Generator[CurlCommand, None, None] = (
+            command for command in commands if command
+        )
 
-        return ' '.join(commands)
+        return ' '.join(cleaned_commands)

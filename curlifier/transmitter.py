@@ -17,7 +17,7 @@ from curlifier.structures.types import (
 import copy
 
 
-class CurlPreparedTransmitter:
+class PreparedTransmitter:
     def __init__(
         self: Self,
         response: Response | None = None,
@@ -70,18 +70,17 @@ class CurlPreparedTransmitter:
         return False
 
 
-class CurlTransmitterBuilder(CurlPreparedTransmitter):
-    executable_curl = 'curl {request_command} {method} \'{url}\' {request_headers} {request_data}'
+class TransmitterBuilder(PreparedTransmitter):
+    executable_part = '{request_command} {method} \'{url}\' {request_headers} {request_data}'
     executable_request_data = '{command} \'{request_data}\''
     executable_header = '{command} \'{key}: {value}\''
     executable_request_files = '{command} \'{field_name}=@{file_name}\''
 
     def __init__(
         self: Self,
+        build_short: bool,
         response: Response | None = None,
-        *,
         prepared_request: PreparedRequest | None = None,
-        build_short: bool = False,
     ) -> None:
         self.build_short = build_short
         super().__init__(response, prepared_request=prepared_request)
@@ -91,7 +90,7 @@ class CurlTransmitterBuilder(CurlPreparedTransmitter):
         request_headers = self._build_executable_headers()
         request_data = self._build_request_data()
 
-        return self.executable_curl.format(
+        return self.executable_part.format(
             request_command=request_command,
             method=self.method,
             url=self.url,
