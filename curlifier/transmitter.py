@@ -31,7 +31,7 @@ class CurlPreparedTransmitter:
         self._method: HttpMethodsEnum = self._pre_req.method
         self._body: HttpBody = self._pre_req.body
         self._headers: HttpHeaders = self._pre_req.headers
-        self._url = self._pre_req.url
+        self._url: HttpUrl = self._pre_req.url
 
     @property
     def url(self: Self) -> HttpUrl:
@@ -71,6 +71,7 @@ class CurlPreparedTransmitter:
 
 
 class CurlTransmitterBuilder(CurlPreparedTransmitter):
+    executable_curl = 'curl {request_command} {method} \'{url}\' {request_headers} {request_data}'
     executable_request_data = '{command} \'{request_data}\''
     executable_header = '{command} \'{key}: {value}\''
     executable_request_files = '{command} \'{field_name}=@{file_name}\''
@@ -86,20 +87,16 @@ class CurlTransmitterBuilder(CurlPreparedTransmitter):
         super().__init__(response, prepared_request=prepared_request)
 
     def build(self: Self) -> str:
-        # TODO url in quotes
-        # TODO refact this
-
-        curl_command = 'curl '
-        request_command = CurlCommandsTransferEnum.REQUEST.get_command(shorted=self.build_short) + ' ' + self.method + ' '
+        request_command = CurlCommandsTransferEnum.REQUEST.get_command(shorted=self.build_short)
         request_headers = self._build_executable_headers()
         request_data = self._build_request_data()
 
-        return str(
-            curl_command
-            + request_command
-            + self.url + ' '
-            + request_headers + ' '
-            + request_data
+        return self.executable_curl.format(
+            request_command=request_command,
+            method=self.method,
+            url=self.url,
+            request_headers=request_headers,
+            request_data=request_data,
         )
 
     def _build_executable_headers(self: Self) -> str:
@@ -147,8 +144,8 @@ class CurlTransmitterBuilder(CurlPreparedTransmitter):
     def _build_request_data(
         self: Self,
     ) -> str | EmptyStr:
-        decode_body = self._decode_body()
         if self.has_body:
+            decode_body = self._decode_body()
             if isinstance(decode_body, str):  # no files
                 return self.executable_request_data.format(
                     command=CurlCommandsTransferEnum.SEND_DATA.get_command(shorted=self.build_short),

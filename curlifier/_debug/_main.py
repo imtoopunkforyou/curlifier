@@ -31,7 +31,7 @@ files = {
     'field_name_one': open(F1, 'rb'),
     'field_name_two': open(F3, 'r'),
 }
-response = requests.post(base_usl + '/uploadfile/', files=files)
+response = requests.post(base_usl + '/users/add', json=user)
 # response = requests.get(base_usl + '/test')
 
 req = response.request.copy()
