@@ -4,10 +4,9 @@ from requests.models import PreparedRequest, Response
 
 def curlify(  # noqa: WPS211
     response: Response | None = None,
-    /,
     *,
     prepared_request: PreparedRequest | None = None,
-    location: bool = True,
+    location: bool = False,
     verbose: bool = False,
     silent: bool = False,
     insecure: bool = False,

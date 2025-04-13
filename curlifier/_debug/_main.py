@@ -31,8 +31,9 @@ files = {
     'field_name_one': open(F1, 'rb'),
     'field_name_two': open(F3, 'r'),
 }
-response = requests.post(base_usl + '/users/add', json=user)
+# response = requests.post(base_usl + '/users/add', json=user)
 # response = requests.get(base_usl + '/test')
+response = requests.get('https://example.com/')
 
 req = response.request.copy()
 body = req.body
@@ -43,9 +44,10 @@ from curlifier import curlify
 
 result = curlify(
     response,
-    build_short=True,
 )
 print('*'*10)
 print(result)
 print('*'*10)
+...
+...
 ...

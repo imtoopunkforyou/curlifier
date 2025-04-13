@@ -11,10 +11,10 @@ May not work as you expect and may cause errors.
 ## Usage
 ```python
 >> import requests
->> import curlifier
+>> from curlifier import curlify
 
 >> response = requests.get('https://example.com/')
->> curl = curlifier.curlify(response)
+>> curl = curlify(response)
 >> curl
-"curl --location 'https://example.com/'"
+"curl --request GET 'https://example.com/' --header 'User-Agent: python-requests/2.32.3' --header 'Accept-Encoding: gzip, deflate' --header 'Accept: */*' --header 'Connection: keep-alive'  --location"
 ```

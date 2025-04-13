@@ -48,17 +48,14 @@ class PreparedTransmitter:
     @property
     def headers(self: Self) -> HttpHeaders:
         cleared_headers = copy.deepcopy(self._headers)
-
         trash_headers: tuple[HeaderKey] = (
             'Content-Length',
         )
         for header in trash_headers:
-            cleared_headers.pop(header)
+            cleared_headers.pop(header, None)
 
-        cleared_headers['Content-Type'] = (
-            'multipart/form-data' if 'boundary=' in cleared_headers['Content-Type']
-            else cleared_headers['Content-Type']
-        )
+        if 'boundary=' in cleared_headers.get('Content-Type', ''):
+            cleared_headers['Content-Type'] = 'multipart/form-data'
 
         return cleared_headers
 
