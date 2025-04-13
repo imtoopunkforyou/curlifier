@@ -9,7 +9,7 @@ from curlifier.structures.types import (
 )
 
 
-class CurlCommandsEnum(enum.Enum):
+class CommandsEnum(enum.Enum):
     def __init__(self: Self, short: CurlCommandShort, long: CurlCommandLong) -> None:
         self.short = short
         self.long = long
@@ -22,7 +22,7 @@ class CurlCommandsEnum(enum.Enum):
 
 
 @enum.unique
-class CurlCommandsConfigureEnum(CurlCommandsEnum):  # TODO off lint
+class CommandsConfigureEnum(CommandsEnum):  # TODO off lint
     VERBOSE: CurlCommandsTuple = ('-v', '--verbose')
     SILENT: CurlCommandsTuple = ('-s', '--silent')
     INSECURE: CurlCommandsTuple = ('-k', '--insecure')
@@ -31,7 +31,7 @@ class CurlCommandsConfigureEnum(CurlCommandsEnum):  # TODO off lint
 
 
 @enum.unique
-class CurlCommandsTransferEnum(CurlCommandsEnum):
+class CommandsTransferEnum(CommandsEnum):
     SEND_DATA: CurlCommandsTuple = ('-d', '--data')
     HEADER: CurlCommandsTuple = ('-H', '--header')
     REQUEST: CurlCommandsTuple = ('-X', '--request')

@@ -3,7 +3,7 @@ from typing import Self
 
 from requests import PreparedRequest, Response
 
-from curlifier.structures.commands import CurlCommandsTransferEnum
+from curlifier.structures.commands import CommandsTransferEnum
 from curlifier.structures.http_methods import HttpMethodsEnum
 from curlifier.structures.types import (
     EmptyStr,
@@ -83,7 +83,7 @@ class TransmitterBuilder(PreparedTransmitter):
         super().__init__(response, prepared_request=prepared_request)
 
     def build(self: Self) -> str:
-        request_command = CurlCommandsTransferEnum.REQUEST.get(shorted=self.build_short)
+        request_command = CommandsTransferEnum.REQUEST.get(shorted=self.build_short)
         request_headers = self._build_executable_headers()
         request_data = self._build_request_data()
 
@@ -98,7 +98,7 @@ class TransmitterBuilder(PreparedTransmitter):
     def _build_executable_headers(self: Self) -> str:
         return ' '.join(
             self.executable_header.format(
-                command=CurlCommandsTransferEnum.HEADER.get(shorted=self.build_short),
+                command=CommandsTransferEnum.HEADER.get(shorted=self.build_short),
                 key=header_key,
                 value=header_value,
             ) for header_key, header_value in self.headers.items()
@@ -144,13 +144,13 @@ class TransmitterBuilder(PreparedTransmitter):
             decode_body = self._decode_body()
             if isinstance(decode_body, str):  # no files
                 return self.executable_request_data.format(
-                    command=CurlCommandsTransferEnum.SEND_DATA.get(shorted=self.build_short),
+                    command=CommandsTransferEnum.SEND_DATA.get(shorted=self.build_short),
                     request_data=decode_body,
                 )
             elif isinstance(decode_body, tuple):
                 executable_files: str = ' '.join(
                     self.executable_request_files.format(
-                        command=CurlCommandsTransferEnum.FORM.get(shorted=self.build_short),
+                        command=CommandsTransferEnum.FORM.get(shorted=self.build_short),
                         field_name=field_name,
                         file_name=file_name,
                     ) for field_name, file_name in decode_body

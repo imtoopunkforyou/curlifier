@@ -1,6 +1,6 @@
 from typing import Self, Generator
 
-from curlifier.structures.commands import CurlCommandsConfigureEnum
+from curlifier.structures.commands import CommandsConfigureEnum
 from curlifier.structures.types import CurlCommand, EmptyStr
 
 
@@ -63,34 +63,34 @@ class ConfigBuilder(Config):
 
     def get_location_command(self: Self) -> CurlCommand | EmptyStr:
         if self.location:
-            command = CurlCommandsConfigureEnum.LOCATION.get(shorted=self.build_short)
+            command = CommandsConfigureEnum.LOCATION.get(shorted=self.build_short)
             return command
 
         return ''
 
     def get_verbose_command(self: Self) -> CurlCommand | EmptyStr:
         if self.verbose:
-            command = CurlCommandsConfigureEnum.VERBOSE.get(shorted=self.build_short)
+            command = CommandsConfigureEnum.VERBOSE.get(shorted=self.build_short)
             return command
         return ''
 
     def get_silent_command(self: Self) -> CurlCommand | EmptyStr:
         if self.silent:
-            command = CurlCommandsConfigureEnum.SILENT.get(shorted=self.build_short)
+            command = CommandsConfigureEnum.SILENT.get(shorted=self.build_short)
             return command
 
         return ''
 
     def get_insecure_command(self: Self) -> CurlCommand | EmptyStr:
         if self.insecure:
-            command = CurlCommandsConfigureEnum.INSECURE.get(shorted=self.build_short)
+            command = CommandsConfigureEnum.INSECURE.get(shorted=self.build_short)
             return command
 
         return ''
 
     def get_include_command(self: Self) -> CurlCommand | EmptyStr:
         if self.include:
-            command = CurlCommandsConfigureEnum.INCLUDE.get(shorted=self.build_short)
+            command = CommandsConfigureEnum.INCLUDE.get(shorted=self.build_short)
             return command
 
         return ''
