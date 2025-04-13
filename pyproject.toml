@@ -1,6 +1,6 @@
 [project]
 name = "curlifier"
-version = "0.1.0"
+version = "0.0.5"
 description = "Converts Request objects to curl string"
 authors = [
     {name = "Timur Valiev",email = "cptchunk@yandex.ru"}

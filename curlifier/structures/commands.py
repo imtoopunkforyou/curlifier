@@ -14,8 +14,7 @@ class CurlCommandsEnum(enum.Enum):
         self.short = short
         self.long = long
 
-    def get_command(self: Self, *, shorted: bool) -> CurlCommand:
-        # TODO rename to def get(...)
+    def get(self: Self, *, shorted: bool) -> CurlCommand:
         return self.short if shorted else self.long
 
     def __str__(self: Self) -> CurlCommandLong:
