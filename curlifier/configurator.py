@@ -27,6 +27,26 @@ class CurlConfig:
         self._insecure = insecure
         self._include = include
 
+    @property
+    def location(self: Self) -> bool:
+        return self._location
+
+    @property
+    def verbose(self: Self) -> bool:
+        return self._verbose
+
+    @property
+    def silent(self: Self) -> bool:
+        return self._silent
+
+    @property
+    def insecure(self: Self) -> bool:
+        return self._insecure
+
+    @property
+    def include(self: Self) -> bool:
+        return self._include
+
 
 class CurlConfigBuilder(CurlConfig):
     __slots__ = (
@@ -41,40 +61,35 @@ class CurlConfigBuilder(CurlConfig):
         self.build_short = build_short
         super().__init__(**kwargs)
 
-    @property
-    def location(self: Self) -> CurlCommand | EmptyStr:
-        if self._location:
+    def get_location_command(self: Self) -> CurlCommand | EmptyStr:
+        if self.location:
             command = CurlCommandsConfigureEnum.LOCATION.get_command(shorted=self.build_short)
             return command
 
         return ''
 
-    @property
-    def verbose(self: Self) -> CurlCommand | EmptyStr:
-        if self._verbose:
+    def get_verbose_command(self: Self) -> CurlCommand | EmptyStr:
+        if self.verbose:
             command = CurlCommandsConfigureEnum.VERBOSE.get_command(shorted=self.build_short)
             return command
         return ''
 
-    @property
-    def silent(self: Self) -> CurlCommand | EmptyStr:
-        if self._silent:
+    def get_silent_command(self: Self) -> CurlCommand | EmptyStr:
+        if self.silent:
             command = CurlCommandsConfigureEnum.SILENT.get_command(shorted=self.build_short)
             return command
 
         return ''
 
-    @property
-    def insecure(self: Self) -> CurlCommand | EmptyStr:
-        if self._insecure:
+    def get_insecure_command(self: Self) -> CurlCommand | EmptyStr:
+        if self.insecure:
             command = CurlCommandsConfigureEnum.INSECURE.get_command(shorted=self.build_short)
             return command
 
         return ''
 
-    @property
-    def include(self: Self) -> CurlCommand | EmptyStr:
-        if self._include:
+    def get_include_command(self: Self) -> CurlCommand | EmptyStr:
+        if self.include:
             command = CurlCommandsConfigureEnum.INCLUDE.get_command(shorted=self.build_short)
             return command
 
@@ -82,11 +97,11 @@ class CurlConfigBuilder(CurlConfig):
 
     def build(self: Self) -> str:
         commands: tuple[CurlCommand | EmptyStr, ...] = (
-            self.location,
-            self.verbose,
-            self.silent,
-            self.insecure,
-            self.include,
+            self.get_location_command(),
+            self.get_verbose_command(),
+            self.get_silent_command(),
+            self.get_insecure_command(),
+            self.get_include_command(),
         )
 
         return ' '.join(commands)
