@@ -10,7 +10,7 @@ def curlify(  # noqa: WPS210
     response: Response | None = None,
     *,
     prepared_request: PreparedRequest | None = None,
-    build_short: bool = False,
+    build_short: bool,
     **kwargs: Unpack[CurlifyRequestConfigure],
 ) -> str:
     location = kwargs.pop('location', False)

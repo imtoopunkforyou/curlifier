@@ -42,6 +42,7 @@ from curlifier import curlify
 
 result = curlify(
     response,
+    build_short=False,
 )
 print('*'*10)
 print(result)
