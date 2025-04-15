@@ -1,7 +1,9 @@
-from curlifier.transmitter import TransmitterBuilder
-from curlifier.configurator import ConfigBuilder
 from typing import Self
+
 from requests.models import PreparedRequest, Response
+
+from curlifier.configurator import ConfigBuilder
+from curlifier.transmitter import TransmitterBuilder
 
 
 class Curl:

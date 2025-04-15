@@ -1,4 +1,4 @@
-from typing import Self, Generator
+from typing import Generator, Self
 
 from curlifier.structures.commands import CommandsConfigureEnum
 from curlifier.structures.types import CurlCommand, EmptyStr

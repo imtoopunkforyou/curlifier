@@ -1,5 +1,6 @@
-from curlifier.curl import Curl
 from requests.models import PreparedRequest, Response
+
+from curlifier.curl import Curl
 
 
 def curlify(  # noqa: WPS211

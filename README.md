@@ -18,3 +18,11 @@
 >> curl
 "curl --request GET 'https://example.com/' --header 'User-Agent: python-requests/2.32.3' --header 'Accept-Encoding: gzip, deflate' --header 'Accept: */*' --header 'Connection: keep-alive'  --location"
 ```
+
+## TODO
+- [ ] readme.md
+- [ ] tests
+- [ ] docs
+- [ ] publish on pypi
+- [ ] delete `./_debug`
+- [ ] `__version__.py`

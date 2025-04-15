@@ -1,3 +1,4 @@
+import copy
 import re
 from typing import Self
 
@@ -9,12 +10,11 @@ from curlifier.structures.types import (
     EmptyStr,
     FileFieldName,
     FileNameWithExtention,
+    HeaderKey,
     HttpBody,
     HttpHeaders,
     HttpUrl,
-    HeaderKey,
 )
-import copy
 
 
 class PreparedTransmitter:

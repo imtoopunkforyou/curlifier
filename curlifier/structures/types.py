@@ -1,4 +1,5 @@
 from typing import Literal
+
 from requests.structures import CaseInsensitiveDict
 
 type HeaderKey = str

@@ -40,8 +40,6 @@ body = req.body
 
 from curlifier import curlify
 
-
-
 result = curlify(
     response,
 )
