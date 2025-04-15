@@ -232,6 +232,18 @@ files = [
 testing = ["flake8", "pytest", "pytest-cov", "pytest-randomly", "pytest-xdist", "sphinx"]
 
 [[package]]
+name = "darglint"
+version = "1.8.1"
+description = "A utility for ensuring Google-style docstrings stay up to date with the source code."
+optional = false
+python-versions = ">=3.6,<4.0"
+groups = ["lint"]
+files = [
+    {file = "darglint-1.8.1-py3-none-any.whl", hash = "sha256:5ae11c259c17b0701618a20c3da343a3eb98b3bc4b5a83d31cdd94f5ebdced8d"},
+    {file = "darglint-1.8.1.tar.gz", hash = "sha256:080d5106df149b199822e7ee7deb9c012b49891538f14a11be681044f0bb20da"},
+]
+
+[[package]]
 name = "decorator"
 version = "5.2.1"
 description = "Decorators for Humans"
@@ -1219,4 +1231,4 @@ dev = ["black (>=19.3b0) ; python_version >= \"3.6\"", "pytest (>=4.6.2)"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12, <4.0"
-content-hash = "b8890ffda0a7ae0bf9ebaf5a20cc360248ff717e8cdba630f4c4170182925bf6"
+content-hash = "6fe67f4ddb2cc426f0363f333789ba960c35868cd3585f7885e00c1271ac27fd"
