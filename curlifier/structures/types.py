@@ -1,6 +1,15 @@
-from typing import Any, Literal
+from typing import Any, Literal, TypedDict
 
 from requests.structures import CaseInsensitiveDict
+
+
+class CurlifyRequestConfigure(TypedDict, total=False):
+    location: bool
+    verbose: bool
+    silent: bool
+    insecure: bool
+    include: bool
+
 
 type HeaderKey = str
 type HeaderValue = str
