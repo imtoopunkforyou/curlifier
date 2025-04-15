@@ -6,13 +6,13 @@ from curlifier.structures.types import HttpMethod
 
 @enum.unique
 class HttpMethodsEnum(enum.Enum):
-    GET: HttpMethod = 'GET'
-    OPTIONS: HttpMethod = 'OPTIONS'
-    HEAD: HttpMethod = 'HEAD'
-    POST: HttpMethod = 'POST'
-    PUT: HttpMethod = 'PUT'
-    PATCH: HttpMethod = 'PATCH'
-    DELETE: HttpMethod = 'DELETE'
+    GET = 'GET'
+    OPTIONS = 'OPTIONS'
+    HEAD = 'HEAD'
+    POST = 'POST'
+    PUT = 'PUT'
+    PATCH = 'PATCH'
+    DELETE = 'DELETE'
 
     @classmethod
     def get_methods_without_body(cls: type[Self]) -> tuple[HttpMethod, HttpMethod, HttpMethod, HttpMethod]:

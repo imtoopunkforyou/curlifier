@@ -56,7 +56,7 @@ class ConfigBuilder(Config):
     def __init__(
         self: Self,
         build_short: bool = False,
-        **kwargs,
+        **kwargs: bool,
     ) -> None:
         self.build_short = build_short
         super().__init__(**kwargs)

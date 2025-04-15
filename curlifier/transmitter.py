@@ -11,9 +11,10 @@ from curlifier.structures.types import (
     FileFieldName,
     FileNameWithExtention,
     HeaderKey,
-    HttpBody,
-    HttpHeaders,
-    HttpUrl,
+    PreReqHttpBody,
+    PreReqHttpHeaders,
+    PreReqHttpMethod,
+    PreReqHttpUrl,
 )
 
 
@@ -26,27 +27,30 @@ class PreparedTransmitter:
     ) -> None:
         if sum(arg is not None for arg in (response, prepared_request)) != 1:
             raise ValueError("Only one argument must be specified: `response` or `prepared_request`")
-        self._pre_req: PreparedRequest = prepared_request.copy() if response is None else response.request.copy()
+        self._pre_req: PreparedRequest = (
+            prepared_request.copy() if response is None  # type: ignore [union-attr]
+            else response.request.copy()
+        )
 
-        self._method: HttpMethodsEnum = self._pre_req.method
-        self._body: HttpBody = self._pre_req.body
-        self._headers: HttpHeaders = self._pre_req.headers
-        self._url: HttpUrl = self._pre_req.url
+        self._method: PreReqHttpMethod = self._pre_req.method
+        self._body: PreReqHttpBody = self._pre_req.body
+        self._headers: PreReqHttpHeaders = self._pre_req.headers
+        self._url: PreReqHttpUrl = self._pre_req.url
 
     @property
-    def url(self: Self) -> HttpUrl:
+    def url(self: Self) -> PreReqHttpUrl:
         return self._url
 
     @property
-    def method(self: Self) -> HttpMethodsEnum:
+    def method(self: Self) -> PreReqHttpMethod:
         return self._method
 
     @property
-    def body(self: Self) -> HttpBody:
+    def body(self: Self) -> PreReqHttpBody:
         return self._body
 
     @property
-    def headers(self: Self) -> HttpHeaders:
+    def headers(self: Self) -> PreReqHttpHeaders:
         cleared_headers = copy.deepcopy(self._headers)
         trash_headers: tuple[HeaderKey] = (
             'Content-Length',
@@ -104,11 +108,11 @@ class TransmitterBuilder(PreparedTransmitter):
             ) for header_key, header_value in self.headers.items()
         )
 
-    def _decode_files(self: Self) -> tuple[tuple[FileFieldName, FileNameWithExtention], ...]:
+    def _decode_files(self: Self) -> tuple[tuple[FileFieldName, FileNameWithExtention], ...] | None:
         re_expression = rb'name="([^"]+).*?filename="([^"]+)'
         matches = re.findall(
             re_expression,
-            self.body,
+            self.body,  # type: ignore [arg-type]
             flags=re.DOTALL
         )
 
@@ -122,17 +126,17 @@ class TransmitterBuilder(PreparedTransmitter):
     def _decode_raw(self: Self) -> str:
         re_expression = r'\s+'
 
-        return re.sub(re_expression, ' ', self.body).strip()
+        return re.sub(re_expression, ' ', str(self.body)).strip()
 
     def _decode_body(
         self: Self,
     ) -> None | tuple[tuple[FileFieldName, FileNameWithExtention], ...] | str:
-        if isinstance(self.body, bytes):  # json
+        if isinstance(self.body, bytes):
             try:
                 return self.body.decode('utf-8')
-            except UnicodeDecodeError:  # files
+            except UnicodeDecodeError:
                 return self._decode_files()
-        elif isinstance(self.body, str):  # raw
+        elif isinstance(self.body, str):
             return self._decode_raw()
 
         return None

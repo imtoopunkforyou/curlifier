@@ -5,7 +5,6 @@ from curlifier.structures.types import (
     CurlCommand,
     CurlCommandLong,
     CurlCommandShort,
-    CurlCommandsTuple,
 )
 
 
@@ -22,17 +21,17 @@ class CommandsEnum(enum.Enum):
 
 
 @enum.unique
-class CommandsConfigureEnum(CommandsEnum):  # TODO off lint
-    VERBOSE: CurlCommandsTuple = ('-v', '--verbose')
-    SILENT: CurlCommandsTuple = ('-s', '--silent')
-    INSECURE: CurlCommandsTuple = ('-k', '--insecure')
-    LOCATION: CurlCommandsTuple = ('-L', '--location')
-    INCLUDE: CurlCommandsTuple = ('-i', '--include')
+class CommandsConfigureEnum(CommandsEnum):
+    VERBOSE = ('-v', '--verbose')
+    SILENT = ('-s', '--silent')
+    INSECURE = ('-k', '--insecure')
+    LOCATION = ('-L', '--location')
+    INCLUDE = ('-i', '--include')
 
 
 @enum.unique
 class CommandsTransferEnum(CommandsEnum):
-    SEND_DATA: CurlCommandsTuple = ('-d', '--data')
-    HEADER: CurlCommandsTuple = ('-H', '--header')
-    REQUEST: CurlCommandsTuple = ('-X', '--request')
-    FORM: CurlCommandsTuple = ('-F', '--form')
+    SEND_DATA = ('-d', '--data')
+    HEADER = ('-H', '--header')
+    REQUEST = ('-X', '--request')
+    FORM = ('-F', '--form')
