@@ -3,7 +3,7 @@ from typing import Unpack
 from requests.models import PreparedRequest, Response
 
 from curlifier.curl import Curl
-from curlifier.structures.types import CurlifyRequestConfigure
+from curlifier.structures.types import CurlifyConfigure
 
 
 def curlify(
@@ -11,17 +11,17 @@ def curlify(
     *,
     prepared_request: PreparedRequest | None = None,
     build_short: bool,
-    **kwargs: Unpack[CurlifyRequestConfigure],
+    **config: Unpack[CurlifyConfigure],
 ) -> str:
     curl = Curl(
         response=response,
         prepared_request=prepared_request,
         build_short=build_short,
-        location=kwargs.pop('location', False),
-        verbose=kwargs.pop('verbose', False),
-        silent=kwargs.pop('silent', False),
-        insecure=kwargs.pop('insecure', False),
-        include=kwargs.pop('include', False),
+        location=config.pop('location', False),
+        verbose=config.pop('verbose', False),
+        silent=config.pop('silent', False),
+        insecure=config.pop('insecure', False),
+        include=config.pop('include', False),
     )
 
     return curl.curlify()
