@@ -26,3 +26,11 @@ def ban_external_requests(monkeypatch) -> NoReturn:
         m_path,
         _ban_external_requests,
     )
+
+
+@pytest.fixture
+def url(fake):
+    url = fake.url(schemes=['https', 'http'])
+    path = fake.uri_path(deep=2)
+
+    return url + path
