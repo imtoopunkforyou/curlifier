@@ -146,7 +146,7 @@ class TransmitterBuilder(PreparedTransmitter):
     ) -> str | EmptyStr:
         if self.has_body:
             decode_body = self._decode_body()
-            if isinstance(decode_body, str):  # no files
+            if isinstance(decode_body, str):
                 return self.executable_request_data.format(
                     command=CommandsTransferEnum.SEND_DATA.get(shorted=self.build_short),
                     request_data=decode_body,

@@ -15,7 +15,7 @@ class Config:
 
     def __init__(
         self: Self,
-        location: bool,  # True
+        location: bool,
         verbose: bool,
         silent: bool,
         insecure: bool,
