@@ -26,3 +26,4 @@
 - [ ] publish on pypi
 - [ ] delete `./_debug`
 - [ ] `__version__.py`
+- [ ] `coverage`

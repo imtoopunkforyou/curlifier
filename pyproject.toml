@@ -29,5 +29,9 @@ darglint = "^1.8.1"
 nitpick = "^0.35.0"
 ipython = "^9.1.0"
 
+
+[tool.poetry.group.tests.dependencies]
+pytest = "^8.3.5"
+
 [tool.nitpick]
 style = "https://raw.githubusercontent.com/imtoopunkforyou/itpfy-style/refs/heads/main/py/imtoopunkforyou.toml"
