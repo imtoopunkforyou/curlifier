@@ -10,13 +10,13 @@ def curlify(
     response: Response | None = None,
     *,
     prepared_request: PreparedRequest | None = None,
-    build_short: bool,
+    shorted: bool = False,
     **config: Unpack[CurlifyConfigure],
 ) -> str:
     curl = Curl(
         response=response,
         prepared_request=prepared_request,
-        build_short=build_short,
+        build_short=shorted,
         location=config.pop('location', False),
         verbose=config.pop('verbose', False),
         silent=config.pop('silent', False),
