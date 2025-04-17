@@ -21,9 +21,9 @@
 
 ## TODO
 - [ ] readme.md
-- [ ] tests
+- [x] tests
 - [ ] docs
 - [ ] publish on pypi
-- [ ] delete `./_debug`
+- [x] delete `./_debug`
 - [ ] `__version__.py`
 - [ ] `coverage`
