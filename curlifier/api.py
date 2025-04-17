@@ -2,7 +2,7 @@ from typing import Unpack
 
 from requests.models import PreparedRequest, Response
 
-from curlifier.curl import Curl
+from curlifier.curl import CurlBuilder
 from curlifier.structures.types import CurlifyConfigure
 
 
@@ -13,7 +13,7 @@ def curlify(
     shorted: bool = False,
     **config: Unpack[CurlifyConfigure],
 ) -> str:
-    curl = Curl(
+    curl_builder = CurlBuilder(
         response=response,
         prepared_request=prepared_request,
         build_short=shorted,
@@ -24,4 +24,4 @@ def curlify(
         include=config.pop('include', False),
     )
 
-    return curl.build()
+    return curl_builder.build()

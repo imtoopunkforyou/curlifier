@@ -6,7 +6,7 @@ from curlifier.configurator import ConfigBuilder
 from curlifier.transmitter import TransmitterBuilder
 
 
-class Curl:
+class CurlBuilder:
     curl_command = 'curl'
 
     def __init__(  # noqa: WPS211
