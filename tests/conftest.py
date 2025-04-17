@@ -250,3 +250,37 @@ def transmitter_builder_without_body_payload():
         )
 
     return _transmitter_builder_without_body_payload
+
+
+@pytest.fixture
+def curlify_hp_curl():
+    def _curlify_hp_curl(shorted, url, json):
+        long = (
+            "curl "
+            "--request POST '{url}' "
+            "--header 'User-Agent: python-requests/2.32.3' "
+            "--header 'Accept-Encoding: gzip, deflate' "
+            "--header 'Accept: */*' "
+            "--header 'Connection: keep-alive' "
+            "--header 'Content-Type: application/json' "
+            "--data '{json}' "
+            "--location"
+        )
+        short = (
+            "curl "
+            "-X POST '{url}' "
+            "-H 'User-Agent: python-requests/2.32.3' "
+            "-H 'Accept-Encoding: gzip, deflate' "
+            "-H 'Accept: */*' "
+            "-H 'Connection: keep-alive' "
+            "-H 'Content-Type: application/json' "
+            "-d '{json}' "
+            "-L"
+        )
+        current = short if shorted else long
+        return current.format(
+            url=url,
+            json=json,
+        )
+
+    return _curlify_hp_curl
