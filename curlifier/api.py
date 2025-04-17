@@ -23,5 +23,6 @@ def curlify(
         insecure=config.pop('insecure', False),
         include=config.pop('include', False),
     )
+    curl: str = curl_builder.build()
 
-    return curl_builder.build()
+    return curl
