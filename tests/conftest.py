@@ -1,4 +1,5 @@
 import json
+import os
 from typing import NoReturn
 from unittest import mock
 
@@ -96,3 +97,156 @@ def mock_response(
         target=mock_response_target,
         return_value=response,
     )
+
+
+@pytest.fixture
+def file_path_builder():
+    def _file_path_builder(file_name):
+        files_dir = 'tests/files/'
+        return os.path.join(files_dir, file_name)
+
+    return _file_path_builder
+
+
+@pytest.fixture
+def files(file_path_builder):
+    pic = file_path_builder('f.jpg')
+    voice = file_path_builder('f.mp3')
+    text = file_path_builder('f.txt')
+
+    return {
+        'field_for_pic': open(pic, 'rb'),
+        'field_for_voice': open(voice, 'rb'),
+        'field_for_text': open(text, 'r'),
+    }
+
+
+@pytest.fixture
+def fake_xml():
+    xml = (
+        '<?xml version="1.0" encoding="utf-8"?>'
+        '<root xmlns="http://defaultns.com/" xmlns:a="http://a.com/'
+        'xmlns:b="http://b.com/"><x a:attr="val">1</x><a:y>2</a:y><b:z>3</b:z></root>'
+    )
+
+    return xml
+
+
+@pytest.fixture
+def transmitter_builder_w_files_payload():
+    def _transmitter_builder_w_files_payload(shorted, method, url):
+        long = (
+            "--request {method} '{url}' "
+            "--header 'User-Agent: python-requests/2.32.3' "
+            "--header 'Accept-Encoding: gzip, deflate' "
+            "--header 'Accept: */*' "
+            "--header 'Connection: keep-alive' "
+            "--header 'Content-Type: multipart/form-data' "
+            "--form 'field_for_pic=@f.jpg' "
+            "--form 'field_for_voice=@f.mp3' "
+            "--form 'field_for_text=@f.txt'"
+        )
+        short = (
+            "-X {method} '{url}' "
+            "-H 'User-Agent: python-requests/2.32.3' "
+            "-H 'Accept-Encoding: gzip, deflate' "
+            "-H 'Accept: */*' "
+            "-H 'Connection: keep-alive' "
+            "-H 'Content-Type: multipart/form-data' "
+            "-F 'field_for_pic=@f.jpg' "
+            "-F 'field_for_voice=@f.mp3' "
+            "-F 'field_for_text=@f.txt'"
+        )
+        current = short if shorted else long
+        return current.format(
+            method=method,
+            url=url,
+        )
+
+    return _transmitter_builder_w_files_payload
+
+
+@pytest.fixture
+def transmitter_builder_w_json_payload():
+    def _transmitter_builder_w_json_payload(shorted, method, url, json):
+        long = (
+            "--request {method} '{url}' "
+            "--header 'User-Agent: python-requests/2.32.3' "
+            "--header 'Accept-Encoding: gzip, deflate' "
+            "--header 'Accept: */*' "
+            "--header 'Connection: keep-alive' "
+            "--header 'Content-Type: application/json' "
+            "--data '{json}'"
+        )
+        short = (
+            "-X {method} '{url}' "
+            "-H 'User-Agent: python-requests/2.32.3' "
+            "-H 'Accept-Encoding: gzip, deflate' "
+            "-H 'Accept: */*' "
+            "-H 'Connection: keep-alive' "
+            "-H 'Content-Type: application/json' "
+            "-d '{json}'"
+        )
+        current = short if shorted else long
+        return current.format(
+            method=method,
+            url=url,
+            json=json,
+        )
+
+    return _transmitter_builder_w_json_payload
+
+
+@pytest.fixture
+def transmitter_builder_w_xml_payload():
+    def _transmitter_builder_w_xml_payload(shorted, method, url, xml):
+        long = (
+            "--request {method} '{url}' "
+            "--header 'User-Agent: python-requests/2.32.3' "
+            "--header 'Accept-Encoding: gzip, deflate' "
+            "--header 'Accept: */*' "
+            "--header 'Connection: keep-alive' "
+            "--data '{xml}'"
+        )
+        short = (
+            "-X {method} '{url}' "
+            "-H 'User-Agent: python-requests/2.32.3' "
+            "-H 'Accept-Encoding: gzip, deflate' "
+            "-H 'Accept: */*' "
+            "-H 'Connection: keep-alive' "
+            "-d '{xml}'"
+        )
+        current = short if shorted else long
+        return current.format(
+            method=method,
+            url=url,
+            xml=xml,
+        )
+
+    return _transmitter_builder_w_xml_payload
+
+
+@pytest.fixture
+def transmitter_builder_without_body_payload():
+    def _transmitter_builder_without_body_payload(shorted, method, url):
+        long = (
+            "--request {method} '{url}' "
+            "--header 'User-Agent: python-requests/2.32.3' "
+            "--header 'Accept-Encoding: gzip, deflate' "
+            "--header 'Accept: */*' "
+            "--header 'Connection: keep-alive' "
+        )
+        short = (
+            "-X {method} '{url}' "
+            "-H 'User-Agent: python-requests/2.32.3' "
+            "-H 'Accept-Encoding: gzip, deflate' "
+            "-H 'Accept: */*' "
+            "-H 'Connection: keep-alive' "
+        )
+        current = short if shorted else long
+        return current.format(
+            method=method,
+            url=url,
+        )
+
+    return _transmitter_builder_without_body_payload
