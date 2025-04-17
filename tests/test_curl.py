@@ -1,3 +1,5 @@
+# NOTE: Very dirty tests, needs significant refactoring TODO
+
 import json
 
 import pytest
