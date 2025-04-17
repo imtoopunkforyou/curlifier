@@ -36,11 +36,15 @@ class Curl:
             build_short=self.build_short,
         )
 
-    def curlify(self: Self) -> str:
-        return ' '.join(self._build())
-
-    def _build(self: Self) -> tuple[str, str, str]:
+    def build(self: Self) -> str:
         builded_config: str = self.config.build()
         builded_transmitter: str = self.transmitter.build()
+        builded: str = ' '.join(
+            (
+                self.curl_command,
+                builded_transmitter,
+                builded_config,
+            ),
+        )
 
-        return self.curl_command, builded_transmitter, builded_config
+        return builded

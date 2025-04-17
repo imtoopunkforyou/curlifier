@@ -24,4 +24,4 @@ def curlify(
         include=config.pop('include', False),
     )
 
-    return curl.curlify()
+    return curl.build()
