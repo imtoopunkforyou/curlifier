@@ -7,6 +7,8 @@ from curlifier.transmitter import TransmitterBuilder
 
 
 class CurlBuilder:
+    """Builds the executable curl command."""
+
     curl_command = 'curl'
 
     def __init__(  # noqa: WPS211
@@ -37,6 +39,26 @@ class CurlBuilder:
         )
 
     def build(self: Self) -> str:
+        """
+        Collects all parameters into the resulting string.
+
+        If `build_short` is `True` will be collected short version.
+
+        >>> from curlifier.curl import CurlBuilder
+        >>> import requests
+        >>> r = requests.get('https://example.com/')
+        >>> curl_builder = CurlBuilder(
+            response=r,
+            location=True,
+            build_short=True,
+            verbose=False,
+            silent=False,
+            insecure=False,
+            include=False,
+        )
+        >>> curl_builder.build()
+        "curl -X GET 'https://example.com/' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' <...> -L"
+        """
         builded_config: str = self.config.build()
         builded_transmitter: str = self.transmitter.build()
         builded: str = ' '.join(
