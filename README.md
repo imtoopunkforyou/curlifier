@@ -16,14 +16,5 @@
 >> response = requests.get('https://example.com/')
 >> curl = curlify(response)
 >> curl
-"curl --request GET 'https://example.com/' --header 'User-Agent: python-requests/2.32.3' --header 'Accept-Encoding: gzip, deflate' --header 'Accept: */*' --header 'Connection: keep-alive'  --location"
+"curl --request GET 'https://example.com/' --header 'User-Agent: python-requests/2.32.3' --header 'Accept-Encoding: gzip, deflate' --header 'Accept: */*' --header 'Connection: keep-alive'"
 ```
-
-## TODO
-- [ ] readme.md
-- [x] tests
-- [ ] docs
-- [ ] publish on pypi
-- [x] delete `./_debug`
-- [ ] `__version__.py`
-- [ ] `coverage`
