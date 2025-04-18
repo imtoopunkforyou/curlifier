@@ -5,6 +5,7 @@
 - [ ] Update `README.md`
 - [ ] Add `CONTIBUTING.md`
 - [ ] Add WPS sticker to `README.md`
+- [ ] Add `CHANGELOG.md`
 
 ### Tests
 - [ ] `pytest-cov` to `README.md`
