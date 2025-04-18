@@ -14,6 +14,7 @@
 
 ### Others
 - [ ] GH Actions
+- [ ] CI
 - [ ] Issue template
 
 ---
