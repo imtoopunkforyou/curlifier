@@ -9,7 +9,7 @@ from curlifier.structures.http_methods import HttpMethodsEnum
 from curlifier.structures.types import (
     EmptyStr,
     FileFieldName,
-    FileNameWithExtention,
+    FileNameWithExtension,
     HeaderKey,
     PreReqHttpBody,
     PreReqHttpHeaders,
@@ -108,7 +108,7 @@ class TransmitterBuilder(PreparedTransmitter):
             ) for header_key, header_value in self.headers.items()
         )
 
-    def _decode_files(self: Self) -> tuple[tuple[FileFieldName, FileNameWithExtention], ...] | None:
+    def _decode_files(self: Self) -> tuple[tuple[FileFieldName, FileNameWithExtension], ...] | None:
         re_expression = rb'name="([^"]+).*?filename="([^"]+)'
         matches = re.findall(
             re_expression,
@@ -130,7 +130,7 @@ class TransmitterBuilder(PreparedTransmitter):
 
     def _decode_body(
         self: Self,
-    ) -> None | tuple[tuple[FileFieldName, FileNameWithExtention], ...] | str:
+    ) -> None | tuple[tuple[FileFieldName, FileNameWithExtension], ...] | str:
         if isinstance(self.body, bytes):
             try:
                 return self.body.decode('utf-8')

@@ -21,6 +21,6 @@ type PreReqHttpMethod = str | Any | None
 type PreReqHttpBody = bytes | str | Any | None
 type PreReqHttpHeaders = CaseInsensitiveDict
 type PreReqHttpUrl = str | Any | None
-type FileNameWithExtention = str
+type FileNameWithExtension = str
 type FileFieldName = str
 type EmptyStr = Literal['']
