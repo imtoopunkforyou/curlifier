@@ -6,6 +6,8 @@ from curlifier.structures.types import HttpMethod
 
 @enum.unique
 class HttpMethodsEnum(enum.Enum):
+    """Supported HTTP methods."""
+
     GET = 'GET'
     OPTIONS = 'OPTIONS'
     HEAD = 'HEAD'
@@ -16,6 +18,7 @@ class HttpMethodsEnum(enum.Enum):
 
     @classmethod
     def get_methods_without_body(cls: type[Self]) -> tuple[HttpMethod, HttpMethod, HttpMethod, HttpMethod]:
+        """HTTP methods methods that have a body in the structure."""
         return (
             cls.GET.value,
             cls.HEAD.value,
@@ -25,6 +28,7 @@ class HttpMethodsEnum(enum.Enum):
 
     @classmethod
     def get_methods_with_body(cls: type[Self]) -> tuple[HttpMethod, HttpMethod, HttpMethod]:
+        """HTTP methods that do not have a body in the structure"""
         return (
             cls.POST.value,
             cls.PUT.value,
