@@ -36,7 +36,7 @@ class CommandsEnum(enum.Enum):
 
 @enum.unique
 class CommandsConfigureEnum(CommandsEnum):
-    """Curl request configuration commands."""
+    """Curl configuration commands."""
 
     VERBOSE = ('-v', '--verbose')
     """Make the operation more talkative."""
@@ -56,6 +56,8 @@ class CommandsConfigureEnum(CommandsEnum):
 
 @enum.unique
 class CommandsTransferEnum(CommandsEnum):
+    """Curl transfer commands."""
+
     SEND_DATA = ('-d', '--data')
     """HTTP data (body)."""
 
