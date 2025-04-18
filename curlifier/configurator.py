@@ -70,6 +70,37 @@ class ConfigBuilder(Config):
         self.build_short = build_short
         super().__init__(**kwargs)
 
+    def build(self: Self) -> str:
+        """
+        Collects all parameters into the resulting string.
+
+        If `build_short` is `True` will be collected short version.
+
+        >>> from curlifier.configurator import ConfigBuilder
+        >>> conf = ConfigBuilder(
+            location=True,
+            verbose=True,
+            silent=False,
+            insecure=True,
+            include=False,
+            build_short=False,
+        )
+        >>> conf.build()
+        '--location --verbose --insecure'
+        """
+        commands: tuple[CurlCommand | EmptyStr, ...] = (
+            self.get_location_command(),
+            self.get_verbose_command(),
+            self.get_silent_command(),
+            self.get_insecure_command(),
+            self.get_include_command(),
+        )
+        cleaned_commands: Generator[CurlCommand, None, None] = (
+            command for command in commands if command
+        )
+
+        return ' '.join(cleaned_commands)
+
     def get_location_command(self: Self) -> CurlCommand | EmptyStr:
         if self.location:
             command = CommandsConfigureEnum.LOCATION.get(shorted=self.build_short)
@@ -103,34 +134,3 @@ class ConfigBuilder(Config):
             return command
 
         return ''
-
-    def build(self: Self) -> str:
-        """
-        Collects all parameters into the resulting string.
-
-        If `build_short` is `True` will be collected short version.
-
-        >>> from curlifier.configurator import ConfigBuilder
-        >>> conf = ConfigBuilder(
-            location=True,
-            verbose=True,
-            silent=False,
-            insecure=True,
-            include=False,
-            build_short=False,
-        )
-        >>> conf.build()
-        '--location --verbose --insecure'
-        """
-        commands: tuple[CurlCommand | EmptyStr, ...] = (
-            self.get_location_command(),
-            self.get_verbose_command(),
-            self.get_silent_command(),
-            self.get_insecure_command(),
-            self.get_include_command(),
-        )
-        cleaned_commands: Generator[CurlCommand, None, None] = (
-            command for command in commands if command
-        )
-
-        return ' '.join(cleaned_commands)
