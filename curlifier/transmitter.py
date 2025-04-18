@@ -19,6 +19,12 @@ from curlifier.structures.types import (
 
 
 class PreparedTransmitter:
+    """
+    Prepares request data for processing.
+
+    Works on a copy of the request object. The original object will not be modified.
+    """
+
     def __init__(
         self: Self,
         response: Response | None = None,
@@ -72,6 +78,8 @@ class PreparedTransmitter:
 
 
 class TransmitterBuilder(PreparedTransmitter):
+    """Builds a curl command transfer line."""
+
     executable_part = '{request_command} {method} \'{url}\' {request_headers} {request_data}'
     executable_request_data = '{command} \'{request_data}\''
     executable_header = '{command} \'{key}: {value}\''
@@ -87,6 +95,18 @@ class TransmitterBuilder(PreparedTransmitter):
         super().__init__(response, prepared_request=prepared_request)
 
     def build(self: Self) -> str:
+        """
+        Collects all parameters into the resulting string.
+
+        If `build_short` is `True` will be collected short version.
+
+        >>> from curlifier.transmitter import TransmitterBuilder
+        >>> import requests
+        >>> r = requests.get('https://example.com/')
+        >>> t = TransmitterBuilder(response=r, build_short=False)
+        >>> t.build()
+        "--request GET 'https://example.com/' --header 'User-Agent: python-requests/2.32.3' <...>"
+        """
         request_command = CommandsTransferEnum.REQUEST.get(shorted=self.build_short)
         request_headers = self._build_executable_headers()
         request_data = self._build_request_data()
