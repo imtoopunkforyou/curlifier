@@ -66,6 +66,6 @@ Curlifier is released under the MIT License. See the bundled [LICENSE](LICENSE) 
 
 ## **Want to Help?** ❤️ 
 Feel free to pick any task from this list and contribute!  
-1. Check if an issue exists for the task you want to work on
+1. Check if an [issue](https://github.com/imtoopunkforyou/curlifier/issues) exists for the task you want to work on
 2. If not, [open a new issue](https://github.com/imtoopunkforyou/curlifier/issues/new) to discuss
 3. Fork the repo and create a pull request when ready
