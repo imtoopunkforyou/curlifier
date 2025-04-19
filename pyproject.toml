@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "curlifier"
-version = "0.0.12"
+version = "0.1.0"
 description = "Converts Request objects to curl string"
 authors = [
     "Timur Valiev <cptchunk@yandex.ru>"
