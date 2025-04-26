@@ -1,6 +1,6 @@
 import pytest
 
-from curlifier.configurator import ConfigBuilder
+from curlifier.builders.configurator import ConfigBuilder
 from curlifier.structures.commands import CommandsConfigureEnum
 
 

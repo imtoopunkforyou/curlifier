@@ -5,7 +5,7 @@ import json
 import pytest
 import requests
 
-from curlifier.curl import CurlBuilder
+from curlifier.builders.curl import CurlBuilder
 from curlifier.structures.commands import CommandsConfigureEnum
 from curlifier.structures.http_methods import HttpMethodsEnum
 

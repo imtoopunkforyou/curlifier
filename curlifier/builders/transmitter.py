@@ -4,6 +4,7 @@ from typing import Self
 
 from requests import PreparedRequest, Response
 
+from curlifier.builders.base import Builder
 from curlifier.structures.commands import CommandsTransferEnum
 from curlifier.structures.http_methods import HttpMethodsEnum
 from curlifier.structures.types import (
@@ -77,7 +78,7 @@ class PreparedTransmitter:
         return False
 
 
-class TransmitterBuilder(PreparedTransmitter):
+class TransmitterBuilder(PreparedTransmitter, Builder):
     """Builds a curl command transfer line."""
 
     executable_part = '{request_command} {method} \'{url}\' {request_headers} {request_data}'

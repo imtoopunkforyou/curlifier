@@ -2,11 +2,12 @@ from typing import Self
 
 from requests.models import PreparedRequest, Response
 
-from curlifier.configurator import ConfigBuilder
-from curlifier.transmitter import TransmitterBuilder
+from curlifier.builders.base import Builder
+from curlifier.builders.configurator import ConfigBuilder
+from curlifier.builders.transmitter import TransmitterBuilder
 
 
-class CurlBuilder:
+class CurlBuilder(Builder):
     """Builds the executable curl command."""
 
     curl_command = 'curl'

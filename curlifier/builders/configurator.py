@@ -1,5 +1,6 @@
 from typing import Generator, Self
 
+from curlifier.builders.base import Builder
 from curlifier.structures.commands import CommandsConfigureEnum
 from curlifier.structures.types import CurlCommand, EmptyStr
 
@@ -55,7 +56,7 @@ class Config:
         return self._include
 
 
-class ConfigBuilder(Config):
+class ConfigBuilder(Config, Builder):
     """Builds a curl command configuration line."""
 
     __slots__ = (

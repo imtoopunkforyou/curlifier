@@ -3,8 +3,11 @@ import json
 import pytest
 import requests
 
+from curlifier.builders.transmitter import (
+    PreparedTransmitter,
+    TransmitterBuilder,
+)
 from curlifier.structures.http_methods import HttpMethodsEnum
-from curlifier.transmitter import PreparedTransmitter, TransmitterBuilder
 
 
 class PreparedTransmitterTest:

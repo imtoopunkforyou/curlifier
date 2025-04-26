@@ -2,7 +2,7 @@ from typing import Unpack
 
 from requests.models import PreparedRequest, Response
 
-from curlifier.curl import CurlBuilder
+from curlifier.builders.curl import CurlBuilder
 from curlifier.structures.types import CurlifyConfigure
 
 
