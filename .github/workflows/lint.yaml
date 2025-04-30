@@ -1,0 +1,40 @@
+name: Checking Lint Rules
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python version
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install poetry
+        run: |
+          curl -sSL 'https://install.python-poetry.org' | python
+          echo "$HOME/.poetry/bin" >> "$GITHUB_PATH"
+
+      - name: Install dependencies
+        run: |
+          poetry config virtualenvs.in-project false
+          poetry run pip install -U pip
+          poetry install
+      
+      - name: Isort rules
+        run: poetry run isort --check ./curlifier/ ./tests/
+
+      - name: Flake8 rules
+        run: poetry run flake8 ./curlifier/ ./tests/
+
+      - name: Mypy rules
+        run: poetry run mypy ./curlifier/

@@ -1,4 +1,5 @@
 # curlifier
+![Coverage](https://raw.githubusercontent.com/imtoopunkforyou/curlifier/main/.github/badge/coverage.svg)
 ```
 ░█████╗░██╗░░░██╗██████╗░██╗░░░░░██╗███████╗██╗███████╗██████╗░
 ██╔══██╗██║░░░██║██╔══██╗██║░░░░░██║██╔════╝██║██╔════╝██╔══██╗
