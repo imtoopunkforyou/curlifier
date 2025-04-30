@@ -19,6 +19,49 @@ from curlifier.structures.types import (
 )
 
 
+class Decoder:
+
+    def decode(
+        self: Self,
+        data_for_decode: bytes | str,
+    ) -> None | tuple[tuple[FileFieldName, FileNameWithExtension], ...] | str:
+        if isinstance(data_for_decode, bytes):
+            try:
+                return data_for_decode.decode('utf-8')
+            except UnicodeDecodeError:
+                return self._decode_files(data_for_decode)
+        elif isinstance(data_for_decode, str):
+            return self._decode_raw(data_for_decode)
+
+        return None
+
+    def _decode_raw(
+        self: Self,
+        data_for_decode: str,
+    ) -> str:
+        re_expression = r'\s+'
+
+        return re.sub(re_expression, ' ', str(data_for_decode)).strip()
+
+    def _decode_files(
+        self: Self,
+        data_for_decode: bytes,
+    ) -> tuple[tuple[FileFieldName, FileNameWithExtension], ...] | None:
+        re_expression = rb'name="([^"]+).*?filename="([^"]+)'
+        matches = re.findall(
+            re_expression,
+            data_for_decode,
+            flags=re.DOTALL
+        )
+
+        return tuple(
+            (
+                field_name.decode(),
+                file_name.decode(),
+            ) for field_name, file_name in matches
+        )
+
+
 class PreparedTransmitter:
     """
     Prepares request data for processing.
@@ -78,7 +121,7 @@ class PreparedTransmitter:
         return False
 
 
-class TransmitterBuilder(PreparedTransmitter, Builder):
+class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
     """Builds a curl command transfer line."""
 
     executable_part = '{request_command} {method} \'{url}\' {request_headers} {request_data}'
@@ -110,7 +153,7 @@ class TransmitterBuilder(PreparedTransmitter, Builder):
         """
         request_command = CommandsTransferEnum.REQUEST.get(shorted=self.build_short)
         request_headers = self._build_executable_headers()
-        request_data = self._build_request_data()
+        request_data = self._build_executable_data()
 
         return self.executable_part.format(
             request_command=request_command,
@@ -129,44 +172,11 @@ class TransmitterBuilder(PreparedTransmitter, Builder):
             ) for header_key, header_value in self.headers.items()
         )
 
-    def _decode_files(self: Self) -> tuple[tuple[FileFieldName, FileNameWithExtension], ...] | None:
-        re_expression = rb'name="([^"]+).*?filename="([^"]+)'
-        matches = re.findall(
-            re_expression,
-            self.body,  # type: ignore [arg-type]
-            flags=re.DOTALL
-        )
-
-        return tuple(
-            (
-                field_name.decode(),
-                file_name.decode(),
-            ) for field_name, file_name in matches
-        )
-
-    def _decode_raw(self: Self) -> str:
-        re_expression = r'\s+'
-
-        return re.sub(re_expression, ' ', str(self.body)).strip()
-
-    def _decode_body(
-        self: Self,
-    ) -> None | tuple[tuple[FileFieldName, FileNameWithExtension], ...] | str:
-        if isinstance(self.body, bytes):
-            try:
-                return self.body.decode('utf-8')
-            except UnicodeDecodeError:
-                return self._decode_files()
-        elif isinstance(self.body, str):
-            return self._decode_raw()
-
-        return None
-
-    def _build_request_data(
+    def _build_executable_data(
         self: Self,
     ) -> str | EmptyStr:
         if self.has_body:
-            decode_body = self._decode_body()
+            decode_body = self.decode(self.body)  # type: ignore [arg-type]
             if isinstance(decode_body, str):
                 return self.executable_request_data.format(
                     command=CommandsTransferEnum.SEND_DATA.get(shorted=self.build_short),
