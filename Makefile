@@ -11,10 +11,11 @@ pre-commit:
 	poetry run isort ./curlifier ./tests \
 	&& make lint \
 	&& make test
+test-collect:
+	poetry run pytest ./tests/ --collect-only
 test:
-	poetry run pytest ./tests
+	poetry run pytest ./tests/ 
 
 # === Aliases ===
 pc: pre-commit
-np: nitpick
 t: test
