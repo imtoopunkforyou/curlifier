@@ -1,22 +1,23 @@
 import copy
 import re
-from typing import Self
+from typing import Any, ClassVar, Literal, Self
 
 from requests import PreparedRequest, Response
+from requests.structures import CaseInsensitiveDict
 
 from curlifier.builders.base import Builder
 from curlifier.structures.commands import CommandsTransferEnum
 from curlifier.structures.http_methods import HttpMethodsEnum
-from curlifier.structures.types import (
-    EmptyStr,
-    FileFieldName,
-    FileNameWithExtension,
-    HeaderKey,
-    PreReqHttpBody,
-    PreReqHttpHeaders,
-    PreReqHttpMethod,
-    PreReqHttpUrl,
-)
+
+type ExecutableTemplate = str
+type EmptyStr = Literal['']
+type HeaderKey = str
+type PreReqHttpMethod = str | Any | None
+type PreReqHttpBody = bytes | str | Any | None
+type PreReqHttpHeaders = CaseInsensitiveDict
+type PreReqHttpUrl = str | Any | None
+type FileNameWithExtension = str
+type FileFieldName = str
 
 
 class Decoder:
@@ -124,10 +125,10 @@ class PreparedTransmitter:
 class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
     """Builds a curl command transfer line."""
 
-    executable_part = '{request_command} {method} \'{url}\' {request_headers} {request_data}'
-    executable_request_data = '{command} \'{request_data}\''
-    executable_header = '{command} \'{key}: {value}\''
-    executable_request_files = '{command} \'{field_name}=@{file_name}\''
+    builded: ClassVar[ExecutableTemplate] = '{request_command} {method} \'{url}\' {request_headers} {request_data}'
+    request_data: ClassVar[ExecutableTemplate] = '{command} \'{request_data}\''
+    header: ClassVar[ExecutableTemplate] = '{command} \'{key}: {value}\''
+    request_files: ClassVar[ExecutableTemplate] = '{command} \'{field_name}=@{file_name}\''
 
     def __init__(
         self: Self,
@@ -155,7 +156,7 @@ class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
         request_headers = self._build_executable_headers()
         request_data = self._build_executable_data()
 
-        return self.executable_part.format(
+        return self.builded.format(
             request_command=request_command,
             method=self.method,
             url=self.url,
@@ -169,7 +170,7 @@ class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
 
     def _build_executable_headers(self: Self) -> str:
         return ' '.join(
-            self.executable_header.format(
+            self.header.format(
                 command=CommandsTransferEnum.HEADER.get(shorted=self.build_short),
                 key=header_key,
                 value=header_value,
@@ -182,13 +183,13 @@ class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
         if self.has_body:
             decode_body = self.decode(self.body)  # type: ignore [arg-type]
             if isinstance(decode_body, str):
-                return self.executable_request_data.format(
+                return self.request_data.format(
                     command=CommandsTransferEnum.SEND_DATA.get(shorted=self.build_short),
                     request_data=decode_body,
                 )
             elif isinstance(decode_body, tuple):
                 executable_files: str = ' '.join(
-                    self.executable_request_files.format(
+                    self.request_files.format(
                         command=CommandsTransferEnum.FORM.get(shorted=self.build_short),
                         field_name=field_name,
                         file_name=file_name,

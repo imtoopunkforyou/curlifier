@@ -1,6 +1,4 @@
-from typing import Any, Literal, TypedDict
-
-from requests.structures import CaseInsensitiveDict
+from typing import TypedDict
 
 
 class CurlifyConfigure(TypedDict, total=False):
@@ -11,17 +9,7 @@ class CurlifyConfigure(TypedDict, total=False):
     include: bool
 
 
-type HeaderKey = str
-type HeaderValue = str
 type CurlCommandShort = str
 type CurlCommandLong = str
 type CurlCommand = CurlCommandShort | CurlCommandLong
 type CurlCommandTitle = str
-type HttpMethod = str
-type PreReqHttpMethod = str | Any | None
-type PreReqHttpBody = bytes | str | Any | None
-type PreReqHttpHeaders = CaseInsensitiveDict
-type PreReqHttpUrl = str | Any | None
-type FileNameWithExtension = str
-type FileFieldName = str
-type EmptyStr = Literal['']

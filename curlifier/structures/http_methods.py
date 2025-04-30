@@ -1,7 +1,7 @@
 import enum
 from typing import Self
 
-from curlifier.structures.types import HttpMethod
+type HttpMethod = str
 
 
 @enum.unique
