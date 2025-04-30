@@ -123,7 +123,7 @@ class PreparedTransmitter:
 
 
 class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
-    """Builds a curl command transfer line."""
+    """Builds a curl command transfer part."""
 
     builded: ClassVar[ExecutableTemplate] = '{request_command} {method} \'{url}\' {request_headers} {request_data}'
     request_data: ClassVar[ExecutableTemplate] = '{command} \'{request_data}\''
