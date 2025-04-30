@@ -24,9 +24,9 @@ class CurlBuilder(Builder):
         prepared_request: PreparedRequest | None = None,
 
     ) -> None:
-        self.build_short = build_short
+        self._build_short = build_short
         self.config = ConfigBuilder(
-            build_short=self.build_short,
+            build_short=self._build_short,
             location=location,
             verbose=verbose,
             silent=silent,
@@ -36,7 +36,7 @@ class CurlBuilder(Builder):
         self.transmitter = TransmitterBuilder(
             response=response,
             prepared_request=prepared_request,
-            build_short=self.build_short,
+            build_short=self._build_short,
         )
 
     def build(self: Self) -> str:
@@ -71,3 +71,7 @@ class CurlBuilder(Builder):
         )
 
         return builded
+
+    @property
+    def build_short(self: Self) -> bool:
+        return self._build_short

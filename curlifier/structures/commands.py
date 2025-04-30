@@ -5,18 +5,25 @@ from curlifier.structures.types import (
     CurlCommand,
     CurlCommandLong,
     CurlCommandShort,
+    CurlCommandTitle,
 )
 
 
 class CommandsEnum(enum.Enum):
     """
     Base class of the command curl structure.
-    When initialized, it will take two values: short and long.
+    When initialized, it will take three values: title, short and long.
     """
 
-    def __init__(self: Self, short: CurlCommandShort, long: CurlCommandLong) -> None:
+    def __init__(
+        self: Self,
+        short: CurlCommandShort,
+        long: CurlCommandLong,
+        title: CurlCommandTitle,
+    ) -> None:
         self.short = short
         self.long = long
+        self.title = title
 
     def get(self: Self, *, shorted: bool) -> CurlCommand:
         """
@@ -31,26 +38,26 @@ class CommandsEnum(enum.Enum):
         return self.short if shorted else self.long
 
     def __str__(self: Self) -> CurlCommandLong:
-        return self.long
+        return self.title
 
 
 @enum.unique
 class CommandsConfigureEnum(CommandsEnum):
     """Curl configuration commands."""
 
-    VERBOSE = ('-v', '--verbose')
+    VERBOSE = ('-v', '--verbose', 'verbose')
     """Make the operation more talkative."""
 
-    SILENT = ('-s', '--silent')
+    SILENT = ('-s', '--silent', 'silent')
     """Silent mode."""
 
-    INSECURE = ('-k', '--insecure')
+    INSECURE = ('-k', '--insecure', 'insecure')
     """Allow insecure server connections."""
 
-    LOCATION = ('-L', '--location')
+    LOCATION = ('-L', '--location', 'location')
     """Follow redirects."""
 
-    INCLUDE = ('-i', '--include')
+    INCLUDE = ('-i', '--include', 'include')
     """Include protocol response headers in the output."""
 
 
@@ -58,14 +65,14 @@ class CommandsConfigureEnum(CommandsEnum):
 class CommandsTransferEnum(CommandsEnum):
     """Curl transfer commands."""
 
-    SEND_DATA = ('-d', '--data')
+    SEND_DATA = ('-d', '--data', 'data')
     """HTTP data (body)."""
 
-    HEADER = ('-H', '--header')
+    HEADER = ('-H', '--header', 'header')
     """Pass custom header(s) to server."""
 
-    REQUEST = ('-X', '--request')
+    REQUEST = ('-X', '--request', 'request')
     """Specify request method to use."""
 
-    FORM = ('-F', '--form')
+    FORM = ('-F', '--form', 'form')
     """Specify multipart MIME data."""

@@ -1,8 +1,14 @@
-from typing import Generator, Self
+from typing import ClassVar, Generator, Self, Unpack
 
 from curlifier.builders.base import Builder
 from curlifier.structures.commands import CommandsConfigureEnum
-from curlifier.structures.types import CurlCommand, EmptyStr
+from curlifier.structures.types import (
+    CurlCommand,
+    CurlCommandTitle,
+    CurlifyConfigure,
+)
+
+type CommandMapping = tuple[tuple[CurlCommandTitle, CommandsConfigureEnum], ...]
 
 
 class Config:
@@ -15,6 +21,15 @@ class Config:
         '_insecure',
         '_include',
     )
+
+    command_mapping: ClassVar[CommandMapping] = (
+        (CommandsConfigureEnum.LOCATION.title, CommandsConfigureEnum.LOCATION),
+        (CommandsConfigureEnum.VERBOSE.title, CommandsConfigureEnum.VERBOSE),
+        (CommandsConfigureEnum.SILENT.title, CommandsConfigureEnum.SILENT),
+        (CommandsConfigureEnum.INSECURE.title, CommandsConfigureEnum.INSECURE),
+        (CommandsConfigureEnum.INCLUDE.title, CommandsConfigureEnum.INCLUDE),
+    )
+    """Mapping for properties and commands. The property name must match the configuration command title."""
 
     def __init__(
         self: Self,
@@ -60,16 +75,16 @@ class ConfigBuilder(Config, Builder):
     """Builds a curl command configuration line."""
 
     __slots__ = (
-        'build_short',
+        '_build_short',
     )
 
     def __init__(
         self: Self,
         build_short: bool = False,
-        **kwargs: bool,
+        **config: Unpack[CurlifyConfigure],
     ) -> None:
-        self.build_short = build_short
-        super().__init__(**kwargs)
+        self._build_short = build_short
+        super().__init__(**config)
 
     def build(self: Self) -> str:
         """
@@ -89,49 +104,18 @@ class ConfigBuilder(Config, Builder):
         >>> conf.build()
         '--location --verbose --insecure'
         """
-        commands: tuple[CurlCommand | EmptyStr, ...] = (
-            self.get_location_command(),
-            self.get_verbose_command(),
-            self.get_silent_command(),
-            self.get_insecure_command(),
-            self.get_include_command(),
-        )
+        command_parts = []
+        for prop_name, command_enum in self.command_mapping:
+            if getattr(self, prop_name):
+                command = command_enum.get(shorted=self.build_short)
+                command_parts.append(command)
+
         cleaned_commands: Generator[CurlCommand, None, None] = (
-            command for command in commands if command
+            command for command in command_parts if command
         )
 
         return ' '.join(cleaned_commands)
 
-    def get_location_command(self: Self) -> CurlCommand | EmptyStr:
-        if self.location:
-            command = CommandsConfigureEnum.LOCATION.get(shorted=self.build_short)
-            return command
-
-        return ''
-
-    def get_verbose_command(self: Self) -> CurlCommand | EmptyStr:
-        if self.verbose:
-            command = CommandsConfigureEnum.VERBOSE.get(shorted=self.build_short)
-            return command
-        return ''
-
-    def get_silent_command(self: Self) -> CurlCommand | EmptyStr:
-        if self.silent:
-            command = CommandsConfigureEnum.SILENT.get(shorted=self.build_short)
-            return command
-
-        return ''
-
-    def get_insecure_command(self: Self) -> CurlCommand | EmptyStr:
-        if self.insecure:
-            command = CommandsConfigureEnum.INSECURE.get(shorted=self.build_short)
-            return command
-
-        return ''
-
-    def get_include_command(self: Self) -> CurlCommand | EmptyStr:
-        if self.include:
-            command = CommandsConfigureEnum.INCLUDE.get(shorted=self.build_short)
-            return command
-
-        return ''
+    @property
+    def build_short(self: Self) -> bool:
+        return self._build_short

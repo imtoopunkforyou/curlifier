@@ -16,6 +16,7 @@ type HeaderValue = str
 type CurlCommandShort = str
 type CurlCommandLong = str
 type CurlCommand = CurlCommandShort | CurlCommandLong
+type CurlCommandTitle = str
 type HttpMethod = str
 type PreReqHttpMethod = str | Any | None
 type PreReqHttpBody = bytes | str | Any | None

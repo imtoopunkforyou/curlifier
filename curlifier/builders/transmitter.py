@@ -135,7 +135,7 @@ class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
         response: Response | None = None,
         prepared_request: PreparedRequest | None = None,
     ) -> None:
-        self.build_short = build_short
+        self._build_short = build_short
         super().__init__(response, prepared_request=prepared_request)
 
     def build(self: Self) -> str:
@@ -162,6 +162,10 @@ class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
             request_headers=request_headers,
             request_data=request_data,
         )
+
+    @property
+    def build_short(self: Self) -> bool:
+        return self._build_short
 
     def _build_executable_headers(self: Self) -> str:
         return ' '.join(
