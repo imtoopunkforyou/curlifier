@@ -14,6 +14,11 @@ class CommandsEnum(enum.Enum):
     Base class of the command curl structure.
     When initialized, it will take three values: title, short and long.
     """
+    __slots__ = (
+        '_short',
+        '_long',
+        '_title',
+    )
 
     def __init__(
         self: Self,
@@ -21,9 +26,21 @@ class CommandsEnum(enum.Enum):
         long: CurlCommandLong,
         title: CurlCommandTitle,
     ) -> None:
-        self.short = short
-        self.long = long
-        self.title = title
+        self._short = short
+        self._long = long
+        self._title = title
+
+    @property
+    def short(self: Self) -> str:
+        return self._short
+
+    @property
+    def long(self: Self) -> str:
+        return self._long
+
+    @property
+    def title(self: Self) -> str:
+        return self._title
 
     def get(self: Self, *, shorted: bool) -> CurlCommand:
         """
@@ -37,7 +54,7 @@ class CommandsEnum(enum.Enum):
         """
         return self.short if shorted else self.long
 
-    def __str__(self: Self) -> CurlCommandLong:
+    def __str__(self: Self) -> CurlCommandTitle:
         return self.title
 
 
