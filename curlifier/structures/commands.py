@@ -32,14 +32,17 @@ class CommandsEnum(enum.Enum):
 
     @property
     def short(self: Self) -> str:
+        """Short form."""
         return self._short
 
     @property
     def long(self: Self) -> str:
+        """Long form."""
         return self._long
 
     @property
     def title(self: Self) -> str:
+        """Human-readble name."""
         return self._title
 
     def get(self: Self, *, shorted: bool) -> CurlCommand:
