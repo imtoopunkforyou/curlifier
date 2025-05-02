@@ -1,4 +1,4 @@
-name: Coverage
+name: Update coverage badge
 
 on:
   push:
@@ -33,7 +33,7 @@ jobs:
           poetry install
 
       - name: Create coverage file
-        run: poetry run pytest ./tests --cov=curlifier
+        run: poetry run pytest ./tests/ --cov=curlifier
 
       - name: Create Badge
         run: |
