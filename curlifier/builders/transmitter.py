@@ -21,11 +21,20 @@ type FileFieldName = str
 
 
 class Decoder:
-
+    """Decodes the raw body of the request."""
     def decode(
         self: Self,
         data_for_decode: bytes | str,
     ) -> None | tuple[tuple[FileFieldName, FileNameWithExtension], ...] | str:
+        """
+        Decodes request bodies of different types: json, raw-data or files.
+
+        :param data_for_decode: Request body.
+        :type data_for_decode: bytes | str
+
+        :return: Decoded obj.
+        :rtype: None | tuple[tuple[FileFieldName, FileNameWithExtension], ...] | str
+        """
         if isinstance(data_for_decode, bytes):
             try:
                 return data_for_decode.decode('utf-8')
