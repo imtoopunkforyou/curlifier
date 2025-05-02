@@ -135,9 +135,16 @@ class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
     """Builds a curl command transfer part."""
 
     builded: ClassVar[ExecutableTemplate] = '{request_command} {method} \'{url}\' {request_headers} {request_data}'
+    """The template of the resulting executable command."""
+
     request_data: ClassVar[ExecutableTemplate] = '{command} \'{request_data}\''
+    """Resulting collected data template."""
+
     header: ClassVar[ExecutableTemplate] = '{command} \'{key}: {value}\''
-    request_files: ClassVar[ExecutableTemplate] = '{command} \'{field_name}=@{file_name}\''
+    """Resulting collected header template."""
+
+    request_file: ClassVar[ExecutableTemplate] = '{command} \'{field_name}=@{file_name}\''
+    """Resulting collected file template."""
 
     def __init__(
         self: Self,
@@ -198,7 +205,7 @@ class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
                 )
             elif isinstance(decode_body, tuple):
                 executable_files: str = ' '.join(
-                    self.request_files.format(
+                    self.request_file.format(
                         command=CommandsTransferEnum.FORM.get(shorted=self.build_short),
                         field_name=field_name,
                         file_name=file_name,
