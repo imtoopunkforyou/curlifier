@@ -1,9 +1,13 @@
 # curlifier
 [![coverage](https://raw.githubusercontent.com/imtoopunkforyou/curlifier/main/.github/badge/coverage.svg)](https://github.com/pytest-dev/pytest-cov)
+[![tests](https://github.com/imtoopunkforyou/curlifier/actions/workflows/tests.yaml/badge.svg)](https://github.com/imtoopunkforyou/curlifier/actions/workflows/tests.yaml)
 [![pypi package version](https://img.shields.io/pypi/v/curlifier.svg)](https://pypi.org/project/curlifier)
 [![pypi downloads](https://img.shields.io/pypi/dm/curlifier.svg)](https://pypi.org/project/curlifier)
 [![supported python versions](https://img.shields.io/pypi/pyversions/curlifier.svg)](https://pypi.org/project/curlifier)
 [![wemake-python-styleguide](https://img.shields.io/badge/style-wemake-000000.svg)](https://github.com/wemake-services/wemake-python-styleguide)
+[![license](https://img.shields.io/pypi/l/curlifier.svg)](https://github.com/imtoopunkforyou/curlifier/blob/main/LICENSE)
+
+
 ```
 ░█████╗░██╗░░░██╗██████╗░██╗░░░░░██╗███████╗██╗███████╗██████╗░
 ██╔══██╗██║░░░██║██╔══██╗██║░░░░░██║██╔════╝██║██╔════╝██╔══██╗
@@ -13,7 +17,7 @@
 ░╚════╝░░╚═════╝░╚═╝░░╚═╝╚══════╝╚═╝╚═╝░░░░░╚═╝╚══════╝╚═╝░░╚═╝
 ```
 
-Curlifier converts the [Request](https://requests.readthedocs.io/en/latest/api/#requests.Response) and [PreparedRequest](https://requests.readthedocs.io/en/latest/api/#requests.PreparedRequest) objects of the [Requests](https://pypi.org/project/requests/) library into an executable [curl](https://curl.se/) command.
+Converts the [Request](https://requests.readthedocs.io/en/latest/api/#requests.Response) and [PreparedRequest](https://requests.readthedocs.io/en/latest/api/#requests.PreparedRequest) objects of the [Requests](https://pypi.org/project/requests/) library into an executable [curl](https://curl.se/) command.
 
 ## Installation
 ```bash
