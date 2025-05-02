@@ -29,11 +29,11 @@ def curlify(
     :type shorted: bool
 
     :param config: Additional configuration options for curl command:
-        - **location** (bool) - Follow redirects (default: False)
-        - **verbose** (bool) - Verbose output (default: False)
-        - **silent** (bool) - Silent mode (default: False)
-        - **insecure** (bool) - Allow insecure connections (default: False)
-        - **include** (bool) - Include protocol headers (default: False)
+        - location (bool) - Follow redirects. Defaults to `False`.
+        - verbose (bool) - Verbose output. Defaults to `False`.
+        - silent (bool) - Silent mode. Defaults to `False`.
+        - insecure (bool) - Allow insecure connections. Defaults to `False`.
+        - include (bool) - Include protocol headers. Defaults to `False`.
     :type config: Unpack[CurlifyConfigure]
 
     :return: Executable curl command.
