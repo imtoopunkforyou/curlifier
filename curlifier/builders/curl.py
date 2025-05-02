@@ -1,4 +1,4 @@
-from typing import Self
+from typing import ClassVar, Self
 
 from requests.models import PreparedRequest, Response
 
@@ -10,7 +10,7 @@ from curlifier.builders.transmitter import TransmitterBuilder
 class CurlBuilder(Builder):
     """Builds the executable curl command."""
 
-    curl_command = 'curl'
+    curl_command: ClassVar[str] = 'curl'
 
     def __init__(  # noqa: WPS211
         self: Self,
