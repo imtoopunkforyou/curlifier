@@ -1,14 +1,13 @@
-from typing import ClassVar, Generator, Self, Unpack
+from typing import ClassVar, Generator, TypeAlias, TypeVar
 
 from curlifier.builders.base import Builder
 from curlifier.structures.commands import CommandsConfigureEnum
-from curlifier.structures.types import (
-    CurlCommand,
-    CurlCommandTitle,
-    CurlifyConfigure,
-)
+from curlifier.structures.types import CurlCommand, CurlCommandTitle
 
-type CommandMapping = tuple[tuple[CurlCommandTitle, CommandsConfigureEnum], ...]
+SelfConfig = TypeVar('SelfConfig', bound='Config')
+SelfConfigBuilder = TypeVar('SelfConfigBuilder', bound='ConfigBuilder')
+
+CommandMapping: TypeAlias = tuple[tuple[CurlCommandTitle, CommandsConfigureEnum], ...]
 
 
 class Config:
@@ -32,7 +31,7 @@ class Config:
     """Mapping for properties and commands. The property name must match the configuration command title."""
 
     def __init__(
-        self: Self,
+        self: SelfConfig,
         location: bool,
         verbose: bool,
         silent: bool,
@@ -46,27 +45,27 @@ class Config:
         self._include = include
 
     @property
-    def location(self: Self) -> bool:
+    def location(self: SelfConfig) -> bool:
         """Follow redirects."""
         return self._location
 
     @property
-    def verbose(self: Self) -> bool:
+    def verbose(self: SelfConfig) -> bool:
         """Make the operation more talkative."""
         return self._verbose
 
     @property
-    def silent(self: Self) -> bool:
+    def silent(self: SelfConfig) -> bool:
         """Silent mode."""
         return self._silent
 
     @property
-    def insecure(self: Self) -> bool:
+    def insecure(self: SelfConfig) -> bool:
         """Allow insecure server connections."""
         return self._insecure
 
     @property
-    def include(self: Self) -> bool:
+    def include(self: SelfConfig) -> bool:
         """Include protocol response headers in the output."""
         return self._include
 
@@ -79,14 +78,14 @@ class ConfigBuilder(Config, Builder):
     )
 
     def __init__(
-        self: Self,
+        self: SelfConfigBuilder,
         build_short: bool = False,
-        **config: Unpack[CurlifyConfigure],
+        **config: bool,
     ) -> None:
         self._build_short = build_short
         super().__init__(**config)
 
-    def build(self: Self) -> str:
+    def build(self: SelfConfigBuilder) -> str:
         """
         Collects all parameters into the resulting string.
 
@@ -117,5 +116,5 @@ class ConfigBuilder(Config, Builder):
         return ' '.join(cleaned_commands)
 
     @property
-    def build_short(self: Self) -> bool:
+    def build_short(self: SelfConfigBuilder) -> bool:
         return self._build_short

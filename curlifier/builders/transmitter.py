@@ -1,6 +1,6 @@
 import copy
 import re
-from typing import Any, ClassVar, Literal, Self
+from typing import Any, ClassVar, Literal, TypeAlias, TypeVar
 
 from requests import PreparedRequest, Response
 from requests.structures import CaseInsensitiveDict
@@ -9,21 +9,25 @@ from curlifier.builders.base import Builder
 from curlifier.structures.commands import CommandsTransferEnum
 from curlifier.structures.http_methods import HttpMethodsEnum
 
-type ExecutableTemplate = str
-type EmptyStr = Literal['']
-type HeaderKey = str
-type PreReqHttpMethod = str | Any | None
-type PreReqHttpBody = bytes | str | Any | None
-type PreReqHttpHeaders = CaseInsensitiveDict
-type PreReqHttpUrl = str | Any | None
-type FileNameWithExtension = str
-type FileFieldName = str
+ExecutableTemplate: TypeAlias = str
+EmptyStr: TypeAlias = Literal['']
+HeaderKey: TypeAlias = str
+PreReqHttpMethod: TypeAlias = str | Any | None
+PreReqHttpBody: TypeAlias = bytes | str | Any | None
+PreReqHttpHeaders: TypeAlias = CaseInsensitiveDict[str]
+PreReqHttpUrl: TypeAlias = str | Any | None
+FileNameWithExtension = str
+FileFieldName = str
+
+SelfDecoder = TypeVar('SelfDecoder', bound='Decoder')
+SelfPreparedTransmitter = TypeVar('SelfPreparedTransmitter', bound='PreparedTransmitter')
+SelfTransmitterBuilder = TypeVar('SelfTransmitterBuilder', bound='TransmitterBuilder')
 
 
 class Decoder:
     """Decodes the raw body of the request."""
     def decode(
-        self: Self,
+        self: SelfDecoder,
         data_for_decode: bytes | str,
     ) -> None | tuple[tuple[FileFieldName, FileNameWithExtension], ...] | str:
         """
@@ -46,7 +50,7 @@ class Decoder:
         return None
 
     def _decode_raw(
-        self: Self,
+        self: SelfDecoder,
         data_for_decode: str,
     ) -> str:
         re_expression = r'\s+'
@@ -54,7 +58,7 @@ class Decoder:
         return re.sub(re_expression, ' ', str(data_for_decode)).strip()
 
     def _decode_files(
-        self: Self,
+        self: SelfDecoder,
         data_for_decode: bytes,
     ) -> tuple[tuple[FileFieldName, FileNameWithExtension], ...] | None:
         re_expression = rb'name="([^"]+).*?filename="([^"]+)'
@@ -80,7 +84,7 @@ class PreparedTransmitter:
     """
 
     def __init__(
-        self: Self,
+        self: SelfPreparedTransmitter,
         response: Response | None = None,
         *,
         prepared_request: PreparedRequest | None = None,
@@ -98,19 +102,19 @@ class PreparedTransmitter:
         self._url: PreReqHttpUrl = self._pre_req.url
 
     @property
-    def url(self: Self) -> PreReqHttpUrl:
+    def url(self: SelfPreparedTransmitter) -> PreReqHttpUrl:
         return self._url
 
     @property
-    def method(self: Self) -> PreReqHttpMethod:
+    def method(self: SelfPreparedTransmitter) -> PreReqHttpMethod:
         return self._method
 
     @property
-    def body(self: Self) -> PreReqHttpBody:
+    def body(self: SelfPreparedTransmitter) -> PreReqHttpBody:
         return self._body
 
     @property
-    def headers(self: Self) -> PreReqHttpHeaders:
+    def headers(self: SelfPreparedTransmitter) -> PreReqHttpHeaders:
         cleared_headers = copy.deepcopy(self._headers)
         trash_headers: tuple[HeaderKey] = (
             'Content-Length',
@@ -124,7 +128,7 @@ class PreparedTransmitter:
         return cleared_headers
 
     @property
-    def has_body(self: Self) -> bool:
+    def has_body(self: SelfPreparedTransmitter) -> bool:
         if self._pre_req.method in HttpMethodsEnum.get_methods_with_body():
             return True
 
@@ -147,7 +151,7 @@ class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
     """Resulting collected file template."""
 
     def __init__(
-        self: Self,
+        self: SelfTransmitterBuilder,
         build_short: bool,
         response: Response | None = None,
         prepared_request: PreparedRequest | None = None,
@@ -155,7 +159,7 @@ class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
         self._build_short = build_short
         super().__init__(response, prepared_request=prepared_request)
 
-    def build(self: Self) -> str:
+    def build(self: SelfTransmitterBuilder) -> str:
         """
         Collects all parameters into the resulting string.
 
@@ -181,10 +185,10 @@ class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
         )
 
     @property
-    def build_short(self: Self) -> bool:
+    def build_short(self: SelfTransmitterBuilder) -> bool:
         return self._build_short
 
-    def _build_executable_headers(self: Self) -> str:
+    def _build_executable_headers(self: SelfTransmitterBuilder) -> str:
         return ' '.join(
             self.header.format(
                 command=CommandsTransferEnum.HEADER.get(shorted=self.build_short),
@@ -194,7 +198,7 @@ class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
         )
 
     def _build_executable_data(
-        self: Self,
+        self: SelfTransmitterBuilder,
     ) -> str | EmptyStr:
         if self.has_body:
             decode_body = self.decode(self.body)  # type: ignore [arg-type]

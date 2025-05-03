@@ -25,8 +25,8 @@ pip install curlifier
 ```
 
 ### Dependencies
-- `python (>=3.12, <4.0)`
-- `requests (>=2.30.3, <3.0.0)`
+- `python (>=3.10, <4.0)`
+- `requests (>=2.0, <3.0.0)`
 
 ## Usage
 All you need is to import `curlify`.  

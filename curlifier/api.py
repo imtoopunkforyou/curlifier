@@ -1,9 +1,6 @@
-from typing import Unpack
-
 from requests.models import PreparedRequest, Response
 
 from curlifier.builders.curl import CurlBuilder
-from curlifier.structures.types import CurlifyConfigure
 
 
 def curlify(
@@ -11,7 +8,7 @@ def curlify(
     *,
     prepared_request: PreparedRequest | None = None,
     shorted: bool = False,
-    **config: Unpack[CurlifyConfigure],
+    **config: bool,
 ) -> str:
     """
     The only correct entry point of the `curlifier` library.
@@ -34,7 +31,7 @@ def curlify(
         - silent (bool) - Silent mode. Defaults to `False`.
         - insecure (bool) - Allow insecure connections. Defaults to `False`.
         - include (bool) - Include protocol headers. Defaults to `False`.
-    :type config: Unpack[CurlifyConfigure]
+    :type config: bool
 
     :return: Executable curl command.
     :rtype: str
