@@ -35,7 +35,7 @@ jobs:
         run: |
           poetry config virtualenvs.in-project false
           poetry run pip install -U pip
-          poetry install
+          poetry install --without lint
 
       - name: Collect tests
         run: poetry run pytest ./tests/ --collect-only

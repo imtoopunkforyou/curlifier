@@ -17,7 +17,7 @@ jobs:
       - name: Set up Python version
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.10"
 
       - name: Install poetry
         run: |
@@ -28,7 +28,7 @@ jobs:
         run: |
           poetry config virtualenvs.in-project false
           poetry run pip install -U pip
-          poetry install
+          poetry install --only lint
       
       - name: Isort rules
         run: poetry run isort --check ./curlifier/ ./tests/
