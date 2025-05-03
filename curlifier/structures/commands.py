@@ -31,17 +31,17 @@ class CommandsEnum(enum.Enum):
         self._title = title
 
     @property
-    def short(self: Self) -> str:
+    def short(self: Self) -> CurlCommandShort:
         """Short form."""
         return self._short
 
     @property
-    def long(self: Self) -> str:
+    def long(self: Self) -> CurlCommandLong:
         """Long form."""
         return self._long
 
     @property
-    def title(self: Self) -> str:
+    def title(self: Self) -> CurlCommandTitle:
         """Human-readble name."""
         return self._title
 
@@ -56,9 +56,6 @@ class CommandsEnum(enum.Enum):
         :rtype: CurlCommand
         """
         return self.short if shorted else self.long
-
-    def __str__(self: Self) -> CurlCommandTitle:
-        return self.title
 
 
 @enum.unique

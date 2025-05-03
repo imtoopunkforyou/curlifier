@@ -8,7 +8,6 @@ def test_commands_configure_enum():
     for commands in CommandsConfigureEnum:
         assert commands.get(shorted=True) == commands.short
         assert commands.get(shorted=False) == commands.long
-        assert str(commands) == commands.title
         assert isinstance(commands.value, tuple)
         assert len(commands.value) == 3
 
@@ -17,6 +16,5 @@ def test_commands_transfer_enum():
     for commands in CommandsTransferEnum:
         assert commands.get(shorted=True) == commands.short
         assert commands.get(shorted=False) == commands.long
-        assert str(commands) == commands.title
         assert isinstance(commands.value, tuple)
         assert len(commands.value) == 3
