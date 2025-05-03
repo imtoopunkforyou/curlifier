@@ -22,8 +22,8 @@ keywords = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.12"
-requests = "^2.30"
+python = "^3.10"
+requests = "^2.0"
 
 
 [tool.poetry.group.lint.dependencies]
@@ -32,10 +32,6 @@ mypy = "^1.15.0"
 isort = "^6.0.1"
 types-requests = "^2.32.0.20250328"
 darglint = "^1.8.1"
-
-
-[tool.poetry.group.dev.dependencies]
-ipython = "^9.1.0"
 
 
 [tool.poetry.group.tests.dependencies]

@@ -1,9 +1,6 @@
-from typing import Unpack
-
 from requests.models import PreparedRequest, Response
 
 from curlifier.builders.curl import CurlBuilder
-from curlifier.structures.types import CurlifyConfigure
 
 
 def curlify(
@@ -11,7 +8,7 @@ def curlify(
     *,
     prepared_request: PreparedRequest | None = None,
     shorted: bool = False,
-    **config: Unpack[CurlifyConfigure],
+    **config: bool,
 ) -> str:
     """
     The only correct entry point of the `curlifier` library.

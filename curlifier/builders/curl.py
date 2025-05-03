@@ -1,10 +1,12 @@
-from typing import ClassVar, Self
+from typing import ClassVar, TypeVar
 
 from requests.models import PreparedRequest, Response
 
 from curlifier.builders.base import Builder
 from curlifier.builders.configurator import ConfigBuilder
 from curlifier.builders.transmitter import TransmitterBuilder
+
+SelfCurlBuilder = TypeVar('SelfCurlBuilder', bound='CurlBuilder')
 
 
 class CurlBuilder(Builder):
@@ -13,7 +15,7 @@ class CurlBuilder(Builder):
     curl_command: ClassVar[str] = 'curl'
 
     def __init__(  # noqa: WPS211
-        self: Self,
+        self: SelfCurlBuilder,
         location: bool,
         verbose: bool,
         silent: bool,
@@ -39,7 +41,7 @@ class CurlBuilder(Builder):
             build_short=self._build_short,
         )
 
-    def build(self: Self) -> str:
+    def build(self: SelfCurlBuilder) -> str:
         """
         Collects all parameters into the resulting string.
 
@@ -73,5 +75,5 @@ class CurlBuilder(Builder):
         return builded
 
     @property
-    def build_short(self: Self) -> bool:
+    def build_short(self: SelfCurlBuilder) -> bool:
         return self._build_short

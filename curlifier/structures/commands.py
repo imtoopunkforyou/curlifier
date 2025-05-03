@@ -1,5 +1,5 @@
 import enum
-from typing import Self
+from typing import TypeVar
 
 from curlifier.structures.types import (
     CurlCommand,
@@ -7,6 +7,8 @@ from curlifier.structures.types import (
     CurlCommandShort,
     CurlCommandTitle,
 )
+
+SelfCommandsEnums = TypeVar('SelfCommandsEnums', bound='CommandsEnum')
 
 
 class CommandsEnum(enum.Enum):
@@ -21,7 +23,7 @@ class CommandsEnum(enum.Enum):
     )
 
     def __init__(
-        self: Self,
+        self: SelfCommandsEnums,
         short: CurlCommandShort,
         long: CurlCommandLong,
         title: CurlCommandTitle,
@@ -31,21 +33,21 @@ class CommandsEnum(enum.Enum):
         self._title = title
 
     @property
-    def short(self: Self) -> CurlCommandShort:
+    def short(self: SelfCommandsEnums) -> CurlCommandShort:
         """Short form."""
         return self._short
 
     @property
-    def long(self: Self) -> CurlCommandLong:
+    def long(self: SelfCommandsEnums) -> CurlCommandLong:
         """Long form."""
         return self._long
 
     @property
-    def title(self: Self) -> CurlCommandTitle:
+    def title(self: SelfCommandsEnums) -> CurlCommandTitle:
         """Human-readble name."""
         return self._title
 
-    def get(self: Self, *, shorted: bool) -> CurlCommand:
+    def get(self: SelfCommandsEnums, *, shorted: bool) -> CurlCommand:
         """
         Returns curl command.
 

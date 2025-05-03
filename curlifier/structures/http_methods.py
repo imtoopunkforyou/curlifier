@@ -1,7 +1,7 @@
 import enum
-from typing import Self
+from typing import TypeAlias
 
-type HttpMethod = str
+HttpMethod: TypeAlias = str
 
 
 @enum.unique
@@ -17,7 +17,7 @@ class HttpMethodsEnum(enum.Enum):
     DELETE = 'DELETE'
 
     @classmethod
-    def get_methods_without_body(cls: type[Self]) -> tuple[HttpMethod, HttpMethod, HttpMethod, HttpMethod]:
+    def get_methods_without_body(cls: type['HttpMethodsEnum']) -> tuple[HttpMethod, HttpMethod, HttpMethod, HttpMethod]:
         """HTTP methods methods that have a body in the structure."""
         return (
             cls.GET.value,
@@ -27,7 +27,7 @@ class HttpMethodsEnum(enum.Enum):
         )
 
     @classmethod
-    def get_methods_with_body(cls: type[Self]) -> tuple[HttpMethod, HttpMethod, HttpMethod]:
+    def get_methods_with_body(cls: type['HttpMethodsEnum']) -> tuple[HttpMethod, HttpMethod, HttpMethod]:
         """HTTP methods that do not have a body in the structure"""
         return (
             cls.POST.value,
