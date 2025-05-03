@@ -31,7 +31,7 @@ def curlify(
         - silent (bool) - Silent mode. Defaults to `False`.
         - insecure (bool) - Allow insecure connections. Defaults to `False`.
         - include (bool) - Include protocol headers. Defaults to `False`.
-    :type config: Unpack[CurlifyConfigure]
+    :type config: bool
 
     :return: Executable curl command.
     :rtype: str
