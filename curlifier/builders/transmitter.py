@@ -16,8 +16,8 @@ PreReqHttpMethod: TypeAlias = str | Any | None
 PreReqHttpBody: TypeAlias = bytes | str | Any | None
 PreReqHttpHeaders: TypeAlias = CaseInsensitiveDict[str]
 PreReqHttpUrl: TypeAlias = str | Any | None
-FileNameWithExtension = str
-FileFieldName = str
+FileNameWithExtension: TypeAlias = str
+FileFieldName: TypeAlias = str
 
 SelfDecoder = TypeVar('SelfDecoder', bound='Decoder')
 SelfPreparedTransmitter = TypeVar('SelfPreparedTransmitter', bound='PreparedTransmitter')
