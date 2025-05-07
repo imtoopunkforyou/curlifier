@@ -186,6 +186,12 @@ class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
 
     @property
     def build_short(self: SelfTransmitterBuilder) -> bool:
+        """
+        Controlling the form of command.
+
+        :return: `True` and command will be short. Otherwise `False`.
+        :rtype: bool
+        """
         return self._build_short
 
     def _build_executable_headers(self: SelfTransmitterBuilder) -> str:

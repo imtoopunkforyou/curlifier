@@ -76,4 +76,10 @@ class CurlBuilder(Builder):
 
     @property
     def build_short(self: SelfCurlBuilder) -> bool:
+        """
+        Controlling the form of command.
+
+        :return: `True` and command will be short. Otherwise `False`.
+        :rtype: bool
+        """
         return self._build_short

@@ -117,4 +117,10 @@ class ConfigBuilder(Config, Builder):
 
     @property
     def build_short(self: SelfConfigBuilder) -> bool:
+        """
+        Controlling the form of command.
+
+        :return: `True` and command will be short. Otherwise `False`.
+        :rtype: bool
+        """
         return self._build_short
