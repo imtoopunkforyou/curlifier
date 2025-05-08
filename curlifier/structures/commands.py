@@ -1,12 +1,10 @@
 import enum
-from typing import TypeVar
+from typing import TypeAlias, TypeVar
 
-from curlifier.structures.types import (
-    CurlCommand,
-    CurlCommandLong,
-    CurlCommandShort,
-    CurlCommandTitle,
-)
+CurlCommandShort: TypeAlias = str
+CurlCommandLong: TypeAlias = str
+CurlCommand: TypeAlias = CurlCommandShort | CurlCommandLong
+CurlCommandTitle: TypeAlias = str
 
 SelfCommandsEnums = TypeVar('SelfCommandsEnums', bound='CommandsEnum')
 

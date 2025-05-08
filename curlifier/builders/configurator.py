@@ -1,8 +1,11 @@
 from typing import ClassVar, Generator, TypeAlias, TypeVar
 
 from curlifier.builders.base import Builder
-from curlifier.structures.commands import CommandsConfigureEnum
-from curlifier.structures.types import CurlCommand, CurlCommandTitle
+from curlifier.structures.commands import (
+    CommandsConfigureEnum,
+    CurlCommand,
+    CurlCommandTitle,
+)
 
 SelfConfig = TypeVar('SelfConfig', bound='Config')
 SelfConfigBuilder = TypeVar('SelfConfigBuilder', bound='ConfigBuilder')
