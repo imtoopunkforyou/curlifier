@@ -13,4 +13,4 @@
 - Follow our coding style. You can run `make lint` to check your code.
 - To run the tests, type `make test`.
 - To check your code style and run tests at the same time, type `make pre-commit`.
-- No matter how many commits your branch has, the commits will be squashed before merging.
+- No matter how many commits your PR has, the commits will be squashed before merging.
