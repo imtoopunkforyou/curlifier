@@ -81,6 +81,7 @@ class TestCurlWithBody:  # noqa: WPS216
             insecure=insecure,
             include=include,
         )
+        assert build_short == curl.build_short
         builded = curl.build()
         assert transmitter_builder_w_json_payload(
             build_short,

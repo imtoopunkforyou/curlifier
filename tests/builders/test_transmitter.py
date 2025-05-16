@@ -4,6 +4,7 @@ import pytest
 import requests
 
 from curlifier.builders.transmitter import (
+    Decoder,
     PreparedTransmitter,
     TransmitterBuilder,
 )
@@ -154,3 +155,22 @@ class TestTransmitterBuilderWithOutBody:
             http_method_without_body,
             fake_url,
         )
+
+
+def test_prepared_transmitter_w_exception(mock_response, fake_url, fake_json_like_dict):
+    with mock_response:
+        response = requests.request(
+            HttpMethodsEnum.POST.value,
+            url=fake_url,
+            json=fake_json_like_dict,
+        )
+    with pytest.raises(ValueError):
+        PreparedTransmitter(response, prepared_request='prepared_req_obj')
+
+
+def test_decoder_w_exception():
+    undecoded_obj = False
+    decoder = Decoder()
+
+    with pytest.raises(TypeError):
+        decoder.decode(undecoded_obj)
