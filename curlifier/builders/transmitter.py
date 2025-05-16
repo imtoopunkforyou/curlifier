@@ -29,15 +29,17 @@ class Decoder:
     def decode(
         self: SelfDecoder,
         data_for_decode: bytes | str,
-    ) -> None | tuple[tuple[FileFieldName, FileNameWithExtension], ...] | str:
+    ) -> tuple[tuple[FileFieldName, FileNameWithExtension], ...] | str:
         """
         Decodes request bodies of different types: json, raw-data or files.
 
         :param data_for_decode: Request body.
         :type data_for_decode: bytes | str
 
+        :raises TypeError: In case the body could not be decoded.
+
         :return: Decoded obj.
-        :rtype: None | tuple[tuple[FileFieldName, FileNameWithExtension], ...] | str
+        :rtype: tuple[tuple[FileFieldName, FileNameWithExtension], ...] | str
         """
         if isinstance(data_for_decode, bytes):
             try:
@@ -47,7 +49,7 @@ class Decoder:
         elif isinstance(data_for_decode, str):
             return self._decode_raw(data_for_decode)
 
-        return None
+        raise TypeError('Failed to decode.')
 
     def _decode_raw(
         self: SelfDecoder,
@@ -60,7 +62,7 @@ class Decoder:
     def _decode_files(
         self: SelfDecoder,
         data_for_decode: bytes,
-    ) -> tuple[tuple[FileFieldName, FileNameWithExtension], ...] | None:
+    ) -> tuple[tuple[FileFieldName, FileNameWithExtension], ...]:
         re_expression = rb'name="([^"]+).*?filename="([^"]+)'
         matches = re.findall(
             re_expression,
