@@ -58,3 +58,5 @@ curl --request POST 'https://httpbin.org/' <...> --header 'Content-Type: applica
 
 ## License
 Curlifier is released under the MIT License. See the bundled [LICENSE](https://github.com/imtoopunkforyou/curlifier/blob/main/LICENSE) file for details.
+
+The logo was created using [Font Meme](https://fontmeme.com/graffiti-creator/).
