@@ -7,7 +7,7 @@
 [![wemake-python-styleguide](https://img.shields.io/badge/style-wemake-000000.svg)](https://github.com/wemake-services/wemake-python-styleguide)
 [![license](https://img.shields.io/pypi/l/curlifier.svg)](https://github.com/imtoopunkforyou/curlifier/blob/main/LICENSE)
 
-![logo](./.github/badge/logo.png)
+![logo](./.github/badge/logo2.png)
 
 Converts the [Request](https://requests.readthedocs.io/en/latest/api/#requests.Response) and [PreparedRequest](https://requests.readthedocs.io/en/latest/api/#requests.PreparedRequest) objects of the [Requests](https://pypi.org/project/requests/) library into an executable [curl](https://curl.se/) command.
 
