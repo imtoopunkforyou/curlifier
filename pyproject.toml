@@ -17,8 +17,9 @@ homepage = "https://github.com/imtoopunkforyou/curlifier"
 keywords = [
   "curl",
   "curlify",
-  "python requests to curl",
-  "curlifier",
+  "to-curl",
+  "requests",
+  "request-converter",
 ]
 
 [tool.poetry.dependencies]
