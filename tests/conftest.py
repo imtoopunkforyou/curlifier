@@ -1,5 +1,6 @@
 import json
 import os
+from importlib import metadata
 from typing import NoReturn
 from unittest import mock
 
@@ -133,12 +134,12 @@ def fake_xml():
 
 
 @pytest.fixture
-def curlify_hp_curl():
+def curlify_hp_curl(version_of_requests):
     def _curlify_hp_curl(shorted, url, json):
         long = (
             "curl "
             "--request POST '{url}' "
-            "--header 'User-Agent: python-requests/2.32.3' "
+            "--header 'User-Agent: python-requests/{version}' "
             "--header 'Accept-Encoding: gzip, deflate' "
             "--header 'Accept: */*' "
             "--header 'Connection: keep-alive' "
@@ -149,7 +150,7 @@ def curlify_hp_curl():
         short = (
             "curl "
             "-X POST '{url}' "
-            "-H 'User-Agent: python-requests/2.32.3' "
+            "-H 'User-Agent: python-requests/{version}' "
             "-H 'Accept-Encoding: gzip, deflate' "
             "-H 'Accept: */*' "
             "-H 'Connection: keep-alive' "
@@ -161,6 +162,14 @@ def curlify_hp_curl():
         return current.format(
             url=url,
             json=json,
+            version=version_of_requests,
         )
 
     return _curlify_hp_curl
+
+
+@pytest.fixture
+def version_of_requests() -> str:
+    version = metadata.version("requests")
+
+    return version
