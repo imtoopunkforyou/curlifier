@@ -26,6 +26,7 @@ SelfTransmitterBuilder = TypeVar('SelfTransmitterBuilder', bound='TransmitterBui
 
 class Decoder:
     """Decodes the raw body of the request."""
+
     def decode(
         self: SelfDecoder,
         data_for_decode: bytes | str,

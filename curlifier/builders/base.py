@@ -7,6 +7,8 @@ SelfBuilder = TypeVar('SelfBuilder', bound='Builder')
 class Builder(ABC):
     """Abstract for builders."""
 
+    __slots__ = ()
+
     @abstractmethod
     def build(self: SelfBuilder) -> str:
         """Assembles the result string that is part of the `curl` command."""
