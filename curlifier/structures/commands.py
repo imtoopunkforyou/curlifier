@@ -12,13 +12,9 @@ SelfCommandsEnums = TypeVar('SelfCommandsEnums', bound='CommandsEnum')
 class CommandsEnum(enum.Enum):
     """
     Base class of the command curl structure.
+
     When initialized, it will take three values: title, short and long.
     """
-    __slots__ = (
-        '_short',
-        '_long',
-        '_title',
-    )
 
     def __init__(
         self: SelfCommandsEnums,
