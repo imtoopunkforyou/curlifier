@@ -1,12 +1,10 @@
 import enum
-from typing import TypeAlias, TypeVar
+from typing import TypeAlias
 
 CurlCommandShort: TypeAlias = str
 CurlCommandLong: TypeAlias = str
 CurlCommand: TypeAlias = CurlCommandShort | CurlCommandLong
 CurlCommandTitle: TypeAlias = str
-
-SelfCommandsEnums = TypeVar('SelfCommandsEnums', bound='CommandsEnum')
 
 
 class CommandsEnum(enum.Enum):

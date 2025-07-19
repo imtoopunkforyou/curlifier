@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, ClassVar, TypeAlias, TypeVar
+from typing import TYPE_CHECKING, ClassVar, TypeAlias
 
 from curlifier.builders.base import Builder
 from curlifier.structures.commands import (
@@ -9,9 +9,6 @@ from curlifier.structures.commands import (
 
 if TYPE_CHECKING:  # pragma: no cover
     from collections.abc import Generator
-
-SelfConfig = TypeVar('SelfConfig', bound='Config')
-SelfConfigBuilder = TypeVar('SelfConfigBuilder', bound='ConfigBuilder')
 
 CommandMapping: TypeAlias = tuple[tuple[CurlCommandTitle, CommandsConfigureEnum], ...]
 
