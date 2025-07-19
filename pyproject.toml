@@ -42,6 +42,7 @@ mypy = "^1.15.0"
 isort = "^6.0.1"
 types-requests = "^2.32.0.20250328"
 darglint = "^1.8.1"
+ruff = "^0.12.4"
 
 
 [tool.poetry.group.tests.dependencies]

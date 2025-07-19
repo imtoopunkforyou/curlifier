@@ -1,0 +1,37 @@
+# Full overview of ruff rules see at
+# https://docs.astral.sh/ruff/rules/#rules
+target-version = "py310"
+fix = true
+cache-dir = ".ruff_cache"
+exclude = [
+    ".ruff_cache",
+    ".venv",
+    "venv",
+]
+indent-width = 4
+line-length = 120
+output-format = "grouped"
+
+
+[lint.flake8-quotes]
+inline-quotes = "single"
+multiline-quotes = "double"
+docstring-quotes = "double"
+
+[lint]
+mccabe.max-complexity = 6
+pydocstyle.convention = "google"
+select = [
+    "ALL",
+]
+ignore = [
+    # "COM812",
+    "D100",
+]
+
+[format]
+skip-magic-trailing-comma = false
+docstring-code-format = true
+docstring-code-line-length = 120
+indent-style = "space"
+quote-style = "single"
