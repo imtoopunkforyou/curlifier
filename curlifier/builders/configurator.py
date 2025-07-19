@@ -1,4 +1,4 @@
-from typing import ClassVar, Generator, TypeAlias, TypeVar
+from typing import TYPE_CHECKING, ClassVar, TypeAlias, TypeVar
 
 from curlifier.builders.base import Builder
 from curlifier.structures.commands import (
@@ -6,6 +6,9 @@ from curlifier.structures.commands import (
     CurlCommand,
     CurlCommandTitle,
 )
+
+if TYPE_CHECKING:
+    from collections.abc import Generator
 
 SelfConfig = TypeVar('SelfConfig', bound='Config')
 SelfConfigBuilder = TypeVar('SelfConfigBuilder', bound='ConfigBuilder')
@@ -17,11 +20,11 @@ class Config:
     """Parameters for curl command configuration."""
 
     __slots__ = (
-        '_location',
-        '_verbose',
-        '_silent',
-        '_insecure',
         '_include',
+        '_insecure',
+        '_location',
+        '_silent',
+        '_verbose',
     )
 
     command_mapping: ClassVar[CommandMapping] = (
@@ -34,7 +37,8 @@ class Config:
     """Mapping for properties and commands. The property name must match the configuration command title."""
 
     def __init__(
-        self: SelfConfig,
+        self,
+        *,
         location: bool,
         verbose: bool,
         silent: bool,
@@ -48,27 +52,27 @@ class Config:
         self._include = include
 
     @property
-    def location(self: SelfConfig) -> bool:
+    def location(self) -> bool:
         """Follow redirects."""
         return self._location
 
     @property
-    def verbose(self: SelfConfig) -> bool:
+    def verbose(self) -> bool:
         """Make the operation more talkative."""
         return self._verbose
 
     @property
-    def silent(self: SelfConfig) -> bool:
+    def silent(self) -> bool:
         """Silent mode."""
         return self._silent
 
     @property
-    def insecure(self: SelfConfig) -> bool:
+    def insecure(self) -> bool:
         """Allow insecure server connections."""
         return self._insecure
 
     @property
-    def include(self: SelfConfig) -> bool:
+    def include(self) -> bool:
         """Include protocol response headers in the output."""
         return self._include
 
@@ -76,21 +80,19 @@ class Config:
 class ConfigBuilder(Config, Builder):
     """Builds a curl command configuration line."""
 
-    __slots__ = (
-        '_build_short',
-    )
+    __slots__ = ('_build_short',)
 
     def __init__(
-        self: SelfConfigBuilder,
+        self,
+        *,
         build_short: bool = False,
         **config: bool,
     ) -> None:
         self._build_short = build_short
         super().__init__(**config)
 
-    def build(self: SelfConfigBuilder) -> str:
-        """
-        Collects all parameters into the resulting string.
+    def build(self) -> str:
+        """Collects all parameters into the resulting string.
 
         If `build_short` is `True` will be collected short version.
 
@@ -112,16 +114,13 @@ class ConfigBuilder(Config, Builder):
                 command = command_enum.get(shorted=self.build_short)
                 command_parts.append(command)
 
-        cleaned_commands: Generator[CurlCommand, None, None] = (
-            command for command in command_parts if command
-        )
+        cleaned_commands: Generator[CurlCommand, None, None] = (command for command in command_parts if command)
 
         return ' '.join(cleaned_commands)
 
     @property
-    def build_short(self: SelfConfigBuilder) -> bool:
-        """
-        Controlling the form of command.
+    def build_short(self) -> bool:
+        """Controlling the form of command.
 
         :return: `True` and command will be short. Otherwise `False`.
         :rtype: bool

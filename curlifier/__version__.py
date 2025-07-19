@@ -29,12 +29,10 @@ LICENSE: Final[str] = pkg_data['License']
 
 def get_package_information() -> dict[str, str]:
     """Short info about package."""
-    pkg_info = {
+    return {
         'name': NAME,
         'version': VERSION,
         'author': AUTHOR,
         'author_email': AUTHOR_EMAIL,
         'license': LICENSE,
     }
-
-    return pkg_info

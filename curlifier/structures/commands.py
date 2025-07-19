@@ -10,14 +10,13 @@ SelfCommandsEnums = TypeVar('SelfCommandsEnums', bound='CommandsEnum')
 
 
 class CommandsEnum(enum.Enum):
-    """
-    Base class of the command curl structure.
+    """Base class of the command curl structure.
 
     When initialized, it will take three values: title, short and long.
     """
 
     def __init__(
-        self: SelfCommandsEnums,
+        self,
         short: CurlCommandShort,
         long: CurlCommandLong,
         title: CurlCommandTitle,
@@ -27,23 +26,22 @@ class CommandsEnum(enum.Enum):
         self._title = title
 
     @property
-    def short(self: SelfCommandsEnums) -> CurlCommandShort:
+    def short(self) -> CurlCommandShort:
         """Short form."""
         return self._short
 
     @property
-    def long(self: SelfCommandsEnums) -> CurlCommandLong:
+    def long(self) -> CurlCommandLong:
         """Long form."""
         return self._long
 
     @property
-    def title(self: SelfCommandsEnums) -> CurlCommandTitle:
+    def title(self) -> CurlCommandTitle:
         """Human-readble name."""
         return self._title
 
-    def get(self: SelfCommandsEnums, *, shorted: bool) -> CurlCommand:
-        """
-        Returns curl command.
+    def get(self, *, shorted: bool) -> CurlCommand:
+        """Returns curl command.
 
         :param shorted: `True` if you need a short version of the command. Otherwise `False`.
         :type shorted: bool

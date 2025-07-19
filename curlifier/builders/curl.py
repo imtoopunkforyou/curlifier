@@ -14,8 +14,9 @@ class CurlBuilder(Builder):
 
     curl_command: ClassVar[str] = 'curl'
 
-    def __init__(  # noqa: WPS211
-        self: SelfCurlBuilder,
+    def __init__(  # noqa: PLR0913, WPS211
+        self,
+        *,
         location: bool,
         verbose: bool,
         silent: bool,
@@ -24,7 +25,6 @@ class CurlBuilder(Builder):
         build_short: bool,
         response: Response | None = None,
         prepared_request: PreparedRequest | None = None,
-
     ) -> None:
         self._build_short = build_short
         self.config = ConfigBuilder(
@@ -41,9 +41,8 @@ class CurlBuilder(Builder):
             build_short=self._build_short,
         )
 
-    def build(self: SelfCurlBuilder) -> str:
-        """
-        Collects all parameters into the resulting string.
+    def build(self) -> str:
+        """Collects all parameters into the resulting string.
 
         If `build_short` is `True` will be collected short version.
 
@@ -62,22 +61,17 @@ class CurlBuilder(Builder):
         >>> curl_builder.build()
         "curl -X GET 'https://example.com/' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' <...> -L"
         """
-        builded_config: str = self.config.build()
-        builded_transmitter: str = self.transmitter.build()
-        builded: str = ' '.join(
-            (
-                self.curl_command,
-                builded_transmitter,
-                builded_config,
-            ),
+        builded = '{curl_command} {builded_transmitter} {builded_config}'
+
+        return builded.format(
+            curl_command=self.curl_command,
+            builded_transmitter=self.transmitter.build(),
+            builded_config=self.config.build(),
         )
 
-        return builded
-
     @property
-    def build_short(self: SelfCurlBuilder) -> bool:
-        """
-        Controlling the form of command.
+    def build_short(self) -> bool:
+        """Controlling the form of command.
 
         :return: `True` and command will be short. Otherwise `False`.
         :rtype: bool

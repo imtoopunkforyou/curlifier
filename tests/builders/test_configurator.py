@@ -4,13 +4,13 @@ from curlifier.builders.configurator import ConfigBuilder
 from curlifier.structures.commands import CommandsConfigureEnum
 
 
-@pytest.mark.parametrize('location', (True, False))
-@pytest.mark.parametrize('verbose', (True, False))
-@pytest.mark.parametrize('silent', (True, False))
-@pytest.mark.parametrize('insecure', (True, False))
-@pytest.mark.parametrize('include', (True, False))
-@pytest.mark.parametrize('build_short', (True, False))
-def test_config_builder(  # noqa: WPS211, WPS218, WPS216
+@pytest.mark.parametrize('location', [True, False])
+@pytest.mark.parametrize('verbose', [True, False])
+@pytest.mark.parametrize('silent', [True, False])
+@pytest.mark.parametrize('insecure', [True, False])
+@pytest.mark.parametrize('include', [True, False])
+@pytest.mark.parametrize('build_short', [True, False])
+def test_config_builder(
     location,
     verbose,
     silent,

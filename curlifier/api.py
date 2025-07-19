@@ -10,8 +10,7 @@ def curlify(
     shorted: bool = False,
     **config: bool,
 ) -> str:
-    """
-    The only correct entry point of the `curlifier` library.
+    """The only correct entry point of the `curlifier` library.
 
     :param response: The `requests` library Response object.
                      Must be specified if the `prepared_request` argument is not specified.

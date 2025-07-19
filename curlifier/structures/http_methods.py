@@ -28,7 +28,7 @@ class HttpMethodsEnum(enum.Enum):
 
     @classmethod
     def get_methods_with_body(cls: type['HttpMethodsEnum']) -> tuple[HttpMethod, HttpMethod, HttpMethod]:
-        """HTTP methods that do not have a body in the structure"""
+        """HTTP methods that do not have a body in the structure."""
         return (
             cls.POST.value,
             cls.PUT.value,

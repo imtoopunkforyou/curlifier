@@ -5,11 +5,12 @@ make:
 
 # === Dev ===
 lint:
-	poetry run flake8 ./curlifier ./tests \
+	poetry run ruff check ./curlifier ./tests \
+	&& poetry run ruff format ./curlifier ./tests \
+    && poetry run flake8 ./curlifier \
 	&& poetry run mypy ./curlifier --no-pretty
 pre-commit:
-	poetry run isort ./curlifier ./tests \
-	&& make lint \
+	make lint \
 	&& make test
 test-collect:
 	poetry run pytest ./tests/ --collect-only
