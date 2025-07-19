@@ -6,6 +6,7 @@ from requests import PreparedRequest, Response
 from requests.structures import CaseInsensitiveDict
 
 from curlifier.builders.base import Builder
+from curlifier.builders.exceptions import DecodeError, MutuallyExclusiveArgsError
 from curlifier.structures.commands import CommandsTransferEnum
 from curlifier.structures.http_methods import HttpMethodsEnum
 
@@ -49,7 +50,7 @@ class Decoder:
         elif isinstance(data_for_decode, str):
             return self._decode_raw(data_for_decode)
 
-        raise TypeError('Failed to decode.')
+        raise DecodeError(data_for_decode)
 
     def _decode_raw(
         self,
@@ -74,14 +75,16 @@ class Decoder:
             (
                 field_name.decode(),
                 file_name.decode(),
-            ) for field_name, file_name in matches
+            )
+            for field_name, file_name in matches
         )
 
 
 class PreparedTransmitter:
     """Prepares request data for processing.
 
-    Works on a copy of the request object. The original object will not be modified.
+    Works on a copy of the request object.
+    The original object will not be modified.
     """
 
     def __init__(
@@ -91,9 +94,10 @@ class PreparedTransmitter:
         prepared_request: PreparedRequest | None = None,
     ) -> None:
         if sum(arg is not None for arg in (response, prepared_request)) != 1:
-            raise ValueError('Only one argument must be specified: `response` or `prepared_request`')
+            raise MutuallyExclusiveArgsError(response, prepared_request)
         self._pre_req: PreparedRequest = (
-            prepared_request.copy() if response is None  # type: ignore [union-attr]
+            prepared_request.copy()
+            if response is None  # type: ignore [union-attr]
             else response.request.copy()
         )
 
@@ -104,22 +108,24 @@ class PreparedTransmitter:
 
     @property
     def url(self) -> PreReqHttpUrl:
+        """Url from `Response` or `PreparedRequest` object."""
         return self._url
 
     @property
     def method(self) -> PreReqHttpMethod:
+        """Method from `Response` or `PreparedRequest` object."""
         return self._method
 
     @property
     def body(self) -> PreReqHttpBody:
+        """Body from `Response` or `PreparedRequest` object."""
         return self._body
 
     @property
     def headers(self) -> PreReqHttpHeaders:
+        """Headers from `Response` or `PreparedRequest` object."""
         cleared_headers = copy.deepcopy(self._headers)
-        trash_headers: tuple[HeaderKey] = (
-            'Content-Length',
-        )
+        trash_headers: tuple[HeaderKey] = ('Content-Length',)
         for header in trash_headers:
             cleared_headers.pop(header, None)
 
@@ -130,10 +136,8 @@ class PreparedTransmitter:
 
     @property
     def has_body(self) -> bool:
-        if self._pre_req.method in HttpMethodsEnum.get_methods_with_body():
-            return True
-
-        return False
+        """True if there is a request body."""
+        return bool(self._pre_req.method in HttpMethodsEnum.get_methods_with_body())
 
 
 class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
@@ -153,6 +157,7 @@ class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
 
     def __init__(
         self,
+        *,
         build_short: bool,
         response: Response | None = None,
         prepared_request: PreparedRequest | None = None,
@@ -199,7 +204,8 @@ class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
                 command=CommandsTransferEnum.HEADER.get(shorted=self.build_short),
                 key=header_key,
                 value=header_value,
-            ) for header_key, header_value in self.headers.items()
+            )
+            for header_key, header_value in self.headers.items()
         )
 
     def _build_executable_data(
@@ -218,7 +224,8 @@ class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
                         command=CommandsTransferEnum.FORM.get(shorted=self.build_short),
                         field_name=field_name,
                         file_name=file_name,
-                    ) for field_name, file_name in decode_body
+                    )
+                    for field_name, file_name in decode_body
                 )
                 return executable_files
 

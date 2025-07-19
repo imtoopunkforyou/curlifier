@@ -12,12 +12,10 @@ from curlifier.structures.http_methods import HttpMethodsEnum
 
 
 class PreparedTransmitterTest:
-    trash_headers = (
-        'Content-Length',
-    )
+    trash_headers = ('Content-Length',)
 
 
-@pytest.mark.parametrize('http_method_w_body', [method for method in HttpMethodsEnum.get_methods_with_body()])
+@pytest.mark.parametrize('http_method_w_body', list(HttpMethodsEnum.get_methods_with_body()))
 class TestPreparedTransmitterWithBody(PreparedTransmitterTest):
     def test_w_files(self, http_method_w_body, mock_response, fake_url, files):
         with mock_response:
@@ -56,10 +54,9 @@ class TestPreparedTransmitterWithBody(PreparedTransmitterTest):
 
 @pytest.mark.parametrize(
     'http_method_without_body',
-    [method for method in HttpMethodsEnum.get_methods_without_body()],
+    list(HttpMethodsEnum.get_methods_without_body()),
 )
 class TestPreparedTransmitterWithOutBody(PreparedTransmitterTest):
-
     def test_without_body(self, http_method_without_body, mock_response, fake_url):
         with mock_response:
             response = requests.request(http_method_without_body, url=fake_url)
@@ -73,8 +70,8 @@ class TestPreparedTransmitterWithOutBody(PreparedTransmitterTest):
             assert prepared_transmitter.headers.get(header) is None
 
 
-@pytest.mark.parametrize('http_method_w_body', [method for method in HttpMethodsEnum.get_methods_with_body()])
-@pytest.mark.parametrize('build_short', (True, False))
+@pytest.mark.parametrize('http_method_w_body', list(HttpMethodsEnum.get_methods_with_body()))
+@pytest.mark.parametrize('build_short', [True, False])
 class TestTransmitterBuilderWithBody:
     def test_request_w_files(
         self,
@@ -134,9 +131,9 @@ class TestTransmitterBuilderWithBody:
 
 @pytest.mark.parametrize(
     'http_method_without_body',
-    [method for method in HttpMethodsEnum.get_methods_without_body()],
+    list(HttpMethodsEnum.get_methods_without_body()),
 )
-@pytest.mark.parametrize('build_short', (True, False))
+@pytest.mark.parametrize('build_short', [True, False])
 class TestTransmitterBuilderWithOutBody:
     def test_request_without_body(
         self,

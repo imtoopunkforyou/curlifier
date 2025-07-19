@@ -1,5 +1,4 @@
-from collections.abc import Generator
-from typing import ClassVar, TypeAlias, TypeVar
+from typing import TYPE_CHECKING, ClassVar, TypeAlias, TypeVar
 
 from curlifier.builders.base import Builder
 from curlifier.structures.commands import (
@@ -7,6 +6,9 @@ from curlifier.structures.commands import (
     CurlCommand,
     CurlCommandTitle,
 )
+
+if TYPE_CHECKING:
+    from collections.abc import Generator
 
 SelfConfig = TypeVar('SelfConfig', bound='Config')
 SelfConfigBuilder = TypeVar('SelfConfigBuilder', bound='ConfigBuilder')
@@ -36,6 +38,7 @@ class Config:
 
     def __init__(
         self,
+        *,
         location: bool,
         verbose: bool,
         silent: bool,
@@ -77,12 +80,11 @@ class Config:
 class ConfigBuilder(Config, Builder):
     """Builds a curl command configuration line."""
 
-    __slots__ = (
-        '_build_short',
-    )
+    __slots__ = ('_build_short',)
 
     def __init__(
         self,
+        *,
         build_short: bool = False,
         **config: bool,
     ) -> None:
@@ -112,9 +114,7 @@ class ConfigBuilder(Config, Builder):
                 command = command_enum.get(shorted=self.build_short)
                 command_parts.append(command)
 
-        cleaned_commands: Generator[CurlCommand, None, None] = (
-            command for command in command_parts if command
-        )
+        cleaned_commands: Generator[CurlCommand, None, None] = (command for command in command_parts if command)
 
         return ' '.join(cleaned_commands)
 
