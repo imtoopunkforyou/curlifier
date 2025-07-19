@@ -30,11 +30,11 @@ jobs:
           poetry run pip install -U pip
           poetry install --only lint
       
-      - name: Isort rules
-        run: poetry run isort --check ./curlifier/ ./tests/
+      - name: Ruff check
+        run: poetry run ruff check ./curlifier ./tests
 
-      - name: Flake8 rules
+      - name: WPS rules
         run: poetry run flake8 ./curlifier/ ./tests/
 
-      - name: Mypy rules
+      - name: Mypy
         run: poetry run mypy ./curlifier/
