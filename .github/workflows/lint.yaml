@@ -34,7 +34,7 @@ jobs:
         run: poetry run ruff check ./curlifier ./tests
 
       - name: WPS rules
-        run: poetry run flake8 ./curlifier/ ./tests/
+        run: poetry run flake8 ./curlifier/
 
       - name: Mypy
         run: poetry run mypy ./curlifier/

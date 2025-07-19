@@ -39,9 +39,7 @@ requests = "^2.0"
 [tool.poetry.group.lint.dependencies]
 wemake-python-styleguide = "^1.1.0"
 mypy = "^1.15.0"
-isort = "^6.0.1"
 types-requests = "^2.32.0.20250328"
-darglint = "^1.8.1"
 ruff = "^0.12.4"
 
 
