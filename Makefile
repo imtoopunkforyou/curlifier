@@ -16,6 +16,8 @@ test-collect:
 	poetry run pytest ./tests/ --collect-only
 test:
 	poetry run pytest ./tests/ 
+cov-report:
+	poetry run pytest ./tests --cov=curlifier --cov-report=html
 
 # === Aliases ===
 pc: pre-commit

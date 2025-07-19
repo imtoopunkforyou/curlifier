@@ -7,7 +7,7 @@ from curlifier.structures.commands import (
     CurlCommandTitle,
 )
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: no cover
     from collections.abc import Generator
 
 SelfConfig = TypeVar('SelfConfig', bound='Config')
