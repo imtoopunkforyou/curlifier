@@ -17,8 +17,8 @@ from curlifier.structures.http_methods import HttpMethodsEnum
 @pytest.mark.parametrize('include', (True, False))
 @pytest.mark.parametrize('http_method_w_body', [method for method in HttpMethodsEnum.get_methods_with_body()])
 @pytest.mark.parametrize('build_short', (True, False))
-class TestCurlWithBody:  # noqa: WPS216
-    def test_request_w_files(  # noqa: WPS211, WPS218
+class TestCurlWithBody:
+    def test_request_w_files(
         self,
         http_method_w_body,
         mock_response,
@@ -56,7 +56,7 @@ class TestCurlWithBody:  # noqa: WPS216
         if include:
             assert CommandsConfigureEnum.INCLUDE.get(shorted=build_short) in builded
 
-    def test_request_w_json(  # noqa: WPS211, WPS218
+    def test_request_w_json(
         self,
         http_method_w_body,
         mock_response,
@@ -101,7 +101,7 @@ class TestCurlWithBody:  # noqa: WPS216
         if include:
             assert CommandsConfigureEnum.INCLUDE.get(shorted=build_short) in builded
 
-    def test_request_w_data(  # noqa: WPS211, WPS218
+    def test_request_w_data(
         self,
         http_method_w_body,
         mock_response,
@@ -156,8 +156,8 @@ class TestCurlWithBody:  # noqa: WPS216
     'http_method_without_body',
     [method for method in HttpMethodsEnum.get_methods_without_body()],
 )
-class TestCurlWithOutBody:  # noqa: WPS216
-    def test_request_without_body(  # noqa: WPS211, WPS218
+class TestCurlWithOutBody:
+    def test_request_without_body(
         self,
         mock_response,
         fake_url,

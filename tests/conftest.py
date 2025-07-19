@@ -28,7 +28,7 @@ def ban_external_requests(monkeypatch, mock_response_target):
         raise RuntimeError(
             msg.format(
                 host=http_connection_pool.host,
-            )
+            ),
         )
 
     monkeypatch.setattr(
@@ -118,7 +118,7 @@ def files(file_path_builder):
     return {
         'field_for_pic': open(pic, 'rb'),
         'field_for_voice': open(voice, 'rb'),
-        'field_for_text': open(text, 'r'),
+        'field_for_text': open(text),
     }
 
 
@@ -170,6 +170,6 @@ def curlify_hp_curl(version_of_requests):
 
 @pytest.fixture
 def version_of_requests() -> str:
-    version = metadata.version("requests")
+    version = metadata.version('requests')
 
     return version

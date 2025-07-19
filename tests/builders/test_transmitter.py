@@ -76,7 +76,7 @@ class TestPreparedTransmitterWithOutBody(PreparedTransmitterTest):
 @pytest.mark.parametrize('http_method_w_body', [method for method in HttpMethodsEnum.get_methods_with_body()])
 @pytest.mark.parametrize('build_short', (True, False))
 class TestTransmitterBuilderWithBody:
-    def test_request_w_files(  # noqa: WPS211
+    def test_request_w_files(
         self,
         http_method_w_body,
         mock_response,
@@ -91,7 +91,7 @@ class TestTransmitterBuilderWithBody:
         builded = transmitter_builder.build()
         assert builded == transmitter_builder_w_files_payload(build_short, http_method_w_body, fake_url)
 
-    def test_request_w_json(  # noqa: WPS211
+    def test_request_w_json(
         self,
         http_method_w_body,
         mock_response,
@@ -111,7 +111,7 @@ class TestTransmitterBuilderWithBody:
             json.dumps(fake_json_like_dict),
         )
 
-    def test_request_w_data(  # noqa: WPS211
+    def test_request_w_data(
         self,
         http_method_w_body,
         mock_response,

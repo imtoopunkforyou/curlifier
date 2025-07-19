@@ -10,7 +10,7 @@ from curlifier.structures.commands import CommandsConfigureEnum
 @pytest.mark.parametrize('insecure', (True, False))
 @pytest.mark.parametrize('include', (True, False))
 @pytest.mark.parametrize('build_short', (True, False))
-def test_config_builder(  # noqa: WPS211, WPS218, WPS216
+def test_config_builder(
     location,
     verbose,
     silent,

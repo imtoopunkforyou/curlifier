@@ -14,8 +14,8 @@ class CurlBuilder(Builder):
 
     curl_command: ClassVar[str] = 'curl'
 
-    def __init__(  # noqa: WPS211
-        self: SelfCurlBuilder,
+    def __init__(
+        self,
         location: bool,
         verbose: bool,
         silent: bool,
@@ -41,9 +41,8 @@ class CurlBuilder(Builder):
             build_short=self._build_short,
         )
 
-    def build(self: SelfCurlBuilder) -> str:
-        """
-        Collects all parameters into the resulting string.
+    def build(self) -> str:
+        """Collects all parameters into the resulting string.
 
         If `build_short` is `True` will be collected short version.
 
@@ -75,9 +74,8 @@ class CurlBuilder(Builder):
         return builded
 
     @property
-    def build_short(self: SelfCurlBuilder) -> bool:
-        """
-        Controlling the form of command.
+    def build_short(self) -> bool:
+        """Controlling the form of command.
 
         :return: `True` and command will be short. Otherwise `False`.
         :rtype: bool
