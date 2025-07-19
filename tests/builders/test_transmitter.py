@@ -3,6 +3,7 @@ import json
 import pytest
 import requests
 
+from curlifier.builders.exceptions import DecodeError, MutuallyExclusiveArgsError
 from curlifier.builders.transmitter import (
     Decoder,
     PreparedTransmitter,
@@ -161,7 +162,7 @@ def test_prepared_transmitter_w_exception(mock_response, fake_url, fake_json_lik
             url=fake_url,
             json=fake_json_like_dict,
         )
-    with pytest.raises(ValueError):
+    with pytest.raises(MutuallyExclusiveArgsError):
         PreparedTransmitter(response, prepared_request='prepared_req_obj')
 
 
@@ -169,5 +170,5 @@ def test_decoder_w_exception():
     undecoded_obj = False
     decoder = Decoder()
 
-    with pytest.raises(TypeError):
+    with pytest.raises(DecodeError):
         decoder.decode(undecoded_obj)

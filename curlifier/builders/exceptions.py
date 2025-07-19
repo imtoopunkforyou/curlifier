@@ -1,3 +1,6 @@
+from requests import PreparedRequest, Response
+
+
 class DecodeError(TypeError):
     """Data could not be decoded."""
 
@@ -11,8 +14,8 @@ class MutuallyExclusiveArgsError(ValueError):
 
     def __init__(
         self,
-        first: str,
-        second: str,
+        request: Response | None,
+        prepared_request: PreparedRequest | None,
     ) -> None:
-        msg = 'Only one argument must be specified, but you specified at the same time `{first}` and `{second}`'
-        super().__init__(msg.format(first=first, second=second))
+        msg = 'Only one argument must be specified: `request={request}` or `prepared_request={prepared_request}`'
+        super().__init__(msg.format(request=request, prepared_request=prepared_request))

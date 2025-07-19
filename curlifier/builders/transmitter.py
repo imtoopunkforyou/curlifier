@@ -96,8 +96,8 @@ class PreparedTransmitter:
         if sum(arg is not None for arg in (response, prepared_request)) != 1:
             raise MutuallyExclusiveArgsError(response, prepared_request)
         self._pre_req: PreparedRequest = (
-            prepared_request.copy()
-            if response is None  # type: ignore [union-attr]
+            prepared_request.copy()  # type: ignore [union-attr]
+            if response is None
             else response.request.copy()
         )
 
