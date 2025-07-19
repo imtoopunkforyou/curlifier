@@ -1,6 +1,6 @@
 import copy
 import re
-from typing import Any, ClassVar, Literal, TypeAlias, TypeVar
+from typing import Any, ClassVar, Literal, TypeAlias
 
 from requests import PreparedRequest, Response
 from requests.structures import CaseInsensitiveDict
@@ -19,10 +19,6 @@ PreReqHttpHeaders: TypeAlias = CaseInsensitiveDict[str]
 PreReqHttpUrl: TypeAlias = str | Any | None
 FileNameWithExtension: TypeAlias = str
 FileFieldName: TypeAlias = str
-
-SelfDecoder = TypeVar('SelfDecoder', bound='Decoder')
-SelfPreparedTransmitter = TypeVar('SelfPreparedTransmitter', bound='PreparedTransmitter')
-SelfTransmitterBuilder = TypeVar('SelfTransmitterBuilder', bound='TransmitterBuilder')
 
 
 class Decoder:

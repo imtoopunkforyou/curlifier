@@ -1,12 +1,10 @@
-from typing import ClassVar, TypeVar
+from typing import ClassVar
 
 from requests.models import PreparedRequest, Response
 
 from curlifier.builders.base import Builder
 from curlifier.builders.configurator import ConfigBuilder
 from curlifier.builders.transmitter import TransmitterBuilder
-
-SelfCurlBuilder = TypeVar('SelfCurlBuilder', bound='CurlBuilder')
 
 
 class CurlBuilder(Builder):
