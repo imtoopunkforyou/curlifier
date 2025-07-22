@@ -36,7 +36,7 @@ For example:
 >>> curlify(r)
 curl --request POST 'https://httpbin.org/' <...> --header 'Content-Type: application/json' --data '{"id": 1, "name": "Tima", "age": 28}'
 ```
-If you use `PraparedRequest`, you can also specify it instead of the `Response` object:
+If you use `PreparedRequest`, you can also specify it instead of the `Response` object:
 ```python
 >>> req = requests.Request('POST', 'https://httpbin.org/')
 >>> r = req.prepare()
@@ -55,11 +55,53 @@ You can also specify the configuration when forming the curl command:
 >>> curlify(r, location=True, insecure=True)
 curl --request POST 'https://httpbin.org/' <...> --header 'Content-Type: application/json' --data '{"id": 1, "name": "Tima", "age": 28}' --location --insecure
 ```
+
+### Advanced Usage with CurlConfig
+
+For more complex scenarios, you can use the `CurlConfig` class:
+
+```python
+>>> from curlifier import curlify, CurlConfig
+>>> from curlifier.builders.curl import CurlBuilder
+>>> 
+>>> # Create a reusable configuration
+>>> config = CurlConfig(
+...     location=True,
+...     verbose=True,
+...     build_short=True
+... )
+>>> 
+>>> # Use with the high-level API
+>>> r = requests.get('https://example.com')
+>>> curl_builder = CurlBuilder(config=config, response=r)
+>>> curl_builder.build()
+'curl -X GET "https://example.com" -H "User-Agent: ..." -L -v'
+```
+
+### Configuration Options
 - **location** (bool) - Follow redirects (default: False)
 - **verbose** (bool) - Verbose output (default: False)
 - **silent** (bool) - Silent mode (default: False)
 - **insecure** (bool) - Allow insecure connections (default: False)
 - **include** (bool) - Include protocol headers (default: False)
+- **build_short** (bool) - Generate short-form curl command (default: False)
+
+### Input Validation
+The library now includes comprehensive input validation:
+
+```python
+>>> # Invalid configuration option
+>>> curlify(response, invalid_option=True)
+ValueError: Invalid configuration options: {'invalid_option'}. Valid options are: {'location', 'verbose', 'silent', 'insecure', 'include'}
+
+>>> # Conflicting options
+>>> curlify(response, silent=True, verbose=True)
+ValueError: Cannot use both 'silent' and 'verbose' options simultaneously
+
+>>> # Non-boolean values
+>>> curlify(response, location="yes")
+TypeError: Configuration option 'location' must be a boolean, got str
+```
 
 ## License
 Curlifier is released under the MIT License. See the bundled [LICENSE](https://github.com/imtoopunkforyou/curlifier/blob/main/LICENSE) file for details.
