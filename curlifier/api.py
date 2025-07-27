@@ -12,6 +12,11 @@ def curlify(
 ) -> str:
     """The only correct entry point of the `curlifier` library.
 
+    **Security Warning**: The resulting curl command will include all authentication
+    credentials, API keys, passwords, and other sensitive information that were part
+    of the original request. Be careful when sharing or logging these commands, as
+    they may expose sensitive data.
+
     :param response: The `requests` library Response object.
                      Must be specified if the `prepared_request` argument is not specified.
     :type response: Response | None, optional
