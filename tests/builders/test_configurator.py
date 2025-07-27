@@ -26,29 +26,29 @@ def test_config_builder(
         include=include,
         build_short=build_short,
     )
-    builded: str = builder.build()
+    built: str = builder.build()
 
     if location:
-        assert CommandsConfigureEnum.LOCATION.get(shorted=build_short) in builded
+        assert CommandsConfigureEnum.LOCATION.get(shorted=build_short) in built
     else:
-        assert CommandsConfigureEnum.LOCATION.get(shorted=build_short) not in builded
+        assert CommandsConfigureEnum.LOCATION.get(shorted=build_short) not in built
 
     if verbose:
-        assert CommandsConfigureEnum.VERBOSE.get(shorted=build_short) in builded
+        assert CommandsConfigureEnum.VERBOSE.get(shorted=build_short) in built
     else:
-        assert CommandsConfigureEnum.VERBOSE.get(shorted=build_short) not in builded
+        assert CommandsConfigureEnum.VERBOSE.get(shorted=build_short) not in built
 
     if silent:
-        assert CommandsConfigureEnum.SILENT.get(shorted=build_short) in builded
+        assert CommandsConfigureEnum.SILENT.get(shorted=build_short) in built
     else:
-        assert CommandsConfigureEnum.SILENT.get(shorted=build_short) not in builded
+        assert CommandsConfigureEnum.SILENT.get(shorted=build_short) not in built
 
     if insecure:
-        assert CommandsConfigureEnum.INSECURE.get(shorted=build_short) in builded
+        assert CommandsConfigureEnum.INSECURE.get(shorted=build_short) in built
     else:
-        assert CommandsConfigureEnum.INSECURE.get(shorted=build_short) not in builded
+        assert CommandsConfigureEnum.INSECURE.get(shorted=build_short) not in built
 
     if include:
-        assert CommandsConfigureEnum.INCLUDE.get(shorted=build_short) in builded
+        assert CommandsConfigureEnum.INCLUDE.get(shorted=build_short) in built
     else:
-        assert CommandsConfigureEnum.INCLUDE.get(shorted=build_short) not in builded
+        assert CommandsConfigureEnum.INCLUDE.get(shorted=build_short) not in built

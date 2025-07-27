@@ -36,7 +36,7 @@ For example:
 >>> curlify(r)
 curl --request POST 'https://httpbin.org/' <...> --header 'Content-Type: application/json' --data '{"id": 1, "name": "Tima", "age": 28}'
 ```
-If you use `PraparedRequest`, you can also specify it instead of the `Response` object:
+If you use `PreparedRequest`, you can also specify it instead of the `Response` object:
 ```python
 >>> req = requests.Request('POST', 'https://httpbin.org/')
 >>> r = req.prepare()
