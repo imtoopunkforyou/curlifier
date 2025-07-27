@@ -139,7 +139,7 @@ class PreparedTransmitter:
 class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
     """Builds a curl command transfer part."""
 
-    builded: ClassVar[ExecutableTemplate] = "{request_command} {method} '{url}' {request_headers} {request_data}"
+    built: ClassVar[ExecutableTemplate] = "{request_command} {method} '{url}' {request_headers} {request_data}"
     """The template of the resulting executable command."""
 
     request_data: ClassVar[ExecutableTemplate] = "{command} '{request_data}'"
@@ -177,7 +177,7 @@ class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
         request_headers = self._build_executable_headers()
         request_data = self._build_executable_data()
 
-        return self.builded.format(
+        return self.built.format(
             request_command=request_command,
             method=self.method,
             url=self.url,

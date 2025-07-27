@@ -86,8 +86,8 @@ class TestTransmitterBuilderWithBody:
         with mock_response:
             response = requests.request(http_method_w_body, url=fake_url, files=files)
         transmitter_builder = TransmitterBuilder(response=response, build_short=build_short)
-        builded = transmitter_builder.build()
-        assert builded == transmitter_builder_w_files_payload(build_short, http_method_w_body, fake_url)
+        built = transmitter_builder.build()
+        assert built == transmitter_builder_w_files_payload(build_short, http_method_w_body, fake_url)
 
     def test_request_w_json(
         self,
@@ -101,8 +101,8 @@ class TestTransmitterBuilderWithBody:
         with mock_response:
             response = requests.request(http_method_w_body, url=fake_url, json=fake_json_like_dict)
         transmitter_builder = TransmitterBuilder(response=response, build_short=build_short)
-        builded = transmitter_builder.build()
-        assert builded == transmitter_builder_w_json_payload(
+        built = transmitter_builder.build()
+        assert built == transmitter_builder_w_json_payload(
             build_short,
             http_method_w_body,
             fake_url,
@@ -121,8 +121,8 @@ class TestTransmitterBuilderWithBody:
         with mock_response:
             response = requests.request(http_method_w_body, url=fake_url, data=fake_xml)
         transmitter_builder = TransmitterBuilder(response=response, build_short=build_short)
-        builded = transmitter_builder.build()
-        assert builded == transmitter_builder_w_xml_payload(
+        built = transmitter_builder.build()
+        assert built == transmitter_builder_w_xml_payload(
             build_short,
             http_method_w_body,
             fake_url,
@@ -147,8 +147,8 @@ class TestTransmitterBuilderWithOutBody:
         with mock_response:
             response = requests.request(http_method_without_body, url=fake_url)
         transmitter_builder = TransmitterBuilder(response=response, build_short=build_short)
-        builded = transmitter_builder.build()
-        assert builded == transmitter_builder_without_body_payload(
+        built = transmitter_builder.build()
+        assert built == transmitter_builder_without_body_payload(
             build_short,
             http_method_without_body,
             fake_url,

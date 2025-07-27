@@ -35,7 +35,7 @@ class CommandsEnum(enum.Enum):
 
     @property
     def title(self) -> CurlCommandTitle:
-        """Human-readble name."""
+        """Human-readable name."""
         return self._title
 
     def get(self, *, shorted: bool) -> CurlCommand:

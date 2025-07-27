@@ -59,12 +59,12 @@ class CurlBuilder(Builder):
         >>> curl_builder.build()
         "curl -X GET 'https://example.com/' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' <...> -L"
         """
-        builded = '{curl_command} {builded_transmitter} {builded_config}'
+        built = '{curl_command} {built_transmitter} {built_config}'
 
-        return builded.format(
+        return built.format(
             curl_command=self.curl_command,
-            builded_transmitter=self.transmitter.build(),
-            builded_config=self.config.build(),
+            built_transmitter=self.transmitter.build(),
+            built_config=self.config.build(),
         )
 
     @property
