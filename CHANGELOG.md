@@ -18,4 +18,17 @@ Change blocks:
 [WIP]
 
 ### Added
+
 - Create `CHANGELOG.MD`;
+
+### Changed
+
+- Added a `Security Warning` section in the documentation;
+
+### Fixed
+
+- Grammatical typos have been fixed;
+
+### Removed
+
+- The `Dependendecies` section has been removed from the documentation;
