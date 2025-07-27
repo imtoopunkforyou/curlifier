@@ -24,6 +24,8 @@ Change blocks:
 ### Changed
 
 - Added a `Security Warning` section in the documentation;
+- Updating coverage (7.9.2 -> 7.10.0);
+- Updating ruff (0.12.4 -> 0.12.5);
 
 ### Fixed
 
