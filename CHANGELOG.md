@@ -15,7 +15,7 @@ Change blocks:
 |   Fixed        | Bug fixed.                                                                     |
 |   Security     | Vulnerability was identified.                                                  |
 
-[WIP]
+## [0.2.17]
 
 ### Added
 
@@ -30,6 +30,7 @@ Change blocks:
 ### Fixed
 
 - Grammatical typos have been fixed;
+- Create `py.typed`;
 
 ### Removed
 
