@@ -6,6 +6,7 @@
 - Submit a ticket for your issue, assuming one does not already exist.
 - Fork the repository on GitHub.
 - Apply the required changes!
+- Briefly describe the changes made in `CHANGELOG.md`.
 - Send a Pull Request to our original repo. Here's the [helpful guide](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) on how to do that.
 
 ## Making Changes
