@@ -54,19 +54,19 @@ class CommandsEnum(enum.Enum):
 class CommandsConfigureEnum(CommandsEnum):
     """Curl configuration commands."""
 
-    VERBOSE = ('-v', '--verbose', 'verbose')
+    VERBOSE = '-v', '--verbose', 'verbose'
     """Make the operation more talkative."""
 
-    SILENT = ('-s', '--silent', 'silent')
+    SILENT = '-s', '--silent', 'silent'
     """Silent mode."""
 
-    INSECURE = ('-k', '--insecure', 'insecure')
+    INSECURE = '-k', '--insecure', 'insecure'
     """Allow insecure server connections."""
 
-    LOCATION = ('-L', '--location', 'location')
+    LOCATION = '-L', '--location', 'location'
     """Follow redirects."""
 
-    INCLUDE = ('-i', '--include', 'include')
+    INCLUDE = '-i', '--include', 'include'
     """Include protocol response headers in the output."""
 
 
@@ -74,14 +74,14 @@ class CommandsConfigureEnum(CommandsEnum):
 class CommandsTransferEnum(CommandsEnum):
     """Curl transfer commands."""
 
-    SEND_DATA = ('-d', '--data', 'data')
+    SEND_DATA = '-d', '--data', 'data'
     """HTTP data (body)."""
 
-    HEADER = ('-H', '--header', 'header')
+    HEADER = '-H', '--header', 'header'
     """Pass custom header(s) to server."""
 
-    REQUEST = ('-X', '--request', 'request')
+    REQUEST = '-X', '--request', 'request'
     """Specify request method to use."""
 
-    FORM = ('-F', '--form', 'form')
+    FORM = '-F', '--form', 'form'
     """Specify multipart MIME data."""
