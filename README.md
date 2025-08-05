@@ -23,7 +23,7 @@ Converts the [Request](https://requests.readthedocs.io/en/latest/api/#requests.R
 pip install curlifier
 ```
 
-## ⚠️ Security Warning
+## ⚠️ Security Warning ⚠️
 
 The resulting curl command will include all authentication credentials, API keys, passwords, and other sensitive information that were part of the original request. Be careful when sharing or logging these commands, as they may expose sensitive data.
 
