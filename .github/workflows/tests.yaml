@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  tests-collect-and-run:
+  tests-run:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -36,9 +36,11 @@ jobs:
           poetry config virtualenvs.in-project false
           poetry run pip install -U pip
           poetry install --without lint
-
-      - name: Collect tests
-        run: poetry run pytest ./tests/ --collect-only
       
       - name: Run tests
-        run: poetry run pytest ./tests/ -vvv
+        run: poetry run pytest --cov --cov-branch --cov-report=xml   
+
+      - name: Upload results to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

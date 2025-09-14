@@ -1,6 +1,6 @@
 # curlifier
 
-[![coverage](https://raw.githubusercontent.com/imtoopunkforyou/curlifier/main/.github/badge/coverage.svg)](https://github.com/pytest-dev/pytest-cov)
+[![codecov](https://codecov.io/github/imtoopunkforyou/curlifier/graph/badge.svg?token=65OY6J3HP9)](https://codecov.io/github/imtoopunkforyou/curlifier)
 [![tests](https://github.com/imtoopunkforyou/curlifier/actions/workflows/tests.yaml/badge.svg)](https://github.com/imtoopunkforyou/curlifier/actions/workflows/tests.yaml)
 [![pypi package version](https://img.shields.io/pypi/v/curlifier.svg)](https://pypi.org/project/curlifier)
 [![pypi downloads](https://img.shields.io/pypi/dm/curlifier.svg)](https://pypi.org/project/curlifier)
