@@ -7,7 +7,7 @@ CurlCommand: TypeAlias = CurlCommandShort | CurlCommandLong
 CurlCommandTitle: TypeAlias = str
 
 
-class CommandsEnum(enum.Enum):
+class CurlCommandsEnum(enum.Enum):
     """Base class of the command curl structure.
 
     When initialized, it will take three values: title, short and long.
@@ -51,7 +51,7 @@ class CommandsEnum(enum.Enum):
 
 
 @enum.unique
-class CommandsConfigureEnum(CommandsEnum):
+class CommandsConfigureEnum(CurlCommandsEnum):
     """Curl configuration commands."""
 
     VERBOSE = '-v', '--verbose', 'verbose'
@@ -71,7 +71,7 @@ class CommandsConfigureEnum(CommandsEnum):
 
 
 @enum.unique
-class CommandsTransferEnum(CommandsEnum):
+class CommandsTransferEnum(CurlCommandsEnum):
     """Curl transfer commands."""
 
     SEND_DATA = '-d', '--data', 'data'
