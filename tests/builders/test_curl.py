@@ -16,7 +16,7 @@ from curlifier.structures.http_methods import HttpMethodsEnum
 @pytest.mark.parametrize('insecure', [True, False])
 @pytest.mark.parametrize('include', [True, False])
 @pytest.mark.parametrize('http_method_w_body', list(HttpMethodsEnum.get_methods_with_body()))
-@pytest.mark.parametrize('build_short', [True, False])
+@pytest.mark.parametrize('shorted', [True, False])
 class TestCurlWithBody:
     def test_request_w_files(
         self,
@@ -24,7 +24,7 @@ class TestCurlWithBody:
         mock_response,
         fake_url,
         files,
-        build_short,
+        shorted,
         transmitter_builder_w_files_payload,
         location,
         verbose,
@@ -36,7 +36,7 @@ class TestCurlWithBody:
             response = requests.request(http_method_w_body, url=fake_url, files=files)
         curl = CurlBuilder(
             response=response,
-            build_short=build_short,
+            shorted=shorted,
             location=location,
             verbose=verbose,
             silent=silent,
@@ -44,24 +44,24 @@ class TestCurlWithBody:
             include=include,
         )
         built = curl.build()
-        assert transmitter_builder_w_files_payload(build_short, http_method_w_body, fake_url) in built
+        assert transmitter_builder_w_files_payload(shorted, http_method_w_body, fake_url) in built
         if location:
-            assert CommandsConfigureEnum.LOCATION.get(shorted=build_short) in built
+            assert CommandsConfigureEnum.LOCATION.get(shorted=shorted) in built
         if verbose:
-            assert CommandsConfigureEnum.VERBOSE.get(shorted=build_short) in built
+            assert CommandsConfigureEnum.VERBOSE.get(shorted=shorted) in built
         if silent:
-            assert CommandsConfigureEnum.SILENT.get(shorted=build_short) in built
+            assert CommandsConfigureEnum.SILENT.get(shorted=shorted) in built
         if insecure:
-            assert CommandsConfigureEnum.INSECURE.get(shorted=build_short) in built
+            assert CommandsConfigureEnum.INSECURE.get(shorted=shorted) in built
         if include:
-            assert CommandsConfigureEnum.INCLUDE.get(shorted=build_short) in built
+            assert CommandsConfigureEnum.INCLUDE.get(shorted=shorted) in built
 
     def test_request_w_json(
         self,
         http_method_w_body,
         mock_response,
         fake_url,
-        build_short,
+        shorted,
         fake_json_like_dict,
         transmitter_builder_w_json_payload,
         location,
@@ -74,18 +74,18 @@ class TestCurlWithBody:
             response = requests.request(http_method_w_body, url=fake_url, json=fake_json_like_dict)
         curl = CurlBuilder(
             response=response,
-            build_short=build_short,
+            shorted=shorted,
             location=location,
             verbose=verbose,
             silent=silent,
             insecure=insecure,
             include=include,
         )
-        assert build_short == curl.build_short
+        assert shorted == curl.shorted
         built = curl.build()
         assert (
             transmitter_builder_w_json_payload(
-                build_short,
+                shorted,
                 http_method_w_body,
                 fake_url,
                 json.dumps(fake_json_like_dict),
@@ -94,22 +94,22 @@ class TestCurlWithBody:
         )
 
         if location:
-            assert CommandsConfigureEnum.LOCATION.get(shorted=build_short) in built
+            assert CommandsConfigureEnum.LOCATION.get(shorted=shorted) in built
         if verbose:
-            assert CommandsConfigureEnum.VERBOSE.get(shorted=build_short) in built
+            assert CommandsConfigureEnum.VERBOSE.get(shorted=shorted) in built
         if silent:
-            assert CommandsConfigureEnum.SILENT.get(shorted=build_short) in built
+            assert CommandsConfigureEnum.SILENT.get(shorted=shorted) in built
         if insecure:
-            assert CommandsConfigureEnum.INSECURE.get(shorted=build_short) in built
+            assert CommandsConfigureEnum.INSECURE.get(shorted=shorted) in built
         if include:
-            assert CommandsConfigureEnum.INCLUDE.get(shorted=build_short) in built
+            assert CommandsConfigureEnum.INCLUDE.get(shorted=shorted) in built
 
     def test_request_w_data(
         self,
         http_method_w_body,
         mock_response,
         fake_url,
-        build_short,
+        shorted,
         fake_xml,
         transmitter_builder_w_xml_payload,
         location,
@@ -122,7 +122,7 @@ class TestCurlWithBody:
             response = requests.request(http_method_w_body, url=fake_url, data=fake_xml)
         curl = CurlBuilder(
             response=response,
-            build_short=build_short,
+            shorted=shorted,
             location=location,
             verbose=verbose,
             silent=silent,
@@ -132,7 +132,7 @@ class TestCurlWithBody:
         built = curl.build()
         assert (
             transmitter_builder_w_xml_payload(
-                build_short,
+                shorted,
                 http_method_w_body,
                 fake_url,
                 fake_xml,
@@ -141,15 +141,15 @@ class TestCurlWithBody:
         )
 
         if location:
-            assert CommandsConfigureEnum.LOCATION.get(shorted=build_short) in built
+            assert CommandsConfigureEnum.LOCATION.get(shorted=shorted) in built
         if verbose:
-            assert CommandsConfigureEnum.VERBOSE.get(shorted=build_short) in built
+            assert CommandsConfigureEnum.VERBOSE.get(shorted=shorted) in built
         if silent:
-            assert CommandsConfigureEnum.SILENT.get(shorted=build_short) in built
+            assert CommandsConfigureEnum.SILENT.get(shorted=shorted) in built
         if insecure:
-            assert CommandsConfigureEnum.INSECURE.get(shorted=build_short) in built
+            assert CommandsConfigureEnum.INSECURE.get(shorted=shorted) in built
         if include:
-            assert CommandsConfigureEnum.INCLUDE.get(shorted=build_short) in built
+            assert CommandsConfigureEnum.INCLUDE.get(shorted=shorted) in built
 
 
 @pytest.mark.parametrize('location', [True, False])
@@ -157,7 +157,7 @@ class TestCurlWithBody:
 @pytest.mark.parametrize('silent', [True, False])
 @pytest.mark.parametrize('insecure', [True, False])
 @pytest.mark.parametrize('include', [True, False])
-@pytest.mark.parametrize('build_short', [True, False])
+@pytest.mark.parametrize('shorted', [True, False])
 @pytest.mark.parametrize(
     'http_method_without_body',
     list(HttpMethodsEnum.get_methods_without_body()),
@@ -167,7 +167,7 @@ class TestCurlWithOutBody:
         self,
         mock_response,
         fake_url,
-        build_short,
+        shorted,
         http_method_without_body,
         transmitter_builder_without_body_payload,
         location,
@@ -180,7 +180,7 @@ class TestCurlWithOutBody:
             response = requests.request(http_method_without_body, url=fake_url)
         curl = CurlBuilder(
             response=response,
-            build_short=build_short,
+            shorted=shorted,
             location=location,
             verbose=verbose,
             silent=silent,
@@ -190,7 +190,7 @@ class TestCurlWithOutBody:
         built = curl.build()
         assert (
             transmitter_builder_without_body_payload(
-                build_short,
+                shorted,
                 http_method_without_body,
                 fake_url,
             )
@@ -198,12 +198,12 @@ class TestCurlWithOutBody:
         )
 
         if location:
-            assert CommandsConfigureEnum.LOCATION.get(shorted=build_short) in built
+            assert CommandsConfigureEnum.LOCATION.get(shorted=shorted) in built
         if verbose:
-            assert CommandsConfigureEnum.VERBOSE.get(shorted=build_short) in built
+            assert CommandsConfigureEnum.VERBOSE.get(shorted=shorted) in built
         if silent:
-            assert CommandsConfigureEnum.SILENT.get(shorted=build_short) in built
+            assert CommandsConfigureEnum.SILENT.get(shorted=shorted) in built
         if insecure:
-            assert CommandsConfigureEnum.INSECURE.get(shorted=build_short) in built
+            assert CommandsConfigureEnum.INSECURE.get(shorted=shorted) in built
         if include:
-            assert CommandsConfigureEnum.INCLUDE.get(shorted=build_short) in built
+            assert CommandsConfigureEnum.INCLUDE.get(shorted=shorted) in built

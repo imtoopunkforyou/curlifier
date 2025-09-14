@@ -9,14 +9,14 @@ from curlifier.structures.commands import CommandsConfigureEnum
 @pytest.mark.parametrize('silent', [True, False])
 @pytest.mark.parametrize('insecure', [True, False])
 @pytest.mark.parametrize('include', [True, False])
-@pytest.mark.parametrize('build_short', [True, False])
+@pytest.mark.parametrize('shorted', [True, False])
 def test_config_builder(
     location,
     verbose,
     silent,
     insecure,
     include,
-    build_short,
+    shorted,
 ):
     builder = ConfigBuilder(
         location=location,
@@ -24,31 +24,31 @@ def test_config_builder(
         silent=silent,
         insecure=insecure,
         include=include,
-        build_short=build_short,
+        shorted=shorted,
     )
     built: str = builder.build()
 
     if location:
-        assert CommandsConfigureEnum.LOCATION.get(shorted=build_short) in built
+        assert CommandsConfigureEnum.LOCATION.get(shorted=shorted) in built
     else:
-        assert CommandsConfigureEnum.LOCATION.get(shorted=build_short) not in built
+        assert CommandsConfigureEnum.LOCATION.get(shorted=shorted) not in built
 
     if verbose:
-        assert CommandsConfigureEnum.VERBOSE.get(shorted=build_short) in built
+        assert CommandsConfigureEnum.VERBOSE.get(shorted=shorted) in built
     else:
-        assert CommandsConfigureEnum.VERBOSE.get(shorted=build_short) not in built
+        assert CommandsConfigureEnum.VERBOSE.get(shorted=shorted) not in built
 
     if silent:
-        assert CommandsConfigureEnum.SILENT.get(shorted=build_short) in built
+        assert CommandsConfigureEnum.SILENT.get(shorted=shorted) in built
     else:
-        assert CommandsConfigureEnum.SILENT.get(shorted=build_short) not in built
+        assert CommandsConfigureEnum.SILENT.get(shorted=shorted) not in built
 
     if insecure:
-        assert CommandsConfigureEnum.INSECURE.get(shorted=build_short) in built
+        assert CommandsConfigureEnum.INSECURE.get(shorted=shorted) in built
     else:
-        assert CommandsConfigureEnum.INSECURE.get(shorted=build_short) not in built
+        assert CommandsConfigureEnum.INSECURE.get(shorted=shorted) not in built
 
     if include:
-        assert CommandsConfigureEnum.INCLUDE.get(shorted=build_short) in built
+        assert CommandsConfigureEnum.INCLUDE.get(shorted=shorted) in built
     else:
-        assert CommandsConfigureEnum.INCLUDE.get(shorted=build_short) not in built
+        assert CommandsConfigureEnum.INCLUDE.get(shorted=shorted) not in built

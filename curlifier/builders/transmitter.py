@@ -24,6 +24,8 @@ FileFieldName: TypeAlias = str
 class Decoder:
     """Decodes the raw body of the request."""
 
+    __slots__ = ()
+
     def decode(
         self,
         data_for_decode: bytes | str,
@@ -83,18 +85,28 @@ class PreparedTransmitter:
     The original object will not be modified.
     """
 
+    __slots__ = (
+        '_body',
+        '_headers',
+        '_method',
+        '_pre_req',
+        '_response',
+        '_url',
+    )
+
     def __init__(
         self,
         response: Response | None = None,
-        *,
         prepared_request: PreparedRequest | None = None,
     ) -> None:
         if sum(arg is not None for arg in (response, prepared_request)) != 1:
             raise MutuallyExclusiveArgsError(response, prepared_request)
+
+        self._response = response
         self._pre_req: PreparedRequest = (
             prepared_request.copy()  # type: ignore [union-attr]
-            if response is None
-            else response.request.copy()
+            if self._response is None
+            else self._response.request.copy()
         )
 
         self._method: PreReqHttpMethod = self._pre_req.method
@@ -139,6 +151,8 @@ class PreparedTransmitter:
 class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
     """Builds a curl command transfer part."""
 
+    __slots__ = ('_shorted',)
+
     built: ClassVar[ExecutableTemplate] = "{request_command} {method} '{url}' {request_headers} {request_data}"
     """The template of the resulting executable command."""
 
@@ -153,27 +167,27 @@ class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
 
     def __init__(
         self,
-        *,
-        build_short: bool,
         response: Response | None = None,
+        *,
+        shorted: bool,
         prepared_request: PreparedRequest | None = None,
     ) -> None:
-        self._build_short = build_short
+        self._shorted = shorted
         super().__init__(response, prepared_request=prepared_request)
 
     def build(self) -> str:
         """Collects all parameters into the resulting string.
 
-        If `build_short` is `True` will be collected short version.
+        If `shorted` is `True` will be collected short version.
 
         >>> from curlifier.transmitter import TransmitterBuilder
         >>> import requests
         >>> r = requests.get('https://example.com/')
-        >>> t = TransmitterBuilder(response=r, build_short=False)
+        >>> t = TransmitterBuilder(response=r, shorted=False)
         >>> t.build()
         "--request GET 'https://example.com/' --header 'User-Agent: python-requests/2.32.3' <...>"
         """
-        request_command = CommandsTransferEnum.REQUEST.get(shorted=self.build_short)
+        request_command = CommandsTransferEnum.REQUEST.get(shorted=self._shorted)
         request_headers = self._build_executable_headers()
         request_data = self._build_executable_data()
 
@@ -186,18 +200,18 @@ class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
         )
 
     @property
-    def build_short(self) -> bool:
+    def shorted(self) -> bool:
         """Controlling the form of command.
 
         :return: `True` and command will be short. Otherwise `False`.
         :rtype: bool
         """
-        return self._build_short
+        return self._shorted
 
     def _build_executable_headers(self) -> str:
         return ' '.join(
             self.header.format(
-                command=CommandsTransferEnum.HEADER.get(shorted=self.build_short),
+                command=CommandsTransferEnum.HEADER.get(shorted=self._shorted),
                 key=header_key,
                 value=header_value,
             )
@@ -211,13 +225,13 @@ class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
             decode_body = self.decode(self.body)  # type: ignore [arg-type]
             if isinstance(decode_body, str):
                 return self.request_data.format(
-                    command=CommandsTransferEnum.SEND_DATA.get(shorted=self.build_short),
+                    command=CommandsTransferEnum.SEND_DATA.get(shorted=self._shorted),
                     request_data=decode_body,
                 )
             if isinstance(decode_body, tuple):
                 executable_files: str = ' '.join(
                     self.request_file.format(
-                        command=CommandsTransferEnum.FORM.get(shorted=self.build_short),
+                        command=CommandsTransferEnum.FORM.get(shorted=self._shorted),
                         field_name=field_name,
                         file_name=file_name,
                     )
