@@ -12,26 +12,21 @@ class CurlBuilder(Builder):
 
     curl_command: ClassVar[str] = 'curl'
 
-    def __init__(  # noqa: PLR0913, WPS211
+    def __init__(  # noqa: WPS211
         self,
         *,
-        location: bool,
-        verbose: bool,
-        silent: bool,
-        insecure: bool,
-        include: bool,
-        shorted: bool,
         response: Response | None = None,
         prepared_request: PreparedRequest | None = None,
+        **config: bool,
     ) -> None:
-        self._shorted = shorted
+        self._shorted = config.pop('shorted')
         self.config = ConfigBuilder(
             shorted=self._shorted,
-            location=location,
-            verbose=verbose,
-            silent=silent,
-            insecure=insecure,
-            include=include,
+            location=config.pop('location'),
+            verbose=config.pop('verbose'),
+            silent=config.pop('silent'),
+            insecure=config.pop('insecure'),
+            include=config.pop('include'),
         )
         self.transmitter = TransmitterBuilder(
             response=response,
