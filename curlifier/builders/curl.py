@@ -12,7 +12,7 @@ class CurlBuilder(Builder):
 
     curl_command: ClassVar[str] = 'curl'
 
-    def __init__(  # noqa: WPS211
+    def __init__(
         self,
         *,
         response: Response | None = None,
