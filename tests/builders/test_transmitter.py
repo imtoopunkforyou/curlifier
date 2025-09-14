@@ -88,6 +88,7 @@ class TestTransmitterBuilderWithBody:
         transmitter_builder = TransmitterBuilder(response=response, shorted=shorted)
         built = transmitter_builder.build()
         assert built == transmitter_builder_w_files_payload(shorted, http_method_w_body, fake_url)
+        assert transmitter_builder.shorted is shorted
 
     def test_request_w_json(
         self,
@@ -102,6 +103,7 @@ class TestTransmitterBuilderWithBody:
             response = requests.request(http_method_w_body, url=fake_url, json=fake_json_like_dict)
         transmitter_builder = TransmitterBuilder(response=response, shorted=shorted)
         built = transmitter_builder.build()
+        assert transmitter_builder.shorted is shorted
         assert built == transmitter_builder_w_json_payload(
             shorted,
             http_method_w_body,
@@ -122,6 +124,7 @@ class TestTransmitterBuilderWithBody:
             response = requests.request(http_method_w_body, url=fake_url, data=fake_xml)
         transmitter_builder = TransmitterBuilder(response=response, shorted=shorted)
         built = transmitter_builder.build()
+        assert transmitter_builder.shorted is shorted
         assert built == transmitter_builder_w_xml_payload(
             shorted,
             http_method_w_body,
