@@ -14,3 +14,13 @@ def test_curlify_happy_path(fake_url, mock_response, fake_json_like_dict, shorte
     curl = curlify(response, shorted=shorted, location=True)
 
     assert curl == curlify_hp_curl(shorted, fake_url, json.dumps(fake_json_like_dict))
+
+
+@pytest.mark.parametrize('shorted', [True, False])
+def test_curlify_happy_path_w_pre_req(fake_url, mock_response, fake_json_like_dict, shorted, curlify_hp_curl):
+    with mock_response:
+        response = requests.request(HttpMethodsEnum.POST.value, url=fake_url, json=fake_json_like_dict)
+        pre_req = response.request
+    curl = curlify(prepared_request=pre_req, shorted=shorted, location=True)
+
+    assert curl == curlify_hp_curl(shorted, fake_url, json.dumps(fake_json_like_dict))

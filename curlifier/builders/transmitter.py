@@ -24,6 +24,8 @@ FileFieldName: TypeAlias = str
 class Decoder:
     """Decodes the raw body of the request."""
 
+    __slots__ = ()
+
     def decode(
         self,
         data_for_decode: bytes | str,
@@ -83,10 +85,18 @@ class PreparedTransmitter:
     The original object will not be modified.
     """
 
+    __slots__ = (
+        '_body',
+        '_headers',
+        '_method',
+        '_pre_req',
+        '_response',
+        '_url',
+    )
+
     def __init__(
         self,
         response: Response | None = None,
-        *,
         prepared_request: PreparedRequest | None = None,
     ) -> None:
         if sum(arg is not None for arg in (response, prepared_request)) != 1:
@@ -141,6 +151,8 @@ class PreparedTransmitter:
 class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
     """Builds a curl command transfer part."""
 
+    __slots__ = ('_shorted',)
+
     built: ClassVar[ExecutableTemplate] = "{request_command} {method} '{url}' {request_headers} {request_data}"
     """The template of the resulting executable command."""
 
@@ -155,9 +167,9 @@ class TransmitterBuilder(PreparedTransmitter, Decoder, Builder):
 
     def __init__(
         self,
+        response: Response | None = None,
         *,
         shorted: bool,
-        response: Response | None = None,
         prepared_request: PreparedRequest | None = None,
     ) -> None:
         self._shorted = shorted
