@@ -1,4 +1,4 @@
-# === Сonfiguration ===
+# === Configuration ===
 MAKEFLAGS += --silent
 make:
 	cat -n ./Makefile
@@ -27,6 +27,10 @@ test:
 .PHONY: cov-report
 cov-report:
 	poetry run pytest ./tests --cov=curlifier --cov-report=html
+
+.PHONY: cspell
+cspell:
+	npx cspell-cli --gitignore .
 
 # === Aliases ===
 pc: pre-commit
