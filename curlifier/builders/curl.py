@@ -20,13 +20,13 @@ class CurlBuilder(Builder):
         silent: bool,
         insecure: bool,
         include: bool,
-        build_short: bool,
+        shorted: bool,
         response: Response | None = None,
         prepared_request: PreparedRequest | None = None,
     ) -> None:
-        self._build_short = build_short
+        self._shorted = shorted
         self.config = ConfigBuilder(
-            build_short=self._build_short,
+            shorted=self._shorted,
             location=location,
             verbose=verbose,
             silent=silent,
@@ -36,13 +36,13 @@ class CurlBuilder(Builder):
         self.transmitter = TransmitterBuilder(
             response=response,
             prepared_request=prepared_request,
-            build_short=self._build_short,
+            shorted=self._shorted,
         )
 
     def build(self) -> str:
         """Collects all parameters into the resulting string.
 
-        If `build_short` is `True` will be collected short version.
+        If `shorted` is `True` will be collected short version.
 
         >>> from curlifier.curl import CurlBuilder
         >>> import requests
@@ -50,7 +50,7 @@ class CurlBuilder(Builder):
         >>> curl_builder = CurlBuilder(
             response=r,
             location=True,
-            build_short=True,
+            shorted=True,
             verbose=False,
             silent=False,
             insecure=False,
@@ -68,10 +68,10 @@ class CurlBuilder(Builder):
         )
 
     @property
-    def build_short(self) -> bool:
+    def shorted(self) -> bool:
         """Controlling the form of command.
 
         :return: `True` and command will be short. Otherwise `False`.
         :rtype: bool
         """
-        return self._build_short
+        return self._shorted

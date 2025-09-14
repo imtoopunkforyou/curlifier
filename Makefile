@@ -28,11 +28,6 @@ test:
 cov-report:
 	poetry run pytest ./tests --cov=curlifier --cov-report=html
 
-.PHONY:
-all:
-	make lint && make test
-
 # === Aliases ===
 pc: pre-commit
 t: test
-a: all

@@ -49,7 +49,7 @@ def curlify(
     curl_builder = CurlBuilder(
         response=response,
         prepared_request=prepared_request,
-        build_short=shorted,
+        shorted=shorted,
         location=config.pop('location', False),
         verbose=config.pop('verbose', False),
         silent=config.pop('silent', False),

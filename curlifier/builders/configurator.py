@@ -77,21 +77,21 @@ class Config:
 class ConfigBuilder(Config, Builder):
     """Builds a curl command configuration line."""
 
-    __slots__ = ('_build_short',)
+    __slots__ = ('_shorted',)
 
     def __init__(
         self,
         *,
-        build_short: bool = False,
+        shorted: bool,
         **config: bool,
     ) -> None:
-        self._build_short = build_short
+        self._shorted = shorted
         super().__init__(**config)
 
     def build(self) -> str:
         """Collects all parameters into the resulting string.
 
-        If `build_short` is `True` will be collected short version.
+        If `shorted` is `True` will be collected short version.
 
         >>> from curlifier.configurator import ConfigBuilder
         >>> conf = ConfigBuilder(
@@ -100,7 +100,7 @@ class ConfigBuilder(Config, Builder):
             silent=False,
             insecure=True,
             include=False,
-            build_short=False,
+            shorted=False,
         )
         >>> conf.build()
         '--location --verbose --insecure'
@@ -108,7 +108,7 @@ class ConfigBuilder(Config, Builder):
         command_parts = []
         for prop_name, command_enum in self.command_mapping:
             if getattr(self, prop_name):
-                command = command_enum.get(shorted=self.build_short)
+                command = command_enum.get(shorted=self.shorted)
                 command_parts.append(command)
 
         cleaned_commands: Generator[CurlCommand, None, None] = (command for command in command_parts if command)
@@ -116,10 +116,10 @@ class ConfigBuilder(Config, Builder):
         return ' '.join(cleaned_commands)
 
     @property
-    def build_short(self) -> bool:
+    def shorted(self) -> bool:
         """Controlling the form of command.
 
         :return: `True` and command will be short. Otherwise `False`.
         :rtype: bool
         """
-        return self._build_short
+        return self._shorted

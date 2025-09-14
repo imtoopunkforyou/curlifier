@@ -12,5 +12,5 @@ class Builder(ABC):
 
     @property
     @abstractmethod
-    def build_short(self) -> bool:
+    def shorted(self) -> bool:
         """Specify `True` if you want a short command."""
