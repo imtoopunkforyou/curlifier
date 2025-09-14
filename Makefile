@@ -30,7 +30,7 @@ cov-report:
 
 .PHONY:
 all:
-	make lint && make tests
+	make lint && make test
 
 # === Aliases ===
 pc: pre-commit
