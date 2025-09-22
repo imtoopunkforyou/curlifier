@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/github/imtoopunkforyou/curlifier/graph/badge.svg?token=65OY6J3HP9)](https://codecov.io/github/imtoopunkforyou/curlifier)
 [![tests](https://github.com/imtoopunkforyou/curlifier/actions/workflows/tests.yaml/badge.svg)](https://github.com/imtoopunkforyou/curlifier/actions/workflows/tests.yaml)
 [![pypi package version](https://img.shields.io/pypi/v/curlifier.svg)](https://pypi.org/project/curlifier)
-[![status](https://img.shields.io/pypi/status/curlifier.svg\?style\=flat-square)](https://pypi.org/project/curlifier)
+[![status](https://img.shields.io/pypi/status/curlifier.svg)](https://pypi.org/project/curlifier)
 [![pypi downloads](https://img.shields.io/pypi/dm/curlifier.svg)](https://pypi.org/project/curlifier)
 [![supported python versions](https://img.shields.io/pypi/pyversions/curlifier.svg)](https://pypi.org/project/curlifier)
 [![wemake-python-styleguide](https://img.shields.io/badge/style-wemake-000000.svg)](https://github.com/wemake-services/wemake-python-styleguide)
