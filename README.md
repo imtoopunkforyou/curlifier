@@ -7,6 +7,7 @@
 [![pypi downloads](https://img.shields.io/pypi/dm/curlifier.svg)](https://pypi.org/project/curlifier)
 [![supported python versions](https://img.shields.io/pypi/pyversions/curlifier.svg)](https://pypi.org/project/curlifier)
 [![wemake-python-styleguide](https://img.shields.io/badge/style-wemake-000000.svg)](https://github.com/wemake-services/wemake-python-styleguide)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![license](https://img.shields.io/pypi/l/curlifier.svg)](https://github.com/imtoopunkforyou/curlifier/blob/main/LICENSE)  
 
 <p align="center">
