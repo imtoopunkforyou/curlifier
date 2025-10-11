@@ -27,6 +27,7 @@ def python_version_major() -> int:
 def python_version_minor() -> int:
     return sys.version_info.minor
 
+
 @pytest.fixture(scope='session')
 def fake():
     return faker.Faker()
@@ -149,9 +150,12 @@ def fake_xml():
         'xmlns:b="http://b.com/"><x a:attr="val">1</x><a:y>2</a:y><b:z>3</b:z></root>'
     )
 
+
 @pytest.fixture
 def encoding_header(python_version_major, python_version_minor) -> str:
-    if python_version_major >= 3 and python_version_minor >= 14:
+    major_vers_w_zstd = 3
+    minor_vers_w_zstd = 14
+    if python_version_major >= major_vers_w_zstd and python_version_minor >= minor_vers_w_zstd:
         return 'Accept-Encoding: gzip, deflate, zstd'
 
     return 'Accept-Encoding: gzip, deflate'
