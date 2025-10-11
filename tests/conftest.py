@@ -13,6 +13,20 @@ from urllib3.util.retry import Retry
 from urllib3.util.timeout import Timeout
 
 
+@pytest.fixture
+def version_of_requests() -> str:
+    return metadata.version('requests')
+
+
+@pytest.fixture
+def python_version_major() -> int:
+    return sys.version_info.major
+
+
+@pytest.fixture
+def python_version_minor() -> int:
+    return sys.version_info.minor
+
 @pytest.fixture(scope='session')
 def fake():
     return faker.Faker()
@@ -135,15 +149,22 @@ def fake_xml():
         'xmlns:b="http://b.com/"><x a:attr="val">1</x><a:y>2</a:y><b:z>3</b:z></root>'
     )
 
+@pytest.fixture
+def encoding_header(python_version_major, python_version_minor) -> str:
+    if python_version_major >= 3 and python_version_minor >= 14:
+        return 'Accept-Encoding: gzip, deflate, zstd'
+
+    return 'Accept-Encoding: gzip, deflate'
+
 
 @pytest.fixture
-def curlify_hp_curl(version_of_requests):
+def curlify_hp_curl(version_of_requests, encoding_header):
     def _curlify_hp_curl(shorted, url, json):
         long = (
             'curl '
             "--request POST '{url}' "
             "--header 'User-Agent: python-requests/{version}' "
-            "--header 'Accept-Encoding: gzip, deflate, zstd' "
+            "--header '{encoding_header}' "
             "--header 'Accept: */*' "
             "--header 'Connection: keep-alive' "
             "--header 'Content-Type: application/json' "
@@ -154,7 +175,7 @@ def curlify_hp_curl(version_of_requests):
             'curl '
             "-X POST '{url}' "
             "-H 'User-Agent: python-requests/{version}' "
-            "-H 'Accept-Encoding: gzip, deflate, zstd' "
+            "-H '{encoding_header}' "
             "-H 'Accept: */*' "
             "-H 'Connection: keep-alive' "
             "-H 'Content-Type: application/json' "
@@ -166,21 +187,7 @@ def curlify_hp_curl(version_of_requests):
             url=url,
             json=json,
             version=version_of_requests,
+            encoding_header=encoding_header,
         )
 
     return _curlify_hp_curl
-
-
-@pytest.fixture
-def version_of_requests() -> str:
-    return metadata.version('requests')
-
-
-@pytest.fixture
-def python_version_major() -> str:
-    return sys.version_info.major
-
-
-@pytest.fixture
-def python_version_minor() -> str:
-    return sys.version_info.minor
