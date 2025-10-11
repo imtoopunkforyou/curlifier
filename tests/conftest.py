@@ -142,7 +142,7 @@ def curlify_hp_curl(version_of_requests):
             'curl '
             "--request POST '{url}' "
             "--header 'User-Agent: python-requests/{version}' "
-            "--header 'Accept-Encoding: gzip, deflate' "
+            "--header 'Accept-Encoding: gzip, deflate, zstd' "
             "--header 'Accept: */*' "
             "--header 'Connection: keep-alive' "
             "--header 'Content-Type: application/json' "
@@ -153,7 +153,7 @@ def curlify_hp_curl(version_of_requests):
             'curl '
             "-X POST '{url}' "
             "-H 'User-Agent: python-requests/{version}' "
-            "-H 'Accept-Encoding: gzip, deflate' "
+            "-H 'Accept-Encoding: gzip, deflate, zstd' "
             "-H 'Accept: */*' "
             "-H 'Connection: keep-alive' "
             "-H 'Content-Type: application/json' "

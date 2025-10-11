@@ -7,7 +7,7 @@ def transmitter_builder_w_files_payload(version_of_requests):
         long = (
             "--request {method} '{url}' "
             "--header 'User-Agent: python-requests/{version}' "
-            "--header 'Accept-Encoding: gzip, deflate' "
+            "--header 'Accept-Encoding: gzip, deflate, zstd' "
             "--header 'Accept: */*' "
             "--header 'Connection: keep-alive' "
             "--header 'Content-Type: multipart/form-data' "
@@ -18,7 +18,7 @@ def transmitter_builder_w_files_payload(version_of_requests):
         short = (
             "-X {method} '{url}' "
             "-H 'User-Agent: python-requests/{version}' "
-            "-H 'Accept-Encoding: gzip, deflate' "
+            "-H 'Accept-Encoding: gzip, deflate, zstd' "
             "-H 'Accept: */*' "
             "-H 'Connection: keep-alive' "
             "-H 'Content-Type: multipart/form-data' "
@@ -42,7 +42,7 @@ def transmitter_builder_w_json_payload(version_of_requests):
         long = (
             "--request {method} '{url}' "
             "--header 'User-Agent: python-requests/{version}' "
-            "--header 'Accept-Encoding: gzip, deflate' "
+            "--header 'Accept-Encoding: gzip, deflate, zstd' "
             "--header 'Accept: */*' "
             "--header 'Connection: keep-alive' "
             "--header 'Content-Type: application/json' "
@@ -51,7 +51,7 @@ def transmitter_builder_w_json_payload(version_of_requests):
         short = (
             "-X {method} '{url}' "
             "-H 'User-Agent: python-requests/{version}' "
-            "-H 'Accept-Encoding: gzip, deflate' "
+            "-H 'Accept-Encoding: gzip, deflate, zstd' "
             "-H 'Accept: */*' "
             "-H 'Connection: keep-alive' "
             "-H 'Content-Type: application/json' "
@@ -74,7 +74,7 @@ def transmitter_builder_w_xml_payload(version_of_requests):
         long = (
             "--request {method} '{url}' "
             "--header 'User-Agent: python-requests/{version}' "
-            "--header 'Accept-Encoding: gzip, deflate' "
+            "--header 'Accept-Encoding: gzip, deflate, zstd' "
             "--header 'Accept: */*' "
             "--header 'Connection: keep-alive' "
             "--data '{xml}'"
@@ -82,7 +82,7 @@ def transmitter_builder_w_xml_payload(version_of_requests):
         short = (
             "-X {method} '{url}' "
             "-H 'User-Agent: python-requests/{version}' "
-            "-H 'Accept-Encoding: gzip, deflate' "
+            "-H 'Accept-Encoding: gzip, deflate, zstd' "
             "-H 'Accept: */*' "
             "-H 'Connection: keep-alive' "
             "-d '{xml}'"
@@ -104,14 +104,14 @@ def transmitter_builder_without_body_payload(version_of_requests):
         long = (
             "--request {method} '{url}' "
             "--header 'User-Agent: python-requests/{version}' "
-            "--header 'Accept-Encoding: gzip, deflate' "
+            "--header 'Accept-Encoding: gzip, deflate, zstd' "
             "--header 'Accept: */*' "
             "--header 'Connection: keep-alive' "
         )
         short = (
             "-X {method} '{url}' "
             "-H 'User-Agent: python-requests/{version}' "
-            "-H 'Accept-Encoding: gzip, deflate' "
+            "-H 'Accept-Encoding: gzip, deflate, zstd' "
             "-H 'Accept: */*' "
             "-H 'Connection: keep-alive' "
         )
