@@ -1,4 +1,5 @@
 import json
+import sys
 from importlib import metadata
 from pathlib import Path
 from typing import NoReturn
@@ -173,3 +174,13 @@ def curlify_hp_curl(version_of_requests):
 @pytest.fixture
 def version_of_requests() -> str:
     return metadata.version('requests')
+
+
+@pytest.fixture
+def python_version_major() -> str:
+    return sys.version_info.major
+
+
+@pytest.fixture
+def python_version_minor() -> str:
+    return sys.version_info.minor
