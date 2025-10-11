@@ -153,9 +153,7 @@ def fake_xml():
 
 @pytest.fixture
 def encoding_header(python_version_major, python_version_minor) -> str:
-    major_vers_w_zstd = 3
-    minor_vers_w_zstd = 14
-    if python_version_major >= major_vers_w_zstd and python_version_minor >= minor_vers_w_zstd:
+    if (python_version_major, python_version_minor) >= (3, 14):
         return 'Accept-Encoding: gzip, deflate, zstd'
 
     return 'Accept-Encoding: gzip, deflate'
