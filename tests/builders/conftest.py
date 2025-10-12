@@ -7,7 +7,7 @@ def transmitter_builder_w_files_payload(version_of_requests, encoding_header):
         long = (
             "--request {method} '{url}' "
             "--header 'User-Agent: python-requests/{version}' "
-            "--header '{encoding_header}' "
+            "--header 'Accept-Encoding: {encoding_header}' "
             "--header 'Accept: */*' "
             "--header 'Connection: keep-alive' "
             "--header 'Content-Type: multipart/form-data' "
@@ -18,7 +18,7 @@ def transmitter_builder_w_files_payload(version_of_requests, encoding_header):
         short = (
             "-X {method} '{url}' "
             "-H 'User-Agent: python-requests/{version}' "
-            "-H '{encoding_header}' "
+            "-H 'Accept-Encoding: {encoding_header}' "
             "-H 'Accept: */*' "
             "-H 'Connection: keep-alive' "
             "-H 'Content-Type: multipart/form-data' "
@@ -43,7 +43,7 @@ def transmitter_builder_w_json_payload(version_of_requests, encoding_header):
         long = (
             "--request {method} '{url}' "
             "--header 'User-Agent: python-requests/{version}' "
-            "--header '{encoding_header}' "
+            "--header 'Accept-Encoding: {encoding_header}' "
             "--header 'Accept: */*' "
             "--header 'Connection: keep-alive' "
             "--header 'Content-Type: application/json' "
@@ -52,7 +52,7 @@ def transmitter_builder_w_json_payload(version_of_requests, encoding_header):
         short = (
             "-X {method} '{url}' "
             "-H 'User-Agent: python-requests/{version}' "
-            "-H '{encoding_header}' "
+            "-H 'Accept-Encoding: {encoding_header}' "
             "-H 'Accept: */*' "
             "-H 'Connection: keep-alive' "
             "-H 'Content-Type: application/json' "
@@ -76,7 +76,7 @@ def transmitter_builder_w_xml_payload(version_of_requests, encoding_header):
         long = (
             "--request {method} '{url}' "
             "--header 'User-Agent: python-requests/{version}' "
-            "--header '{encoding_header}' "
+            "--header 'Accept-Encoding: {encoding_header}' "
             "--header 'Accept: */*' "
             "--header 'Connection: keep-alive' "
             "--data '{xml}'"
@@ -84,7 +84,7 @@ def transmitter_builder_w_xml_payload(version_of_requests, encoding_header):
         short = (
             "-X {method} '{url}' "
             "-H 'User-Agent: python-requests/{version}' "
-            "-H '{encoding_header}' "
+            "-H 'Accept-Encoding: {encoding_header}' "
             "-H 'Accept: */*' "
             "-H 'Connection: keep-alive' "
             "-d '{xml}'"
@@ -107,14 +107,14 @@ def transmitter_builder_without_body_payload(version_of_requests, encoding_heade
         long = (
             "--request {method} '{url}' "
             "--header 'User-Agent: python-requests/{version}' "
-            "--header '{encoding_header}' "
+            "--header 'Accept-Encoding: {encoding_header}' "
             "--header 'Accept: */*' "
             "--header 'Connection: keep-alive' "
         )
         short = (
             "-X {method} '{url}' "
             "-H 'User-Agent: python-requests/{version}' "
-            "-H '{encoding_header}' "
+            "-H 'Accept-Encoding: {encoding_header}' "
             "-H 'Accept: */*' "
             "-H 'Connection: keep-alive' "
         )

@@ -154,9 +154,9 @@ def fake_xml():
 @pytest.fixture
 def encoding_header(python_version_major, python_version_minor) -> str:
     if (python_version_major, python_version_minor) >= (3, 14):
-        return 'Accept-Encoding: gzip, deflate, zstd'
+        return 'gzip, deflate, zstd'
 
-    return 'Accept-Encoding: gzip, deflate'
+    return 'gzip, deflate'
 
 
 @pytest.fixture
@@ -166,7 +166,7 @@ def curlify_hp_curl(version_of_requests, encoding_header):
             'curl '
             "--request POST '{url}' "
             "--header 'User-Agent: python-requests/{version}' "
-            "--header '{encoding_header}' "
+            "--header 'Accept-Encoding: {encoding_header}' "
             "--header 'Accept: */*' "
             "--header 'Connection: keep-alive' "
             "--header 'Content-Type: application/json' "
@@ -177,7 +177,7 @@ def curlify_hp_curl(version_of_requests, encoding_header):
             'curl '
             "-X POST '{url}' "
             "-H 'User-Agent: python-requests/{version}' "
-            "-H '{encoding_header}' "
+            "-H 'Accept-Encoding: {encoding_header}' "
             "-H 'Accept: */*' "
             "-H 'Connection: keep-alive' "
             "-H 'Content-Type: application/json' "
