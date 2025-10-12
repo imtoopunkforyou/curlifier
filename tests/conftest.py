@@ -1,4 +1,5 @@
 import json
+import sys
 from importlib import metadata
 from pathlib import Path
 from typing import NoReturn
@@ -10,6 +11,21 @@ from requests.models import Response
 from requests.structures import CaseInsensitiveDict
 from urllib3.util.retry import Retry
 from urllib3.util.timeout import Timeout
+
+
+@pytest.fixture
+def version_of_requests() -> str:
+    return metadata.version('requests')
+
+
+@pytest.fixture
+def python_version_major() -> int:
+    return sys.version_info.major
+
+
+@pytest.fixture
+def python_version_minor() -> int:
+    return sys.version_info.minor
 
 
 @pytest.fixture(scope='session')
@@ -136,13 +152,21 @@ def fake_xml():
 
 
 @pytest.fixture
-def curlify_hp_curl(version_of_requests):
+def encoding_header(python_version_major, python_version_minor) -> str:
+    if (python_version_major, python_version_minor) >= (3, 14):
+        return 'gzip, deflate, zstd'
+
+    return 'gzip, deflate'
+
+
+@pytest.fixture
+def curlify_hp_curl(version_of_requests, encoding_header):
     def _curlify_hp_curl(shorted, url, json):
         long = (
             'curl '
             "--request POST '{url}' "
             "--header 'User-Agent: python-requests/{version}' "
-            "--header 'Accept-Encoding: gzip, deflate' "
+            "--header 'Accept-Encoding: {encoding_header}' "
             "--header 'Accept: */*' "
             "--header 'Connection: keep-alive' "
             "--header 'Content-Type: application/json' "
@@ -153,7 +177,7 @@ def curlify_hp_curl(version_of_requests):
             'curl '
             "-X POST '{url}' "
             "-H 'User-Agent: python-requests/{version}' "
-            "-H 'Accept-Encoding: gzip, deflate' "
+            "-H 'Accept-Encoding: {encoding_header}' "
             "-H 'Accept: */*' "
             "-H 'Connection: keep-alive' "
             "-H 'Content-Type: application/json' "
@@ -165,11 +189,7 @@ def curlify_hp_curl(version_of_requests):
             url=url,
             json=json,
             version=version_of_requests,
+            encoding_header=encoding_header,
         )
 
     return _curlify_hp_curl
-
-
-@pytest.fixture
-def version_of_requests() -> str:
-    return metadata.version('requests')

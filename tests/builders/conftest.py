@@ -2,12 +2,12 @@ import pytest
 
 
 @pytest.fixture
-def transmitter_builder_w_files_payload(version_of_requests):
+def transmitter_builder_w_files_payload(version_of_requests, encoding_header):
     def _transmitter_builder_w_files_payload(shorted, method, url):
         long = (
             "--request {method} '{url}' "
             "--header 'User-Agent: python-requests/{version}' "
-            "--header 'Accept-Encoding: gzip, deflate' "
+            "--header 'Accept-Encoding: {encoding_header}' "
             "--header 'Accept: */*' "
             "--header 'Connection: keep-alive' "
             "--header 'Content-Type: multipart/form-data' "
@@ -18,7 +18,7 @@ def transmitter_builder_w_files_payload(version_of_requests):
         short = (
             "-X {method} '{url}' "
             "-H 'User-Agent: python-requests/{version}' "
-            "-H 'Accept-Encoding: gzip, deflate' "
+            "-H 'Accept-Encoding: {encoding_header}' "
             "-H 'Accept: */*' "
             "-H 'Connection: keep-alive' "
             "-H 'Content-Type: multipart/form-data' "
@@ -31,18 +31,19 @@ def transmitter_builder_w_files_payload(version_of_requests):
             method=method,
             url=url,
             version=version_of_requests,
+            encoding_header=encoding_header,
         )
 
     return _transmitter_builder_w_files_payload
 
 
 @pytest.fixture
-def transmitter_builder_w_json_payload(version_of_requests):
+def transmitter_builder_w_json_payload(version_of_requests, encoding_header):
     def _transmitter_builder_w_json_payload(shorted, method, url, json):
         long = (
             "--request {method} '{url}' "
             "--header 'User-Agent: python-requests/{version}' "
-            "--header 'Accept-Encoding: gzip, deflate' "
+            "--header 'Accept-Encoding: {encoding_header}' "
             "--header 'Accept: */*' "
             "--header 'Connection: keep-alive' "
             "--header 'Content-Type: application/json' "
@@ -51,7 +52,7 @@ def transmitter_builder_w_json_payload(version_of_requests):
         short = (
             "-X {method} '{url}' "
             "-H 'User-Agent: python-requests/{version}' "
-            "-H 'Accept-Encoding: gzip, deflate' "
+            "-H 'Accept-Encoding: {encoding_header}' "
             "-H 'Accept: */*' "
             "-H 'Connection: keep-alive' "
             "-H 'Content-Type: application/json' "
@@ -63,18 +64,19 @@ def transmitter_builder_w_json_payload(version_of_requests):
             url=url,
             json=json,
             version=version_of_requests,
+            encoding_header=encoding_header,
         )
 
     return _transmitter_builder_w_json_payload
 
 
 @pytest.fixture
-def transmitter_builder_w_xml_payload(version_of_requests):
+def transmitter_builder_w_xml_payload(version_of_requests, encoding_header):
     def _transmitter_builder_w_xml_payload(shorted, method, url, xml):
         long = (
             "--request {method} '{url}' "
             "--header 'User-Agent: python-requests/{version}' "
-            "--header 'Accept-Encoding: gzip, deflate' "
+            "--header 'Accept-Encoding: {encoding_header}' "
             "--header 'Accept: */*' "
             "--header 'Connection: keep-alive' "
             "--data '{xml}'"
@@ -82,7 +84,7 @@ def transmitter_builder_w_xml_payload(version_of_requests):
         short = (
             "-X {method} '{url}' "
             "-H 'User-Agent: python-requests/{version}' "
-            "-H 'Accept-Encoding: gzip, deflate' "
+            "-H 'Accept-Encoding: {encoding_header}' "
             "-H 'Accept: */*' "
             "-H 'Connection: keep-alive' "
             "-d '{xml}'"
@@ -93,25 +95,26 @@ def transmitter_builder_w_xml_payload(version_of_requests):
             url=url,
             xml=xml,
             version=version_of_requests,
+            encoding_header=encoding_header,
         )
 
     return _transmitter_builder_w_xml_payload
 
 
 @pytest.fixture
-def transmitter_builder_without_body_payload(version_of_requests):
+def transmitter_builder_without_body_payload(version_of_requests, encoding_header):
     def _transmitter_builder_without_body_payload(shorted, method, url):
         long = (
             "--request {method} '{url}' "
             "--header 'User-Agent: python-requests/{version}' "
-            "--header 'Accept-Encoding: gzip, deflate' "
+            "--header 'Accept-Encoding: {encoding_header}' "
             "--header 'Accept: */*' "
             "--header 'Connection: keep-alive' "
         )
         short = (
             "-X {method} '{url}' "
             "-H 'User-Agent: python-requests/{version}' "
-            "-H 'Accept-Encoding: gzip, deflate' "
+            "-H 'Accept-Encoding: {encoding_header}' "
             "-H 'Accept: */*' "
             "-H 'Connection: keep-alive' "
         )
@@ -120,6 +123,7 @@ def transmitter_builder_without_body_payload(version_of_requests):
             method=method,
             url=url,
             version=version_of_requests,
+            encoding_header=encoding_header,
         )
 
     return _transmitter_builder_without_body_payload
