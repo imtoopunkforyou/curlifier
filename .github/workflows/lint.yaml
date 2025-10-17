@@ -38,3 +38,6 @@ jobs:
 
       - name: Mypy
         run: poetry run mypy ./curlifier/
+      
+      - name: Code Spell
+        run: poetry run codespell curlifier tests README.md CONTRIBUTING.md
