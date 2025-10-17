@@ -14,7 +14,12 @@ lint:
 .PHONY: pre-commit
 pre-commit:
 	make lint \
-	&& make test
+	&& make test \
+	&& make spell-check
+
+.PHONY: spell-check
+spell-check:
+	poetry run codespell curlifier tests README.md CONTRIBUTING.md
 
 .PHONY: test-collect
 test-collect:
