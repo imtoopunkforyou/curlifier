@@ -51,6 +51,6 @@ codespell = "^2.4.1"
 
 [tool.poetry.group.tests.dependencies]
 pytest = ">=8.3.5,<10.0.0"
-faker = "^37.1.0"
+faker = ">=37.1,<39.0"
 pytest-cov = ">=6.1.1,<8.0.0"
 pytest-sugar = "^1.1.1"
