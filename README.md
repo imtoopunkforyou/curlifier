@@ -1,5 +1,6 @@
 # curlifier
 
+[![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json)](https://python-poetry.org/)
 [![codecov](https://codecov.io/github/imtoopunkforyou/curlifier/graph/badge.svg?token=65OY6J3HP9)](https://codecov.io/github/imtoopunkforyou/curlifier)
 [![tests](https://github.com/imtoopunkforyou/curlifier/actions/workflows/tests.yaml/badge.svg)](https://github.com/imtoopunkforyou/curlifier/actions/workflows/tests.yaml)
 [![pypi package version](https://img.shields.io/pypi/v/curlifier.svg)](https://pypi.org/project/curlifier)
