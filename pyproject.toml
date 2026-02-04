@@ -45,7 +45,7 @@ requests = "^2.0"
 wemake-python-styleguide = "^1.1.0"
 mypy = "^1.15.0"
 types-requests = "^2.32.0.20250328"
-ruff = ">=0.12.4,<0.15.0"
+ruff = ">=0.12.4,<0.16.0"
 codespell = "^2.4.1"
 
 
