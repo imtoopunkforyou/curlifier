@@ -1,5 +1,3 @@
-# curlifier
-
 [![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json)](https://python-poetry.org/)
 [![codecov](https://codecov.io/github/imtoopunkforyou/curlifier/graph/badge.svg?token=65OY6J3HP9)](https://codecov.io/github/imtoopunkforyou/curlifier)
 [![tests](https://github.com/imtoopunkforyou/curlifier/actions/workflows/tests.yaml/badge.svg)](https://github.com/imtoopunkforyou/curlifier/actions/workflows/tests.yaml)
@@ -21,15 +19,15 @@
 
 Converts the [Request](https://requests.readthedocs.io/en/latest/api/#requests.Response) and [PreparedRequest](https://requests.readthedocs.io/en/latest/api/#requests.PreparedRequest) objects of the [Requests](https://pypi.org/project/requests/) library into an executable [curl](https://curl.se/) command.
 
+## Security
+
+The resulting curl command will include all authentication credentials, API keys, passwords, and other sensitive information that were part of the original request. Be careful when sharing or logging these commands, as they may expose sensitive data.
+
 ## Installation
 
 ```bash
 pip install curlifier
 ```
-
-## ⚠️ Security Warning ⚠️
-
-The resulting curl command will include all authentication credentials, API keys, passwords, and other sensitive information that were part of the original request. Be careful when sharing or logging these commands, as they may expose sensitive data.
 
 ## Usage
 
