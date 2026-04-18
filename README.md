@@ -1,3 +1,5 @@
+# curlifier
+
 [![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json)](https://python-poetry.org/)
 [![codecov](https://codecov.io/github/imtoopunkforyou/curlifier/graph/badge.svg?token=65OY6J3HP9)](https://codecov.io/github/imtoopunkforyou/curlifier)
 [![tests](https://github.com/imtoopunkforyou/curlifier/actions/workflows/tests.yaml/badge.svg)](https://github.com/imtoopunkforyou/curlifier/actions/workflows/tests.yaml)
@@ -8,7 +10,7 @@
 [![wemake-python-styleguide](https://img.shields.io/badge/style-wemake-000000.svg)](https://github.com/wemake-services/wemake-python-styleguide)
 [![mypy](https://www.mypy-lang.org/static/mypy_badge.svg)](https://mypy-lang.org/)
 [![ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-[![license](https://img.shields.io/pypi/l/curlifier.svg)](https://github.com/imtoopunkforyou/curlifier/blob/main/LICENSE)  
+[![license](https://img.shields.io/pypi/l/curlifier.svg)](LICENSE)
 
 <p align="center">
   <a href="https://pypi.org/project/curlifier">
@@ -17,11 +19,19 @@
   </a>
 </p>
 
-Converts the [Request](https://requests.readthedocs.io/en/latest/api/#requests.Response) and [PreparedRequest](https://requests.readthedocs.io/en/latest/api/#requests.PreparedRequest) objects of the [Requests](https://pypi.org/project/requests/) library into an executable [curl](https://curl.se/) command.
+Converts the [Request][req] and [PreparedRequest][preq] objects of the
+[Requests][requests] library into an executable [curl][curl] command.
+
+[req]: https://requests.readthedocs.io/en/latest/api/#requests.Response
+[preq]: https://requests.readthedocs.io/en/latest/api/#requests.PreparedRequest
+[requests]: https://pypi.org/project/requests/
+[curl]: https://curl.se/
 
 ## Security
 
-The resulting curl command will include all authentication credentials, API keys, passwords, and other sensitive information that were part of the original request. Be careful when sharing or logging these commands, as they may expose sensitive data.
+The resulting curl command will include all authentication credentials, API keys,
+passwords, and other sensitive information that were part of the original request.
+Be careful when sharing or logging these commands, as they may expose sensitive data.
 
 ## Installation
 
@@ -76,6 +86,8 @@ curl --request POST 'https://httpbin.org/' <...> --header 'Content-Type: applica
 
 ## License
 
-Curlifier is released under the MIT License. See the bundled [LICENSE](https://github.com/imtoopunkforyou/curlifier/blob/main/LICENSE) file for details.
+Curlifier is released under the MIT License.
+See the bundled [LICENSE](LICENSE) file for details.
 
-The logo was created using [Font Meme](https://fontmeme.com/graffiti-creator/).
+The logo was created using
+[Font Meme](https://fontmeme.com/graffiti-creator/).

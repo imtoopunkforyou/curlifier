@@ -6,8 +6,8 @@ make:
 # === Dev ===
 .PHONY: lint
 lint:
-	poetry run ruff check ./curlifier ./tests \
-	&& poetry run ruff format ./curlifier ./tests \
+	poetry run ruff format ./curlifier ./tests \
+	&& poetry run ruff check ./curlifier ./tests \
 	&& poetry run flake8 ./curlifier \
 	&& poetry run mypy ./curlifier --no-pretty
 
@@ -33,10 +33,7 @@ test:
 cov-report:
 	poetry run pytest ./tests --cov=curlifier --cov-report=html
 
-.PHONY: cspell
-cspell:
-	npx cspell-cli --gitignore .
-
 # === Aliases ===
 pc: pre-commit
 t: test
+all: pre-commit
