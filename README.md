@@ -50,9 +50,7 @@ For example:
 >>> body = {'id': 1, 'name': 'Tima', 'age': 28}
 >>> r = requests.post('https://httpbin.org/', json=body)
 >>> curlify(r)
-curl --request POST 'https://httpbin.org/' <...> \
-  --header 'Content-Type: application/json' \
-  --data '{"id": 1, "name": "Tima", "age": 28}'
+curl --request POST 'https://httpbin.org/' <...> --header 'Content-Type: application/json' --data '{"id": 1, "name": "Tima", "age": 28}'
 ```
 
 If you use `PreparedRequest`, you can also specify it instead of the `Response` object:
@@ -70,18 +68,14 @@ If you want a short version of the curl command, you can specify it:
 >>> body = {'id': 1, 'name': 'Tima', 'age': 28}
 >>> r = requests.post('https://httpbin.org/', json=body)
 >>> curlify(r, shorted=True)
-curl -X POST 'https://httpbin.org/' <...> \
-  -H 'Content-Type: application/json' \
-  -d '{"id": 1, "name": "Tima", "age": 28}'
+curl -X POST 'https://httpbin.org/' <...> -H 'Content-Type: application/json' -d '{"id": 1, "name": "Tima", "age": 28}'
 ```
 
 You can also specify the configuration when forming the curl command:
 
 ```python
 >>> curlify(r, location=True, insecure=True)
-curl --request POST 'https://httpbin.org/' <...> \
-  --header 'Content-Type: application/json' \
-  --data '{"id": 1, "name": "Tima", "age": 28}' --location --insecure
+curl --request POST 'https://httpbin.org/' <...> --header 'Content-Type: application/json' --data '{"id": 1, "name": "Tima", "age": 28}' --location --insecure
 ```
 
 - **location** (bool) - Follow redirects (default: False)
