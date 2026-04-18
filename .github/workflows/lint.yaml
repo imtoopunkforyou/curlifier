@@ -41,3 +41,6 @@ jobs:
       
       - name: Code Spell
         run: poetry run codespell curlifier tests README.md CONTRIBUTING.md
+
+      - name: Markdown lint
+        run: poetry run pymarkdown scan .
