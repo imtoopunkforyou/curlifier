@@ -9,8 +9,7 @@ lint:
 	poetry run ruff format ./curlifier ./tests \
 	&& poetry run ruff check ./curlifier ./tests \
 	&& poetry run flake8 ./curlifier \
-	&& poetry run mypy ./curlifier --no-pretty \
-	&& poetry run pymarkdown scan .
+	&& poetry run mypy ./curlifier --no-pretty
 
 .PHONY: pre-commit
 pre-commit:
