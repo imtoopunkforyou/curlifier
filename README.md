@@ -12,7 +12,12 @@
 [![ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![license](https://img.shields.io/pypi/l/curlifier.svg)](LICENSE)
 
-[![Curlifier logo](https://raw.githubusercontent.com/imtoopunkforyou/curlifier/main/.github/badge/logo.png)](https://pypi.org/project/curlifier)
+<p align="center">
+  <a href="https://pypi.org/project/curlifier">
+    <img src="https://raw.githubusercontent.com/imtoopunkforyou/curlifier/main/.github/badge/logo.png"
+         alt="Curlifier logo">
+  </a>
+</p>
 
 Converts the [Request][req] and [PreparedRequest][preq] objects of the
 [Requests][requests] library into an executable [curl][curl] command.
