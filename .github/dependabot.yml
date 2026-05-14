@@ -4,5 +4,7 @@ updates:
 - package-ecosystem: pip
   directory: "/"
   schedule:
-    interval: daily
+    interval: cron
+    cronjob: "0 8 * * 1"
+    timezone: UTC
   open-pull-requests-limit: 10
