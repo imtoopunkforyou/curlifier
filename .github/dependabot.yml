@@ -8,3 +8,6 @@ updates:
     cronjob: "0 8 * * 1"
     timezone: UTC
   open-pull-requests-limit: 10
+  ignore:
+    - dependency-name: "ruff"
+      versions: [">=0.16.0"]
